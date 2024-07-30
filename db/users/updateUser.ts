@@ -2,7 +2,7 @@
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
 import { User, userSchema } from './user';
-import { idSchema } from '../_tables/idSchema';
+import { revalidatePath } from 'next/cache';
 
 export const updateUser = async (state: unknown) => {
   const formData = state as FormData;
@@ -11,32 +11,68 @@ export const updateUser = async (state: unknown) => {
     const userData = {
       id: parseInt(formData.get('id')?.toString() || '0', 10),
       email: formData.get('email')?.toString(),
-      name: formData.get('name')?.toString(),
+      first_name: formData.get('first_name')?.toString(),
+      last_name: formData.get('last_name')?.toString(),
       address: formData.get('address')?.toString(),
-      dateOfBirth: formData.get('dateOfBirth')?.toString(),
+      birthday: formData.get('birthday')?.toString(),
       phone: formData.get('phone')?.toString(),
+      bio: formData.get('bio')?.toString(),
+      color: formData.get('color')?.toString(),
     };
 
-    const validatedData = userSchema.extend({ ...idSchema }).parse(userData);
+    const validatedData = userSchema.parse(userData);
 
     const result = await sql`
       UPDATE michaela_users
       SET
-        email = COALESCE(${validatedData.email}, email),
-        name = COALESCE(${validatedData.first_name}, name),
-        address = COALESCE(${validatedData.address}, address),
-        date_of_birth = COALESCE(${validatedData.birthday}, date_of_birth),
-        phone = COALESCE(${validatedData.phone}, phone)
-      WHERE id = ${validatedData.id}
+        email = ${validatedData.email},
+        first_name = ${validatedData.first_name},
+        last_name = ${validatedData.last_name},
+        address = ${validatedData.address},
+        birthday = ${validatedData.birthday},
+        phone = ${validatedData.phone},
+        bio = ${validatedData.bio},
+        color = ${validatedData.color}
+      WHERE user_id = ${userData.id}
       RETURNING *;
     `;
+
+    revalidatePath('/', 'page');
+    revalidatePath('/users', 'page');
+    revalidatePath(`/users/${userData.id}`);
     return result.rows[0] as User;
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error('Validation error:', error.errors);
-      throw new Error('Invalid input data');
+      return new Error('Invalid input data');
     }
     console.error(error);
     throw error;
   }
+};
+
+export const changeUserOrder = async (formData: FormData) => {
+  const { user_id, amount } = {
+    user_id: parseInt(formData.get('user_id')?.toString() || '0', 10),
+    amount: parseInt(formData.get('amount')?.toString() || '0', 10),
+  };
+
+  await sql`SELECT adjust_user_order(${user_id}, ${amount});`;
+
+  revalidatePath('/');
+  revalidatePath('/users', 'page');
+  revalidatePath('/users/[slug]', 'page');
+};
+
+export const toggleUserVisibility = async (formData: FormData) => {
+  const { user_id, is_hidden } = {
+    user_id: parseInt(formData.get('user_id')?.toString() || '0', 10),
+    is_hidden: formData.get('is_hidden') === 'true',
+  };
+
+  await sql`UPDATE michaela_users SET is_hidden = ${!is_hidden} WHERE user_id = ${user_id};`;
+
+  revalidatePath('/');
+  revalidatePath('/users', 'page');
+  revalidatePath('/users/[slug]', 'page');
 };

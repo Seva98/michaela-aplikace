@@ -2,10 +2,10 @@ import SubscriptionHistory from '@/app/subscriptionHistory';
 import DeleteButton from '@/components/common/deleteButton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Typography from '@/components/ui/typography';
-import { Subscription } from '@/db/userSubscription/userSubscription';
+import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
 import { czechDate } from '@/utils/dates';
 
-const PreviousSubsriptions = ({ subscriptions }: { subscriptions: Subscription[] }) => {
+const PreviousSubsriptions = ({ subscriptions, color }: { subscriptions: ActivatedSubscription[]; color: string }) => {
   return (
     <div className="shadow-lg border border-gray-100 p-4">
       <Typography variant="h3">Předchozí členství</Typography>
@@ -26,7 +26,7 @@ const PreviousSubsriptions = ({ subscriptions }: { subscriptions: Subscription[]
               <TableCell>{czechDate(start_date)}</TableCell>
               <TableCell>{czechDate(expiration_date)}</TableCell>
               <TableCell>
-                <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} size="small" />
+                <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} size="small" />
               </TableCell>
               <TableCell>
                 <DeleteButton />

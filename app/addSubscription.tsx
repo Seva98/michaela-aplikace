@@ -8,10 +8,16 @@ import Typography from '@/components/ui/typography';
 import activateSubscription from '@/db/subscriptions/activateSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { today } from '@/utils/dates';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const AddSubscription = ({ subscriptions, user_id, color }: { subscriptions: Subscription[]; user_id: number; color: string }) => {
-  const [selectedSubscription, setSelectedSubscription] = useState(subscriptions[0].subscription_id);
+  const NO_SUBSCRIPTION = -1;
+  const [selectedSubscription, setSelectedSubscription] = useState(subscriptions.length > 0 ? subscriptions[0].subscription_id : NO_SUBSCRIPTION);
+
+  if (selectedSubscription === NO_SUBSCRIPTION) {
+    return <Link href="/subscriptions">Vytvořte nové členství</Link>;
+  }
 
   return (
     <FormWithError action={(formData) => activateSubscription(formData, selectedSubscription)} className="flex flex-col gap-1">

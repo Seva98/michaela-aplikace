@@ -12,6 +12,8 @@ export interface User {
   address?: string;
   image?: string;
   color: string;
+  order: number;
+  is_hidden: boolean;
 }
 
 export const userSchema = z.object({

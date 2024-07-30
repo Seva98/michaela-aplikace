@@ -24,23 +24,11 @@ export const getUserById = async (user_id: number) => {
   }
 };
 
-export const getUserByEmail = async (email: string) => {
-  try {
-    const result = await sql`
-      SELECT * FROM michaela_users
-      WHERE email = ${email};
-    `;
-    return result.rows[0] as User;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
 export const getAllUsers = async () => {
   try {
     const result = await sql`
-      SELECT * FROM michaela_users;
+      SELECT * FROM michaela_users
+      ORDER BY user_id;
     `;
     return result.rows as User[];
   } catch (error) {

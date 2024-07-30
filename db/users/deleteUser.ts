@@ -1,27 +1,24 @@
 'use server';
 import { sql } from '@vercel/postgres';
-import { z } from 'zod';
-import { zId } from '../_tables/idSchema';
+import { revalidatePath } from 'next/cache';
 
 export const deleteUser = async (formData: FormData) => {
   try {
-    const deleteData = {
-      id: parseInt(formData.get('id')?.toString() || '0', 10),
-    };
+    const id = parseInt(formData.get('user_id')?.toString() || '0', 10);
 
-    const validatedData = zId.parse(deleteData);
-
-    const result = await sql`
+    await sql`
       DELETE FROM michaela_users
-      WHERE id = ${validatedData.id}
-      RETURNING *;
+      WHERE user_id = ${id}
     `;
-    return result.rows[0];
+
+    await sql`
+    SELECT resequence_orders('michaela_users', 'order', 'user_id');
+    `;
+
+    revalidatePath('/');
+    revalidatePath('/users', 'page');
+    revalidatePath('/users/[slug]', 'page');
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error('Validation error:', error.errors);
-      throw new Error('Invalid input data');
-    }
     console.error(error);
     throw error;
   }

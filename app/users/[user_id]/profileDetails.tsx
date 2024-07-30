@@ -1,3 +1,4 @@
+import Markdown from '@/components/common/markdown';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import EditUser from '@/components/user/editUser';
@@ -45,9 +46,9 @@ const ProfileDetails = async ({ user_id }: { user_id: number }) => {
       </div>
       <div className="flex flex-col gap-2">
         <Typography variant="h3">Bio</Typography>
-        <Typography variant="small" className="h-full scroll-auto">
-          {bio}
-        </Typography>
+        <div className="h-full scroll-auto">
+          <Markdown content={bio} />
+        </div>
       </div>
     </div>
   );

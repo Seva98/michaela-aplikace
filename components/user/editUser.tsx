@@ -11,11 +11,13 @@ import EditColor from './editColor';
 import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
 import Loader from '../common/loader';
+import Typography from '../ui/typography';
 
-const EditUser = ({ action, user, children }: { action: 'create' | 'edit'; user?: User; children: ReactNode }) => {
+const EditUser = ({ action, user, children, defaultOpen = false }: { action: 'create' | 'edit'; user?: User; children: ReactNode; defaultOpen?: boolean }) => {
   const { email, first_name, last_name, user_id, address, bio, birthday, phone, color } = user || {};
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const EditUser = ({ action, user, children }: { action: 'create' | 'edit'; user?
       setOpen(false);
     } catch (error) {
       console.error('Form submission error:', error);
+      setError((error as Error).message);
     }
     setPending(false);
   };
@@ -42,7 +45,7 @@ const EditUser = ({ action, user, children }: { action: 'create' | 'edit'; user?
           <DialogTitle>{action === 'create' ? 'Nový klient' : 'Upravit klienta'}</DialogTitle>
         </DialogHeader>
         <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
-          <input type="hidden" name="user_id" value={user_id} />
+          <input type="hidden" name="id" value={user_id} />
           <div className="grid grid-cols-2 gap-2">
             <LabeledInput label="Jméno" name="first_name" type="text" defaultValue={first_name} />
             <LabeledInput label="Příjmení" name="last_name" type="text" defaultValue={last_name} />
@@ -56,6 +59,7 @@ const EditUser = ({ action, user, children }: { action: 'create' | 'edit'; user?
           <Button type="submit" disabled={pending} className="w-full">
             {pending ? <Loader /> : action === 'create' ? 'Vytvořit klienta' : 'Uložit změny'}
           </Button>
+          {error && <Typography variant="error">{error}</Typography>}
         </FormContent>
       </DialogContent>
     </Dialog>

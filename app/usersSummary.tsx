@@ -1,16 +1,16 @@
 import { getAllUsersSubscriptions } from '@/db/userSubscription/getUserSubscription';
-import Booking from './booking';
+import UserSummary from './userSummary';
 
-const Bookings = async () => {
+const UsersSummary = async () => {
   const users = await getAllUsersSubscriptions();
 
   return (
     <div className="flex flex-wrap gap-8">
       {users.map((user_subscription) => (
-        <Booking key={`user-${user_subscription.user_id}`} user_subscription={user_subscription} />
+        <UserSummary key={`user-${user_subscription.user_id}`} user_subscription={user_subscription} />
       ))}
     </div>
   );
 };
 
-export default Bookings;
+export default UsersSummary;

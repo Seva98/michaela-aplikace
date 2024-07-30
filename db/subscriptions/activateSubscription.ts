@@ -19,6 +19,8 @@ const activateSubscription = async (formData: FormData, subscription_id: number)
     `;
 
   revalidatePath('/');
+  revalidatePath('/users', 'page');
+  revalidatePath('/users/[slug]', 'page');
   return 'Subscription activated';
 };
 

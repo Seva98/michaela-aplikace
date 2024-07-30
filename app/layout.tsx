@@ -5,6 +5,7 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import { redirect } from 'next/navigation';
 import { cn } from '@/utils/cn';
+import PopupMenu from './popupMenu';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +25,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body className={cn('m-8', inter.className)}>{children}</body>
+        <body className={cn('m-8', inter.className)}>
+          {children}
+          <PopupMenu className="absolute top-4 right-4" />
+        </body>
       </UserProvider>
     </html>
   );

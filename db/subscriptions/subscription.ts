@@ -6,6 +6,8 @@ export interface Subscription {
   expiration_days: number;
   price_per_session: number;
   number_of_sessions: number;
+  order: number;
+  is_hidden: boolean;
 }
 
 export const subscriptionSchema = z.object({

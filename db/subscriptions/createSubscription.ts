@@ -15,10 +15,19 @@ export const createSubscription = async (formData: FormData) => {
     const { name, expiration_days, price_per_session, number_of_sessions } = subscriptionSchema.parse(subscriptionData);
 
     await sql`
-      INSERT INTO michaela_subscriptions (name, expiration_days, price_per_session, number_of_sessions)
-      VALUES (${name}, ${expiration_days}, ${price_per_session}, ${number_of_sessions});
-    `;
+       INSERT INTO michaela_subscriptions (name, expiration_days, price_per_session, number_of_sessions, "order")
+      VALUES (
+        ${name}, 
+        ${expiration_days}, 
+        ${price_per_session}, 
+        ${number_of_sessions},
+        COALESCE((SELECT MAX("order") FROM michaela_subscriptions), 0) + 1
+      );
+      `;
     revalidatePath('/');
+    revalidatePath('/subscriptions', 'page');
+    revalidatePath('/users', 'page');
+    revalidatePath('/users/[slug]', 'page');
   } catch (error) {
     console.error(error);
     return error;

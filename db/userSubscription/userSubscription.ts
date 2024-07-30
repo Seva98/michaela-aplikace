@@ -1,9 +1,11 @@
 export type SubscriptionSession = {
   session_id: number;
   session_date: string;
+  note?: string;
+  rating: number;
 };
 
-export type Subscription = {
+export type ActivatedSubscription = {
   user_id: number;
   is_completed: boolean;
   subscription_name: string;
@@ -18,5 +20,5 @@ export type UserSubscription = {
   user_id: number;
   name: string;
   color: string;
-  active_subscription: Subscription | null;
+  active_subscription: ActivatedSubscription | null;
 };

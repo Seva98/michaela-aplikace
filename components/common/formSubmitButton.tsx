@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormStatus, useFormState } from 'react-dom';
+import { useFormStatus } from 'react-dom';
 import { Button, ButtonProps } from '../ui/button';
 import Loader from './loader';
 

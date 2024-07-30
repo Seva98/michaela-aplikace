@@ -38,7 +38,7 @@ export function ProfilePicture({ user_id, image }: { user_id: number; image?: st
     >
       <label
         htmlFor="image"
-        className={cn('w-[292px] aspect-[9/16] shadow-lg rounded block bg-transparent bg-cover bg-center cursor-pointer relative')}
+        className={cn('w-[292px] aspect-[9/16] shadow-lg  block bg-transparent bg-cover bg-center cursor-pointer relative')}
         style={{
           backgroundColor: selectedImage ? 'transparent' : 'gray',
           backgroundImage: selectedImage ? `url(${selectedImage})` : 'none',

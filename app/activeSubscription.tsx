@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { Subscription } from '@/db/userSubscription/userSubscription';
+import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
 import { czechDate, isExpired } from '@/utils/dates';
 import AddSession from './addSession';
 import SubscriptionHistory from './subscriptionHistory';
@@ -9,7 +9,7 @@ const ActiveSubscription = ({
   subscription: { subscription_name, expiration_date, number_of_sessions, subscription_sessions, user_subscription_id },
   color,
 }: {
-  subscription: Subscription;
+  subscription: ActivatedSubscription;
   color: string;
 }) => {
   return (
@@ -26,6 +26,7 @@ const ActiveSubscription = ({
           <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} />
         </div>
       </div>
+      <hr />
       <AddSession user_subscription_id={user_subscription_id} color={color} />
     </div>
   );

@@ -21,11 +21,20 @@ export const createUser = async (state: unknown) => {
     const { email, first_name, last_name, address, birthday, phone, bio, color } = userSchema.parse(userData);
 
     const result = await sql`
-      INSERT INTO michaela_users (email, first_name, last_name, address, birthday, phone, bio, color)
-      VALUES (${email}, ${first_name}, ${last_name}, ${address}, ${birthday}, ${phone}, ${bio}, ${color})
+      INSERT INTO michaela_users (email, first_name, last_name, address, birthday, phone, bio, color, "order")
+      VALUES (${email}, 
+        ${first_name}, 
+        ${last_name}, 
+        ${address}, 
+        ${birthday}, 
+        ${phone}, 
+        ${bio}, 
+        ${color},
+        COALESCE((SELECT MAX("order") FROM michaela_users), 0) + 1)
       RETURNING *;
     `;
     revalidatePath('/');
+    revalidatePath('/users', 'page');
     return result.rows[0];
   } catch (error) {
     console.error(error);

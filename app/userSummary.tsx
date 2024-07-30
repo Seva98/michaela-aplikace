@@ -21,7 +21,7 @@ const Booking = async ({
       {isDetail ? (
         <Typography variant="h3">Aktivní členství</Typography>
       ) : (
-        <Link href={`/user/${user_id}`} className="flex justify-between items-center">
+        <Link href={`/users/${user_id}`} className="flex justify-between items-center">
           <Typography variant="h3">{name}</Typography>
           <TriangleRightIcon className="w-6 h-6" />
         </Link>
