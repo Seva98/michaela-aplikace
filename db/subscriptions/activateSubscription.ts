@@ -3,7 +3,7 @@ import 'server-only';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 
-const activateSubscription = async (formData: FormData, subscription_id: number) => {
+export const activateSubscription = async (formData: FormData, subscription_id: number) => {
   const user_id = formData.get('user_id')?.toString() || '';
   const start_date = formData.get('start_date')?.toString() || '';
 
@@ -24,4 +24,18 @@ const activateSubscription = async (formData: FormData, subscription_id: number)
   return 'Subscription activated';
 };
 
-export default activateSubscription;
+export const completeSubscription = async (formData: FormData) => {
+  const user_subscription_id = formData.get('user_subscription_id')?.toString() || '';
+
+  await sql`
+    UPDATE michaela_user_subscriptions
+    SET is_completed = true,
+      completion_date = NOW()
+    WHERE user_subscription_id = ${user_subscription_id};
+    `;
+
+  revalidatePath('/');
+  revalidatePath('/users', 'page');
+  revalidatePath('/users/[slug]', 'page');
+  return 'Subscription deactivated';
+};

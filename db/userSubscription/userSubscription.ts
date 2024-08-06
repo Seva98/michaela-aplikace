@@ -8,6 +8,7 @@ export type SubscriptionSession = {
 export type ActivatedSubscription = {
   user_id: number;
   is_completed: boolean;
+  completion_date: string | null;
   subscription_name: string;
   start_date: string;
   expiration_date: string | null;

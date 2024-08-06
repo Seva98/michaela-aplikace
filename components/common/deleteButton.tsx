@@ -1,11 +1,11 @@
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { Button } from '../ui/button';
+import FormSubmitButton from './formSubmitButton';
 
 const DeleteButton = () => {
   return (
-    <Button variant={'ghost'}>
+    <FormSubmitButton variant={'ghost'}>
       <RiDeleteBin6Line />
-    </Button>
+    </FormSubmitButton>
   );
 };
 

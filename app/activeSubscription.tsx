@@ -3,10 +3,10 @@ import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
 import { czechDate, isExpired } from '@/utils/dates';
 import AddSession from './addSession';
 import SubscriptionHistory from './subscriptionHistory';
-import DeleteButton from '@/components/common/deleteButton';
+import CompleteSubscriptionButton from './completeSubscriptionButton';
 
 const ActiveSubscription = ({
-  subscription: { subscription_name, expiration_date, number_of_sessions, subscription_sessions, user_subscription_id },
+  subscription: { subscription_name, expiration_date, number_of_sessions, subscription_sessions, user_subscription_id, is_completed },
   color,
 }: {
   subscription: ActivatedSubscription;
@@ -17,13 +17,18 @@ const ActiveSubscription = ({
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <Typography>{subscription_name}</Typography>
-          <DeleteButton />
+          <CompleteSubscriptionButton user_subscription_id={user_subscription_id} />
         </div>
         <Typography variant={isExpired(expiration_date) ? 'error' : 'muted'}>
           {expiration_date ? `${isExpired(expiration_date) ? 'Expirovalo' : 'Expiruje'} ${czechDate(expiration_date)}` : 'Bez expirace'}
         </Typography>
         <div className="grid grid-cols-5 w-full gap-1 ">
-          <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} />
+          <SubscriptionHistory
+            number_of_sessions={number_of_sessions}
+            subscription_sessions={subscription_sessions}
+            color={color}
+            is_completed={is_completed}
+          />
         </div>
       </div>
       <hr />

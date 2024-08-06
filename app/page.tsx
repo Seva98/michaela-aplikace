@@ -17,5 +17,5 @@ export default async function Home() {
     );
   }
 
-  return redirect('/profile');
+  redirect('/profile');
 }

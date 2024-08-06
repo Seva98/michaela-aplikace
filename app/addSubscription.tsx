@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
-import activateSubscription from '@/db/subscriptions/activateSubscription';
+import { activateSubscription } from '@/db/subscriptions/activateSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { today } from '@/utils/dates';
 import Link from 'next/link';

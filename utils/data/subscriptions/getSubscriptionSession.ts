@@ -7,3 +7,6 @@ export const getSubscriptionSession = (subscription_sessions: SubscriptionSessio
     return null;
   }
 };
+
+export const isSusbscriptionFinishedSooner = (subscription_sessions: SubscriptionSession[], is_completed: boolean, i: number) =>
+  !getSubscriptionSession(subscription_sessions, i) && is_completed;

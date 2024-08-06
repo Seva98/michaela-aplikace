@@ -134,11 +134,14 @@ export const getAllPastSubscriptionsOfUser = async (user_id: number) => {
         v.number_of_sessions,
         v.is_completed,
         v.start_date::text,
+        v.completion_date::text,
         (
             SELECT json_agg(json_build_object(
                 'session_id', sess.session_id,
                 'session_date', sess.session_date,
-                'session_count', sc.session_count
+                'session_count', sc.session_count,
+                'note', sess.note,
+                'rating', sess.rating
             ))
             FROM michaela_sessions sess
             JOIN session_counts sc ON sess.user_subscription_id = sc.user_subscription_id

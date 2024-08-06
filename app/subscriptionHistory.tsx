@@ -8,11 +8,13 @@ import { isAdmin } from '@/utils/roles';
 const SubscriptionHistory = async ({
   subscription_sessions,
   number_of_sessions,
+  is_completed,
   size = 'large',
   color,
 }: {
   subscription_sessions: SubscriptionSession[];
   number_of_sessions: number;
+  is_completed: boolean;
   size?: 'small' | 'large';
   color: string;
 }) => {
@@ -26,6 +28,7 @@ const SubscriptionHistory = async ({
             key={`session-${i}`}
             session={getSubscriptionSession(subscription_sessions, i)}
             subscription_sessions={subscription_sessions}
+            is_completed={is_completed}
             index={i}
             size={size}
             color={color}
