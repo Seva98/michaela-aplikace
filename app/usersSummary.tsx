@@ -1,5 +1,5 @@
 import { getAllUsersSubscriptions } from '@/db/userSubscription/getUserSubscription';
-import UserSummary from './userSummary';
+import CurrentSubscription from './currentSubscription';
 
 const UsersSummary = async () => {
   const users = await getAllUsersSubscriptions();
@@ -7,7 +7,7 @@ const UsersSummary = async () => {
   return (
     <div className="flex flex-wrap gap-8">
       {users.map((user_subscription) => (
-        <UserSummary key={`user-${user_subscription.user_id}`} user_subscription={user_subscription} />
+        <CurrentSubscription key={`user-${user_subscription.user_id}`} user_subscription={user_subscription} />
       ))}
     </div>
   );

@@ -4,8 +4,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import Typography from '@/components/ui/typography';
 import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
 import { czechDate } from '@/utils/dates';
+import { unstable_noStore } from 'next/cache';
 
 const PreviousSubsriptions = ({ subscriptions, color }: { subscriptions: ActivatedSubscription[]; color: string }) => {
+  unstable_noStore();
+
   return (
     <div className="shadow-lg border border-gray-100 p-4">
       <Typography variant="h3">Předchozí členství</Typography>

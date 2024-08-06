@@ -6,14 +6,16 @@ import Link from 'next/link';
 import ActiveSubscription from './activeSubscription';
 import AddSubscription from './addSubscription';
 import { getSubscriptions } from '@/db/subscriptions/getSubscriptions';
+import { unstable_noStore as noStore } from 'next/cache';
 
-const Booking = async ({
+const CurrentSubscription = async ({
   user_subscription: { user_id, name, active_subscription, color },
   isDetail = false,
 }: {
   user_subscription: UserSubscription;
   isDetail?: boolean;
 }) => {
+  noStore();
   const subscriptions = await getSubscriptions();
 
   return (
@@ -35,4 +37,4 @@ const Booking = async ({
   );
 };
 
-export default Booking;
+export default CurrentSubscription;

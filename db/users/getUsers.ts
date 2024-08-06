@@ -24,6 +24,29 @@ export const getUserById = async (user_id: number) => {
   }
 };
 
+export const getUserByEmail = async (email: string) => {
+  try {
+    if (!email) return null;
+
+    const result = await sql`
+    SELECT 
+      michaela_users.*,
+      birthday::text AS birthday,
+      created_at::text AS created_at
+    FROM michaela_users
+    WHERE email = ${email};
+    `;
+    return result.rows[0] as User;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error('Validation error:', error.errors);
+      throw new Error('Invalid input data');
+    }
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getAllUsers = async () => {
   try {
     const result = await sql`

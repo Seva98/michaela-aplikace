@@ -6,10 +6,13 @@ import { getUserById } from '@/db/users/getUsers';
 import { getName } from '@/utils/data/user/getName';
 import { calculateAge, czechDate } from '@/utils/dates';
 import { Pencil1Icon } from '@radix-ui/react-icons';
+import { unstable_noStore } from 'next/cache';
 import { FaHome, FaPhone } from 'react-icons/fa';
 import { RiMailFill } from 'react-icons/ri';
 
 const ProfileDetails = async ({ user_id }: { user_id: number }) => {
+  unstable_noStore();
+
   const user = await getUserById(user_id);
   const { created_at, email, first_name, last_name, address, bio, birthday, phone } = user;
 

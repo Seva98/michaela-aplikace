@@ -18,6 +18,7 @@ export const getAllUsersSubscriptions = async () => {
             WHEN v.user_subscription_id IS NOT NULL THEN
                 json_build_object(
                     'subscription_name', v.subscription_name,
+                    'start_date', v.start_date,
                     'expiration_date', v.expiration_date,
                     'number_of_sessions', v.number_of_sessions,
                     'is_completed', v.is_completed,
@@ -76,6 +77,7 @@ export const getUserSubscriptions = async (user_id: number) => {
             WHEN v.user_subscription_id IS NOT NULL THEN
                 json_build_object(
                     'subscription_name', v.subscription_name,
+                    'start_date', v.start_date,
                     'expiration_date', v.expiration_date,
                     'number_of_sessions', v.number_of_sessions,
                     'is_completed', v.is_completed,

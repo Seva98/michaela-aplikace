@@ -29,3 +29,14 @@ export const calculateAge = (birthday?: string) => {
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
+
+export const remainingDays = (expirationDateStr: string | null) => {
+  if (!expirationDateStr) return '-';
+  const currentDateStr = new Date().toISOString().split('T')[0];
+  const expirationDate = new Date(expirationDateStr);
+  const currentDate = new Date(currentDateStr);
+  const diffTime = expirationDate.getTime() - currentDate.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  return diffDays;
+};

@@ -3,7 +3,7 @@ import UsersSummary from './usersSummary';
 import { getSession } from '@auth0/nextjs-auth0';
 import { isAdmin } from '@/utils/roles';
 import Unauthorized from './unauthorized';
-import YourProfile from './yourProfile';
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
   const session = await getSession();
@@ -17,9 +17,5 @@ export default async function Home() {
     );
   }
 
-  return (
-    <Section className="relevant" title="Tvůj profil">
-      <YourProfile />
-    </Section>
-  );
+  return redirect('/profile');
 }

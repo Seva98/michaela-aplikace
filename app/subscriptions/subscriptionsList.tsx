@@ -9,8 +9,11 @@ import { deleteSubscription } from '@/db/subscriptions/deleteSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { changeSubscriptionOrder, toggleSubscriptionVisibility, updateSubscription } from '@/db/subscriptions/updateSubscriptions';
 import { cn } from '@/utils/cn';
+import { unstable_noStore } from 'next/cache';
 
 const SubscriptionsList = ({ subscriptions, gridClass }: { subscriptions: Subscription[]; gridClass: string }) => {
+  unstable_noStore();
+
   return (
     <>
       {subscriptions.map(({ subscription_id, name, number_of_sessions, expiration_days, price_per_session, is_hidden }, i) => (
