@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography';
 import { getUserByEmail } from '@/db/users/getUsers';
-import { getName } from '@/utils/data/user/getName';
+import { getName } from '@/utils/db/user/getName';
 import { getSession } from '@auth0/nextjs-auth0';
 
 const WelcomeMessage = async () => {

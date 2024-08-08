@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
 import { cn } from '@/utils/cn';
-import { getSubscriptionSession, isSusbscriptionFinishedSooner } from '@/utils/data/subscriptions/getSubscriptionSession';
+import { getSubscriptionSession, isSusbscriptionFinishedSooner } from '@/utils/db/subscriptions/getSubscriptionSession';
 import { czechDate } from '@/utils/dates';
 import { StarIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';

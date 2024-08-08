@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 
 import { userSchema } from './user';
 import { revalidatePath } from 'next/cache';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 
 export const createUser = async (state: unknown) => {
   const formData = state as FormData;
@@ -19,9 +20,10 @@ export const createUser = async (state: unknown) => {
       color: formData.get('color')?.toString(),
     };
     const { email, first_name, last_name, address, birthday, phone, bio, color } = userSchema.parse(userData);
+    const owner_id = await getOwnerId();
 
     const result = await sql`
-      INSERT INTO michaela_users (email, first_name, last_name, address, birthday, phone, bio, color, "order")
+      INSERT INTO michaela_users (email, first_name, last_name, address, birthday, phone, bio, color, "order", owner_id)
       VALUES (${email}, 
         ${first_name}, 
         ${last_name}, 
@@ -30,7 +32,8 @@ export const createUser = async (state: unknown) => {
         ${phone}, 
         ${bio}, 
         ${color},
-        COALESCE((SELECT MAX("order") FROM michaela_users), 0) + 1)
+        COALESCE((SELECT MAX("order") FROM michaela_users), 0) + 1),
+        ${owner_id}
       RETURNING *;
     `;
     revalidatePath('/');

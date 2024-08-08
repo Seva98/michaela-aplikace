@@ -1,5 +1,5 @@
 import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
-import { getSubscriptionSession } from '@/utils/data/subscriptions/getSubscriptionSession';
+import { getSubscriptionSession } from '@/utils/db/subscriptions/getSubscriptionSession';
 import SubscriptionHistoryBox from './subscriptionSessionBox';
 import SubscriptionHistoryBoxUser from './subscriptionSessionBoxUser';
 import { getSession } from '@auth0/nextjs-auth0';

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
 import { cn } from '@/utils/cn';
-import { getSubscriptionSession } from '@/utils/data/subscriptions/getSubscriptionSession';
+import { getSubscriptionSession } from '@/utils/db/subscriptions/getSubscriptionSession';
 import { czechDate } from '@/utils/dates';
 import { useState } from 'react';
 

@@ -1,4 +1,5 @@
 'use server';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import 'server-only';
@@ -9,8 +10,8 @@ export const createSession = async (formData: FormData) => {
   const session_date = formData.get('session_date')?.toString();
   const note = formData.get('note')?.toString();
   const rating = parseInt(formData.get('rating')?.toString() || '0', 10) + 1;
+  const owner_id = await getOwnerId();
 
-  console.log('Creating session', { user_subscription_id, session_date, note, rating });
   z.number().int().min(1).max(10).parse(rating);
 
   if (!user_subscription_id || !session_date) {
@@ -18,8 +19,8 @@ export const createSession = async (formData: FormData) => {
   }
 
   await sql`
-    INSERT INTO michaela_sessions (user_subscription_id, session_date, note, rating)
-    VALUES (${user_subscription_id}, ${session_date}, ${note}, ${rating})
+    INSERT INTO michaela_sessions (user_subscription_id, session_date, note, rating, owner_id)
+    VALUES (${user_subscription_id}, ${session_date}, ${note}, ${rating}, ${owner_id})
     RETURNING session_id;
   `;
   revalidatePath('/', 'page');

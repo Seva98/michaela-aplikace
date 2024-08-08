@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 
 import { revalidatePath } from 'next/cache';
 import { subscriptionSchema } from './subscription';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 
 export const createSubscription = async (formData: FormData) => {
   try {
@@ -13,15 +14,17 @@ export const createSubscription = async (formData: FormData) => {
       number_of_sessions: parseInt(formData.get('number_of_sessions')?.toString() || '0', 10),
     };
     const { name, expiration_days, price_per_session, number_of_sessions } = subscriptionSchema.parse(subscriptionData);
+    const owner_id = await getOwnerId();
 
     await sql`
-       INSERT INTO michaela_subscriptions (name, expiration_days, price_per_session, number_of_sessions, "order")
+       INSERT INTO michaela_subscriptions (name, expiration_days, price_per_session, number_of_sessions, "order", owner_id)
       VALUES (
         ${name}, 
         ${expiration_days}, 
         ${price_per_session}, 
         ${number_of_sessions},
-        COALESCE((SELECT MAX("order") FROM michaela_subscriptions), 0) + 1
+        COALESCE((SELECT MAX("order") FROM michaela_subscriptions), 0) + 1,
+        ${owner_id}
       );
       `;
     revalidatePath('/');

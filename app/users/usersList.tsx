@@ -1,20 +1,23 @@
 import ChangeOrder from '@/components/common/changeOrder';
 import ComponentWithError from '@/components/common/componentWithError';
 import Delete from '@/components/common/delete';
-import FormSubmitButton from '@/components/common/formSubmitButton';
 import ToggleVisibility from '@/components/common/toggleVisibility';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import EditUser from '@/components/user/editUser';
 import { deleteUser } from '@/db/users/deleteUser';
+import { getAllUsers } from '@/db/users/getUsers';
 import { changeUserOrder, toggleUserVisibility } from '@/db/users/updateUser';
-import { User } from '@/db/users/user';
 import { cn } from '@/utils/cn';
-import { getName } from '@/utils/data/user/getName';
+import { getName } from '@/utils/db/user/getName';
 import { TriangleRightIcon } from '@radix-ui/react-icons';
+import { unstable_noStore } from 'next/cache';
 import Link from 'next/link';
 
-const UsersList = ({ users, gridClass }: { users: User[]; gridClass: string }) => {
+const UsersList = async ({ gridClass }: { gridClass: string }) => {
+  unstable_noStore();
+  const users = await getAllUsers();
+
   return (
     <>
       {users.map((user, i) => (

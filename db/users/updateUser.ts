@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 import { z } from 'zod';
 import { User, userSchema } from './user';
 import { revalidatePath } from 'next/cache';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 
 export const updateUser = async (state: unknown) => {
   const formData = state as FormData;
@@ -19,6 +20,7 @@ export const updateUser = async (state: unknown) => {
       bio: formData.get('bio')?.toString(),
       color: formData.get('color')?.toString(),
     };
+    const owner_id = await getOwnerId();
 
     const validatedData = userSchema.parse(userData);
 
@@ -33,7 +35,7 @@ export const updateUser = async (state: unknown) => {
         phone = ${validatedData.phone},
         bio = ${validatedData.bio},
         color = ${validatedData.color}
-      WHERE user_id = ${userData.id}
+      WHERE user_id = ${userData.id} AND owner_id = ${owner_id}
       RETURNING *;
     `;
 
@@ -56,12 +58,13 @@ export const changeUserOrder = async (formData: FormData) => {
     user_id: parseInt(formData.get('user_id')?.toString() || '0', 10),
     amount: parseInt(formData.get('amount')?.toString() || '0', 10),
   };
+  const owner_id = await getOwnerId();
 
-  await sql`SELECT adjust_user_order(${user_id}, ${amount});`;
+  await sql`SELECT adjust_user_order(${user_id}, ${amount}, ${owner_id});`;
 
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
+  // revalidatePath('/');
+  // revalidatePath('/users', 'page');
+  // revalidatePath('/users/[slug]', 'page');
 };
 
 export const toggleUserVisibility = async (formData: FormData) => {
@@ -69,8 +72,9 @@ export const toggleUserVisibility = async (formData: FormData) => {
     user_id: parseInt(formData.get('user_id')?.toString() || '0', 10),
     is_hidden: formData.get('is_hidden') === 'true',
   };
+  const owner_id = await getOwnerId();
 
-  await sql`UPDATE michaela_users SET is_hidden = ${!is_hidden} WHERE user_id = ${user_id};`;
+  await sql`UPDATE michaela_users SET is_hidden = ${!is_hidden} WHERE user_id = ${user_id} AND owner_id = ${owner_id};`;
 
   revalidatePath('/');
   revalidatePath('/users', 'page');

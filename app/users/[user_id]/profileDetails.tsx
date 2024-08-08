@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import EditUser from '@/components/user/editUser';
 import { getUserById } from '@/db/users/getUsers';
-import { getName } from '@/utils/data/user/getName';
+import { getName } from '@/utils/db/user/getName';
 import { calculateAge, czechDate } from '@/utils/dates';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { unstable_noStore } from 'next/cache';
