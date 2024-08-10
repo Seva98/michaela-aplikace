@@ -7,6 +7,7 @@ import ProfileDetails from './profileDetails';
 import CurrentSubscription from '@/app/currentSubscription';
 import { notFound } from 'next/navigation';
 import { unstable_noStore } from 'next/cache';
+import CurrentSubscriptionDetail from './currentSubscriptionDetail';
 
 export type UserPageProps = {
   params: {
@@ -33,6 +34,7 @@ const UserPage = async ({ params }: UserPageProps) => {
         <CurrentSubscription user_subscription={user_subscription} isDetail />
         <PreviousSubsriptions params={params} />
       </div>
+      <CurrentSubscriptionDetail params={params} />
     </Section>
   );
 };

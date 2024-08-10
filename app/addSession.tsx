@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createSession } from '@/db/sessions/createSession';
 import { today } from '@/utils/dates';
-import Rating from './rating';
+import Rating from '../components/form/rating';
 
 const AddSession = ({ user_subscription_id, color }: { user_subscription_id: number; color: string }) => {
   return (
