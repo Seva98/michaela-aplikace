@@ -25,16 +25,24 @@ const PreviousSubscriptions = async () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {subscriptions.map(({ user_subscription_id, subscription_name, start_date, expiration_date, subscription_sessions, number_of_sessions }) => (
-          <TableRow key={`user_subscription_id_${user_subscription_id}`}>
-            <TableCell>{subscription_name}</TableCell>
-            <TableCell>{czechDate(start_date)}</TableCell>
-            <TableCell>{czechDate(expiration_date)}</TableCell>
-            <TableCell>
-              <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} size="small" />
-            </TableCell>
-          </TableRow>
-        ))}
+        {subscriptions.map(
+          ({ user_subscription_id, subscription_name, start_date, expiration_date, subscription_sessions, number_of_sessions, is_completed }) => (
+            <TableRow key={`user_subscription_id_${user_subscription_id}`}>
+              <TableCell>{subscription_name}</TableCell>
+              <TableCell>{czechDate(start_date)}</TableCell>
+              <TableCell>{czechDate(expiration_date)}</TableCell>
+              <TableCell>
+                <SubscriptionHistory
+                  is_completed={is_completed}
+                  number_of_sessions={number_of_sessions}
+                  subscription_sessions={subscription_sessions}
+                  color={color}
+                  size="small"
+                />
+              </TableCell>
+            </TableRow>
+          ),
+        )}
       </TableBody>
     </Table>
   );
