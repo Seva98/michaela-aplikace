@@ -21,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
-  if (!session?.user) redirect('/api/auth/login');
+  // if (!session?.user) redirect('/api/auth/login');
 
   return (
     <html lang="en">

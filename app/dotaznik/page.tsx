@@ -185,7 +185,7 @@ const groupedQuestions = groupQuestions(questions);
 
 const Questionnaire = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const totalQuestions = questions.length;
+  const totalQuestions = groupedQuestions.length;
   const currentQuestionIndex = Object.values(groupedQuestions).slice(0, currentPage).flat().length + 1;
 
   const handleNext = () => {
@@ -250,7 +250,7 @@ const Questionnaire = () => {
           <Typography>
             Otázka {currentQuestionIndex} z {totalQuestions}
           </Typography>
-          <Progress value={currentQuestionIndex} max={totalQuestions} />
+          <Progress className="w-[200px]" value={currentQuestionIndex} max={totalQuestions} />
         </div>
         <Button className="w-fit" onClick={handleNext} disabled={currentPage === groupedQuestions.length - 1}>
           Další ⬇️
