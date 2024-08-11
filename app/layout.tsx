@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body className={cn('m-8', inter.className)}>
+        <body className={cn(inter.className)}>
           {children}
           {isAdmin(session) && <PopupMenu className="absolute top-4 right-4" />}
         </body>

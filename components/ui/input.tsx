@@ -1,6 +1,7 @@
 import { cn } from '@/utils/cn';
 import * as React from 'react';
 import { Label } from './label';
+import Typography from './typography';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
@@ -19,16 +20,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
 });
 Input.displayName = 'Input';
 
-export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { label: string }>(({ label, ...props }, ref) => {
-  return (
-    <div className="flex flex-col">
-      <Label className="text-sm text-muted-foreground" htmlFor={props.id}>
-        {label}
-      </Label>
-      <Input {...props} ref={ref} />
-    </div>
-  );
-});
+export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { label: string; description?: string }>(
+  ({ label, description, ...props }, ref) => {
+    return (
+      <div className="flex flex-col">
+        <Label className="text-sm text-muted-foreground" htmlFor={props.id}>
+          {label}
+        </Label>
+        <Input {...props} ref={ref} />
+        {description && (
+          <Typography variant="small" className="text-gray-700">
+            {description}
+          </Typography>
+        )}
+      </div>
+    );
+  },
+);
 LabeledInput.displayName = 'LabeledInput';
 
 export { Input };

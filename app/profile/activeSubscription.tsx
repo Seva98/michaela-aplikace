@@ -31,6 +31,7 @@ const ActiveSubscription = async () => {
           <SubscriptionHistory
             subscription_sessions={active_subscription.subscription_sessions}
             number_of_sessions={active_subscription?.number_of_sessions}
+            is_completed={active_subscription.is_completed}
             color="#000"
           />
         </div>

@@ -18,7 +18,7 @@ const Section = ({
   className?: string;
 }) => {
   return (
-    <div className={cn('flex flex-col gap-8', className)} {...props}>
+    <div className={cn('flex flex-col gap-8 m-8', className)} {...props}>
       <div className="flex items-center gap-8">
         {linkBack && (
           <Link href="/">
