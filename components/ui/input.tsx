@@ -20,9 +20,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
 });
 Input.displayName = 'Input';
 
-export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { label: string; description?: string }>(
-  ({ label, description, ...props }, ref) => {
-    return (
+export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { label: string; description?: string; isQuestionnaire?: boolean }>(
+  ({ label, description, isQuestionnaire, ...props }, ref) => {
+    return isQuestionnaire ? (
+      <div className="flex flex-col  text-center mt-2">
+        <Label className="text-md  font-semibold text-muted-foreground" htmlFor={props.id}>
+          {label}
+        </Label>
+        {description && (
+          <Typography variant="small" className="text-gray-700 text-sm mb-2">
+            {description}
+          </Typography>
+        )}
+        <Input {...props} ref={ref} />
+      </div>
+    ) : (
       <div className="flex flex-col">
         <Label className="text-sm text-muted-foreground" htmlFor={props.id}>
           {label}

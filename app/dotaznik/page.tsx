@@ -43,15 +43,13 @@ const questions: Question[] = [
   { text: 'Kontaktní údaje', group: 'CONTACT', type: 'info' },
   { text: 'Telefon', group: 'CONTACT', type: 'text' },
   { text: 'E-mail', group: 'CONTACT', type: 'email' },
-  { text: 'Začátek spolupráce', type: 'date' },
   {
     text: 'Z jakého důvodu ses rozhodl/a mě oslovit?',
-    description: 'např. chci se naučit jíst zdravě',
     type: 'textarea',
   },
   {
     text: 'Jaké očekáváš výsledky po skončení naší spolupráce?',
-    description: 'definujte prosím co nejkonkrétněji, dejte si záležet',
+    description: 'Definujte prosím co nejkonkrétněji, dejte si záležet',
     type: 'textarea',
   },
   {
@@ -206,15 +204,15 @@ const Questionnaire = () => {
       case 'email':
       case 'number':
       case 'date':
-        return <LabeledInput label={question.text} type={question.type} />;
+        return <LabeledInput label={question.text} type={question.type} description={question.description} isQuestionnaire />;
       case 'textarea':
-        return <LabeledInput label={question.text} type="textarea" />;
+        return <LabeledInput label={question.text} type="textarea" description={question.description} isQuestionnaire />;
       case 'info':
         return <Typography variant="h3">{question.text}</Typography>;
       case 'rating':
-        return <LabeledInput label={question.text} type="rating" />;
+        return <LabeledInput label={question.text} type="rating" isQuestionnaire />;
       case 'multichoice':
-        return <LabeledInput label={question.text} type="select" />;
+        return <LabeledInput label={question.text} type="select" isQuestionnaire />;
       default:
         return null;
     }
@@ -236,7 +234,6 @@ const Questionnaire = () => {
             {questions.map((question, questionIndex) => (
               <div key={questionIndex} className="flex flex-col gap-2">
                 {renderQuestion(question)}
-                {question.description && <Typography variant="small">{question.description}</Typography>}
               </div>
             ))}
           </div>
