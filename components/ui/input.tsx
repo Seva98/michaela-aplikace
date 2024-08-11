@@ -23,12 +23,12 @@ Input.displayName = 'Input';
 export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { label: string; description?: string; isQuestionnaire?: boolean }>(
   ({ label, description, isQuestionnaire, ...props }, ref) => {
     return isQuestionnaire ? (
-      <div className="flex flex-col  text-center mt-2">
-        <Label className="text-md  font-semibold text-muted-foreground" htmlFor={props.id}>
+      <div className="flex flex-col  text-center">
+        <Label className={cn('text-md  font-semibold text-muted-foreground', description ? 'mb-[2px]' : 'mb-1')} htmlFor={props.id}>
           {label}
         </Label>
         {description && (
-          <Typography variant="small" className="text-gray-700 text-sm mb-2">
+          <Typography variant="small" className="text-gray-700 text-sm mb-1">
             {description}
           </Typography>
         )}
