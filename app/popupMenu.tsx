@@ -34,25 +34,33 @@ const PopupMenu = ({ className }: { className: string }) => {
     };
   }, []);
 
+  const close = () => setOpened(false);
+
   return (
     <div className={className} ref={popupRef}>
-      <div className={cn('absolute top-8 right-20  transition-opacity', opened ? 'opacity-100' : 'opacity-0')}>
+      <div className={cn('absolute top-8 right-20  transition-opacity', opened ? 'opacity-100 z-50' : 'opacity-0 -z-50')}>
         <div className="bg-white border border-gray-100 shadow-xl p-4 flex flex-col gap-4">
           <Typography variant="h6">Klienti</Typography>
           <EditUser action="create">
-            <Button variant="outline" className="w-full" onClick={() => setOpened(false)}>
+            <Button variant="outline" className="w-full" onClick={close}>
               Přidat klienta
             </Button>
           </EditUser>
           <Link href="/users">
-            <Button variant="outline" className="w-full" onClick={() => setOpened(false)}>
+            <Button variant="outline" className="w-full" onClick={close}>
               Spravovat klienty
             </Button>
           </Link>
           <Typography variant="h6">Členství</Typography>
           <Link href="/subscriptions">
-            <Button variant="outline" className="w-full" onClick={() => setOpened(false)}>
+            <Button variant="outline" className="w-full" onClick={close}>
               Spravovat členství
+            </Button>
+          </Link>
+          <Typography variant="h6">Dotazníky</Typography>
+          <Link href="/questionnaires">
+            <Button variant="outline" className="w-full" onClick={close}>
+              Spravovat dotazníky
             </Button>
           </Link>
         </div>

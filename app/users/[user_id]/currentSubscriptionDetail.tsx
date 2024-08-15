@@ -11,6 +11,7 @@ import { updateSession } from '@/db/sessions/updateSession';
 import Delete from '@/components/common/delete';
 import { deleteSession } from '@/db/sessions/deleteSession';
 import Save from '@/components/common/save';
+import GrowingTextarea from '@/components/common/growingTextarea';
 
 const CurrentSubscriptionDetail = async ({ params }: UserPageProps) => {
   unstable_noStore();
@@ -38,7 +39,7 @@ const CurrentSubscriptionDetail = async ({ params }: UserPageProps) => {
                 <form className="grid grid-cols-[90px_276px_1fr_auto] gap-2 items-center" action={updateSession}>
                   <div>{czechDate(session_date)}</div>
                   <Rating color={user.color} user_subscription_id={rating} />
-                  <Note note={note} />
+                  <GrowingTextarea value={note} name="note" />
                   <input type="hidden" name="session_id" value={session_id} />
                   <Save variant="icon" />
                 </form>

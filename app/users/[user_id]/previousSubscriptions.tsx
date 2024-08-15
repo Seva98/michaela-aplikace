@@ -16,8 +16,6 @@ const PreviousSubsriptions = async ({ params: { user_id } }: UserPageProps) => {
   const user = await getUserById(user_id);
   const { color } = user;
 
-  console.log(subscriptions);
-
   return (
     <div className="shadow-lg border border-gray-100 p-4">
       <Typography variant="h3">Předchozí členství</Typography>

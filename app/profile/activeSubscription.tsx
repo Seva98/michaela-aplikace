@@ -16,7 +16,6 @@ const ActiveSubscription = async () => {
   const { user_id } = user;
   const subscritption = await getUserSubscriptions(user_id);
 
-  console.log(subscritption);
   const { active_subscription } = subscritption;
 
   return (

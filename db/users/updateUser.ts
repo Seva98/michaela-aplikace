@@ -20,6 +20,7 @@ export const updateUser = async (state: unknown) => {
       bio: formData.get('bio')?.toString(),
       color: formData.get('color')?.toString(),
     };
+
     const owner_id = await getOwnerId();
 
     const validatedData = userSchema.parse(userData);

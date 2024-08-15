@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Textarea } from '../ui/textarea';
+import { HTMLProps, useEffect, useRef, useState } from 'react';
 import { cn } from '@/utils/cn';
+import { Textarea } from '../ui/textarea';
 
-const Note = ({ defaultValue, name, className }: { defaultValue?: string; name?: string; className?: string }) => {
+const GrowingTextarea = ({ defaultValue, rows = 1, className, ...props }: { rows?: number; className?: string } & HTMLProps<HTMLTextAreaElement>) => {
   const [value, setValue] = useState(defaultValue);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -28,24 +28,24 @@ const Note = ({ defaultValue, name, className }: { defaultValue?: string; name?:
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = '36px'; // Reset height
+      // Set the initial height based on the number of rows passed or default to 1 row's height
+      textarea.style.height = `${rows * 1.5}em`; // Assuming approximately 1.5em per row
     }
-  }, []);
+  }, [rows]);
 
   return (
     <Textarea
       ref={textareaRef}
-      value={value}
       className={cn('resize-none overflow-hidden', className)}
       onChange={(e) => {
         setValue(e.target.value);
         adjustHeight(); // Adjust height as the user types
       }}
-      rows={1}
-      name="note"
-      style={{ minHeight: '2em' }}
+      rows={rows} // Use the rows prop
+      style={{ minHeight: `calc(${rows * 1.5}em + 12px)` }} // Set the minimum height dynamically
+      {...props}
     />
   );
 };
 
-export default Note;
+export default GrowingTextarea;
