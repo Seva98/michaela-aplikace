@@ -29,3 +29,18 @@ export const getAsnwersByUser = async (questionnaire_id?: number, user_id?: numb
     throw error;
   }
 };
+
+export const getAnswersById = async (answer_id: number) => {
+  try {
+    const ownerId = await getOwnerId();
+
+    const result = await sql`
+      SELECT * FROM michaela_answers
+      WHERE answer_id = ${answer_id} AND owner_id = ${ownerId};
+    `;
+    return result.rows[0] as Answer;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
