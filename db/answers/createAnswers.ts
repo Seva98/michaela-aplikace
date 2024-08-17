@@ -1,9 +1,44 @@
 'use server';
 
-import { Question } from '@/app/dotaznik/configuration';
+import { Question, QuestionKey, QuestionType } from '@/app/dotaznik/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { User } from '../users/user';
+
+export const addQuestionToQuestionnaire = async (formData: FormData) => {
+  try {
+    const validKeys = new Set(Object.values(QuestionKey) as (keyof Question)[]);
+    const newEntries = Array.from(formData.entries()).filter(([key]) => validKeys.has(key as keyof Question));
+    const newQuestion = Object.fromEntries(newEntries) as Partial<Question>;
+
+    const questionnaire_id = formData.get('questionnaire_id')?.toString();
+    const owner_id = await getOwnerId();
+    const questionnaires = await sql`
+      SELECT configuration FROM michaela_questionnaires
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id};`;
+
+    const configuration = JSON.parse(questionnaires.rows[0].configuration) as Question[];
+    configuration.push(newQuestion as Question);
+
+    await sql`
+      UPDATE michaela_questionnaires
+      SET configuration = ${JSON.stringify(configuration)}
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
+    `;
+    //   console.log(cleanedQuestion);
+
+    // const result = await sql`
+    //   UPDATE michaela_questionnaires
+    //   SET configuration = ${JSON.stringify(parsedQuestions)}
+    //   WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
+    //   RETURNING *;
+    // `;
+    // return result.rows[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 export const assignQuestionnaire = async (formData: FormData) => {
   const questionnaire_id = formData.get('questionnaire_id')?.toString();

@@ -2,17 +2,20 @@
 
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import FormSubmitButton from './formSubmitButton';
+import { cn } from '@/utils/cn';
 
 const Delete = ({
   action,
   id,
   idKey,
   variant = 'button',
+  className,
 }: {
   action: (formData: FormData) => void;
   id: number;
   idKey: string;
   variant?: 'icon' | 'button';
+  className?: string;
 }) => {
   const handleDelete = (formData: FormData) => {
     if (confirm('Smazáním dojde k odstranění veškerých dat. Opravdu chceš pokračovat?')) {
@@ -23,7 +26,7 @@ const Delete = ({
   return (
     <form action={handleDelete}>
       <input type="hidden" name={idKey} value={id} />
-      <FormSubmitButton type="submit" variant={'destructive'}>
+      <FormSubmitButton type="submit" variant={'destructive'} className={cn(className)}>
         {variant === 'button' ? 'Smazat' : <RiDeleteBin6Line />}
       </FormSubmitButton>
     </form>

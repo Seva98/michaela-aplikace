@@ -58,6 +58,11 @@ const PopupMenu = ({ className }: { className: string }) => {
             </Button>
           </Link>
           <Typography variant="h6">Dotazníky</Typography>
+          <Link href="/questionnaires/new">
+            <Button variant="outline" className="w-full" onClick={close}>
+              Nový dotazník
+            </Button>
+          </Link>
           <Link href="/questionnaires">
             <Button variant="outline" className="w-full" onClick={close}>
               Spravovat dotazníky

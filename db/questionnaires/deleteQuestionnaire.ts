@@ -1,18 +1,16 @@
 'use server';
 
-import { questions } from '@/app/dotaznik/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 
-export const createQuestionnaire = async () => {
+export const deleteQuestionnaire = async (formData: FormData) => {
   try {
-    const configuration = JSON.stringify([]);
+    const questionnaire_id = parseInt(formData.get('questionnaire_id')?.toString() || '0', 10);
     const owner_id = await getOwnerId();
-    const name = 'Nový dotazník';
 
     const result = await sql`
-      INSERT INTO michaela_questionnaires (configuration, owner_id, name)
-      VALUES (${configuration}, ${owner_id}, ${name})
+      DELETE FROM michaela_questionnaires
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
       RETURNING questionnaire_id;
     `;
 

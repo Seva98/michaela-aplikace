@@ -19,9 +19,10 @@ export const getQuestionnaires = async () => {
 
 export const getQuestionnaireById = async (questionnaire_id: number) => {
   try {
+    const owner_id = await getOwnerId();
     const result = await sql`
       SELECT * FROM michaela_questionnaires
-      WHERE questionnaire_id = ${questionnaire_id};
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id};
     `;
     return result.rows[0] as Questionnaire;
   } catch (error) {

@@ -3,6 +3,8 @@
 import { HTMLProps, useEffect, useRef, useState } from 'react';
 import { cn } from '@/utils/cn';
 import { Textarea } from '../ui/textarea';
+import { Label } from '../ui/label';
+import Typography from '../ui/typography';
 
 const GrowingTextarea = ({ defaultValue, rows = 1, className, ...props }: { rows?: number; className?: string } & HTMLProps<HTMLTextAreaElement>) => {
   const [value, setValue] = useState(defaultValue);
@@ -49,3 +51,21 @@ const GrowingTextarea = ({ defaultValue, rows = 1, className, ...props }: { rows
 };
 
 export default GrowingTextarea;
+
+export const LabeledGrowingTextarea = ({
+  label,
+  description,
+  className,
+  isQuestionnaire = false,
+  ...props
+}: { label: string; description?: string; isQuestionnaire?: boolean } & Parameters<typeof GrowingTextarea>[0]) => (
+  <div className={cn('flex flex-col', isQuestionnaire ? 'text-center' : '', className)}>
+    {label && <Label className={cn(isQuestionnaire ? 'text-md font-semibold text-muted-foreground' : '', 'mb-1')}>{label}</Label>}
+    {description && (
+      <Typography variant="small" className="text-gray-700 text-sm mb-1">
+        {description}
+      </Typography>
+    )}
+    <GrowingTextarea rows={6} {...props} />
+  </div>
+);

@@ -21,19 +21,42 @@ const healthIssues = [
   'Bolest kloubů',
   'Ztuhlost nebo bolesti svalů',
 ];
+export enum QuestionKey {
+  TEXT = 'text',
+  DESCRIPTION = 'description',
+  GROUP = 'group',
+  ANSWERS = 'answers',
+  PLACEHOLDER = 'placeholder',
+  REQUIRED = 'required',
+  DISABLED = 'disabled',
+  NAME = 'name',
+  VALUE = 'value',
+  TYPE = 'type',
+}
 
 export type Question = {
-  text: string;
-  description?: string;
-  group?: string;
-  answers?: string[];
-  placeholder?: string;
-  required?: boolean;
-  disabled?: boolean;
-  name?: string;
-  value?: string;
-  type: 'info' | 'text' | 'number' | 'email' | 'date' | 'textarea' | 'rating' | 'singlechoice';
+  [QuestionKey.TEXT]: string;
+  [QuestionKey.DESCRIPTION]?: string;
+  [QuestionKey.GROUP]?: string;
+  [QuestionKey.ANSWERS]?: string[];
+  [QuestionKey.PLACEHOLDER]?: string;
+  [QuestionKey.REQUIRED]?: boolean;
+  [QuestionKey.DISABLED]?: boolean;
+  [QuestionKey.NAME]?: string;
+  [QuestionKey.VALUE]?: string;
+  [QuestionKey.TYPE]: QuestionType;
 };
+
+export enum QuestionType {
+  INFO = 'info',
+  TEXT = 'text',
+  NUMBER = 'number',
+  EMAIL = 'email',
+  DATE = 'date',
+  TEXTAREA = 'textarea',
+  RATING = 'rating',
+  SINGLECHOICE = 'singlechoice',
+}
 
 export const questions: Question[] = [
   {
@@ -46,42 +69,42 @@ Mám pro Vás dotazník, který mí pomůže Vás co nejlépe Vás poznat a sest
 Děkuj za vyplnění a těším se na spolupráci,
     
 Míša`,
-    type: 'info',
+    type: QuestionType.INFO,
   },
   {
     text: `### Osobní údaje
     
 Nejprve potřebuji vědět kdo vlastně jste. :)`,
     group: 'PERSONAL',
-    type: 'info',
+    type: QuestionType.INFO,
   },
-  { text: 'Jméno', group: 'PERSONAL', type: 'text', name: 'first_name', required: true, disabled: true },
-  { text: 'Příjmení', group: 'PERSONAL', type: 'text', name: 'last_name', required: true, disabled: true },
-  { text: 'E-mail', group: 'PERSONAL', type: 'email', name: 'email', required: true, disabled: true },
-  { text: 'Telefon', group: 'PERSONAL', type: 'text', name: 'phone', required: true },
-  { text: 'Datum narození', group: 'PERSONAL', type: 'date', name: 'birthday', required: true },
+  { text: 'Jméno', group: 'PERSONAL', type: QuestionType.TEXT, name: 'first_name', required: true, disabled: true },
+  { text: 'Příjmení', group: 'PERSONAL', type: QuestionType.TEXT, name: 'last_name', required: true, disabled: true },
+  { text: 'E-mail', group: 'PERSONAL', type: QuestionType.EMAIL, name: 'email', required: true, disabled: true },
+  { text: 'Telefon', group: 'PERSONAL', type: QuestionType.TEXT, name: 'phone', required: true },
+  { text: 'Datum narození', group: 'PERSONAL', type: QuestionType.DATE, name: 'birthday', required: true },
   {
     text: `### O Vás
 
 Nyní se mi prosím představte a povězte mi něco o sobě.`,
-    type: 'info',
+    type: QuestionType.INFO,
   },
   {
     text: 'Z jakého důvodu jste se rozhodl/a mě oslovit?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'reason',
     required: true,
   },
   {
     text: 'Jaké očekáváte výsledky po skončení naší spolupráce?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'expectations',
     placeholder: 'Prosím buďte co nejkonkrétjnější',
     required: true,
   },
   {
     text: 'Jaké je Vaše zaměstnání?',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     name: 'job',
     answers: ['Pasivní, sedavé', 'Středně aktivní', 'Fyzicky náročné'],
     required: true,
@@ -89,14 +112,14 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
   {
     text: 'Kolik hodin týdně sportujete?',
     answers: ['Nesportuji', '1-3 hodiny týdně', '4-7 hodin týdně', '7 a více hodin týdně'],
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     name: 'sport_hours',
     group: 'SPORT',
     required: true,
   },
   {
     text: 'O jaký druh pohybové aktivity se jedná?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     placeholder: 'Pokud nesportujete, nemusíte vyplňovat',
     name: 'sport_type',
     group: 'SPORT',
@@ -107,34 +130,34 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
     answers: ['méně než 3000', '3000-6000', '6000-10000', '10000 a více'],
     placeholder: 'Můžete získat informace například z mobilní aplikace Google Fit (Android) nebo Zdraví (iOS). Pokud nevíte, nevadí.',
     name: 'steps',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     required: true,
   },
-  { text: 'STRAVOVACÍ NÁVYKY', type: 'info' },
+  { text: 'STRAVOVACÍ NÁVYKY', type: QuestionType.INFO },
   {
     text: 'Která jídla nebo suroviny patří mezi Vaše nejoblíbenější?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'favorite_foods',
     group: 'FOOD',
     required: true,
   },
   {
     text: 'Jsou nějaká jídla, která nemáte rád/a?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'hated_foods',
     group: 'FOOD',
     required: true,
   },
   {
     text: 'Máte nějaké potravinové intolerance nebo alergie?',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'allergies',
     group: 'FOOD',
     required: true,
   },
   {
     text: 'Kde nakupujete potraviny?',
-    type: 'text',
+    type: QuestionType.TEXT,
     name: 'shop',
     group: 'FOOD',
     placeholder: 'Např. LIDL, Albert, farmářský obchod atd.',
@@ -144,27 +167,27 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
     text: 'Nakupujete primárně domácí nebo BIO potraviny?',
     answers: ['Ano', 'Občas', 'Je mi to jedno'],
     name: 'bio',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     required: true,
   },
   {
     text: 'Držel/a jste v poslední době nějakou dietu?',
     placeholder: 'Např: Byl jsem vegan poslední 2 roky.',
     name: 'diet',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
     text: 'Míváte pravidelně chutě na sladké nebo slané?',
     answers: ['Ano, na sladké', 'Ano, na slané', 'Ano, na oboje', 'Ne, nemám'],
     name: 'cravings',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     required: true,
   },
   {
     text: 'Kolik litrů čisté vody denně vypijete?',
     answers: ['1-2 litry', '2-3 litry', '3 a více litrů'],
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     name: 'water',
     group: 'DRINKS',
     required: true,
@@ -172,7 +195,7 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
   {
     text: 'Jaké nápoje nejčastějí pijete?',
     placeholder: 'Např: Každé ráno kafe s mlékem, přes den minerálky, čaj s medem, atd.',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     name: 'drinks',
     group: 'DRINKS',
     required: true,
@@ -180,38 +203,38 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
   {
     text: 'Kolikrát denně jíte?',
     answers: ['1-2x denně', '2-3x denně', '3-4x denně', '4-5x denně', '6x a více'],
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     name: 'meals',
     group: 'MEALS',
     required: true,
   },
-  { text: 'ZDRAVÍ', type: 'info' },
+  { text: 'ZDRAVÍ', type: QuestionType.INFO },
   {
     text: 'Máte nějaké aktuální zdravotní potíže?',
     placeholder: 'Např: Dlouhodobě se léčím s hypofunkcí štítné žlázy.',
     name: 'health_issues',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
     text: 'Berete pravidelně nějaké léky?',
     placeholder: 'Např: Denně beru antikoncepci a léky na štítnou žlázu.',
     name: 'medications',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
     text: 'Uživáte pravidelně nějaké doplňky stravy?',
     placeholder: 'Např: Denně beru Omega 3, Vitamín C a občas protein.',
     name: 'supplements',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
     text: 'Kolik hodin denně spíte?',
     answers: ['méně než 6 hodin', '6-7 hodin', '7-8 hodin', '8 a více'],
     name: 'sleep',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     required: true,
   },
   {
@@ -219,7 +242,7 @@ Nyní se mi prosím představte a povězte mi něco o sobě.`,
     description: 'Popište prosím, jak se cítíte v rámci zdravotního stavu a fungování během dne, žádná interpretace není špatně',
     placeholder: 'Např: Po ránu jsem vždy unavená a večer se mi špatně usíná. Občas mě bolí kolena.',
     name: 'health_feelings',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
@@ -232,11 +255,11 @@ stupnice od 0 do 4
 - 2 – střední
 - 3 – silné
 - 4 – závažné`,
-    type: 'info',
+    type: QuestionType.INFO,
   },
   ...healthIssues.map((issue, i) => ({
     text: issue,
-    type: 'rating' as const,
+    type: QuestionType.RATING as const,
     name: `health_issue_${i}`,
     required: true,
     group: `ZDRAVI${Math.floor(i / 5)}`,
@@ -245,26 +268,26 @@ stupnice od 0 do 4
     text: 'Kouření, alkohol, jiné závislosti',
     description: 'množství (za den, za týden, za měsíc - zvolte vhodnou interpretaci)',
     name: 'addictions',
-    type: 'textarea',
+    type: QuestionType.TEXTAREA,
     required: true,
   },
   {
     text: 'Změnila se váha za poslední rok o více než 10%?',
     answers: ['Ano', 'Ne'],
     name: 'weight_change',
-    type: 'singlechoice',
+    type: QuestionType.SINGLECHOICE,
     required: true,
   },
-  { text: 'Míry:', type: 'info', required: true },
-  { text: 'Výška', type: 'number', required: true },
-  { text: 'Váha', type: 'number', required: true },
-  { text: 'Datum', type: 'date', required: true },
-  { text: 'krk (míra v cm)', type: 'number', required: true },
-  { text: 'hrudník (míra v cm)', type: 'number', required: true },
-  { text: 'pas (míra v cm)', type: 'number', required: true },
-  { text: 'boky (míra v cm)', type: 'number', required: true },
-  { text: 'stehna (míra v cm)', type: 'number', required: true },
-  { text: 'paže (míra v cm)', type: 'number', required: true },
+  { text: 'Míry:', type: QuestionType.INFO, required: true },
+  { text: 'Výška', type: QuestionType.NUMBER, required: true },
+  { text: 'Váha', type: QuestionType.NUMBER, required: true },
+  { text: 'Datum', type: QuestionType.DATE, required: true },
+  { text: 'krk (míra v cm)', type: QuestionType.NUMBER, required: true },
+  { text: 'hrudník (míra v cm)', type: QuestionType.NUMBER, required: true },
+  { text: 'pas (míra v cm)', type: QuestionType.NUMBER, required: true },
+  { text: 'boky (míra v cm)', type: QuestionType.NUMBER, required: true },
+  { text: 'stehna (míra v cm)', type: QuestionType.NUMBER, required: true },
+  { text: 'paže (míra v cm)', type: QuestionType.NUMBER, required: true },
 ];
 
 export const groupQuestions = (questions: Question[]) => {
