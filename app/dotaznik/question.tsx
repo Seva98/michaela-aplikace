@@ -15,6 +15,8 @@ const Question = ({ question }: { question: QuestionProp }) => {
   const { type, name, text, description, required, answers, placeholder, disabled, value } = question;
   const { pending } = useFormStatus();
 
+  const requiredText = required ? `${text}*` : text;
+
   switch (type) {
     case QuestionType.TEXT:
     case QuestionType.EMAIL:
@@ -23,11 +25,12 @@ const Question = ({ question }: { question: QuestionProp }) => {
       return (
         <LabeledInput
           name={name}
-          label={text}
+          label={requiredText}
           type={type}
           description={description}
           required={required}
           disabled={disabled || pending}
+          placeholder={placeholder}
           isQuestionnaire
           defaultValue={value}
         />
@@ -35,7 +38,7 @@ const Question = ({ question }: { question: QuestionProp }) => {
     case QuestionType.TEXTAREA:
       return (
         <LabeledGrowingTextarea
-          label={text}
+          label={requiredText}
           description={description}
           rows={6}
           placeholder={placeholder}
@@ -48,9 +51,9 @@ const Question = ({ question }: { question: QuestionProp }) => {
     case QuestionType.INFO:
       return <Markdown content={text} />;
     case QuestionType.RATING:
-      return <RatedInput name={name} label={text} value={value} disabled={pending} />;
+      return <RatedInput name={name} label={requiredText} value={value} disabled={pending} />;
     case QuestionType.SINGLECHOICE:
-      return <SingleChoice answers={answers ?? []} name={name} value={value} label={text} disabled={pending} />;
+      return <SingleChoice answers={answers ?? []} name={name} value={value} label={requiredText} disabled={pending} />;
     default:
       return null;
   }

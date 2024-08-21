@@ -13,7 +13,7 @@ const Preview = async ({ params }: QuestionnaireEditParams) => {
 
   return (
     <div className="shadow-lg w-full  border border-gray-100 p-4">
-      <Typography variant="h2">Dotazník</Typography>
+      <Typography variant="h2">Náhled dotazníku</Typography>
       <div className="flex flex-col gap-8 items-center">
         {groupedQuestions.map((questions, i) => (
           <div className="max-w-md w-full" key={`question-group-preview-${i}`}>

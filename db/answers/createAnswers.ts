@@ -5,6 +5,30 @@ import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { User } from '../users/user';
 
+export const addPageToQuestionnaire = async (formData: FormData) => {
+  try {
+    const questionnaire_id = formData.get('questionnaire_id')?.toString();
+    const owner_id = await getOwnerId();
+    const questionnaires = await sql`
+      SELECT configuration FROM michaela_questionnaires
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id};`;
+
+    const configuration = JSON.parse(questionnaires.rows[0].configuration) as Question[][];
+    configuration.push([]);
+
+    console.log(configuration);
+
+    await sql`
+      UPDATE michaela_questionnaires
+      SET configuration = ${JSON.stringify(configuration)}
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
+    `;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const addQuestionToQuestionnaire = async (formData: FormData) => {
   try {
     const validKeys = new Set(Object.values(QuestionKey) as (keyof Question)[]);
