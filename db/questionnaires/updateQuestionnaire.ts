@@ -1,41 +1,18 @@
 'use server';
 
-import { groupQuestions } from './../../app/dotaznik/configuration';
 import { Question, questions } from '@/app/dotaznik/configuration';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
-import { createQuestionnaire } from './createQuestionnaire';
-import { getQuestionnaireById } from './getQuestionnaire';
 
-export const updateQuestionnaire = async (formData: FormData) => {
+export const updateQuestionnaire = async (questionnaire_id: number, questionnaire: Question[][]) => {
   try {
-    const configuration = JSON.stringify(questions);
-    const questionnaire_id = 1; //formData.get('questionnaire_id')?.toString();
+    const owner_id = await getOwnerId();
 
     await sql`
-     DELETE FROM michaela_questionnaires
-      `;
-
-    await createQuestionnaire();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-export const updateQuestionnaireOrder = async (
-  questionnaire_id: number,
-  dragging: { groupIndex: number; questionIndex: number },
-  dropping: { groupIndex: number; questionIndex: number },
-) => {
-  try {
-    const questionnaire = await getQuestionnaireById(questionnaire_id);
-    const questions = JSON.parse(questionnaire.configuration) as Question[];
-    const groupedQuestions = groupQuestions(questions);
-    const newGroupName = groupedQuestions[dropping.groupIndex][0].group;
-
-    console.log(dragging, dropping);
-
-    console.log(questions);
+      UPDATE michaela_questionnaires
+      SET configuration = ${JSON.stringify(questionnaire)}
+      WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
+    `;
   } catch (error) {
     console.error(error);
     throw error;

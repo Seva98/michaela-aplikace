@@ -4,6 +4,7 @@ import { Question, QuestionKey, QuestionType } from '@/app/dotaznik/configuratio
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { User } from '../users/user';
+import { toPositiveNumber } from '@/utils/number';
 
 export const addPageToQuestionnaire = async (formData: FormData) => {
   try {
@@ -36,13 +37,16 @@ export const addQuestionToQuestionnaire = async (formData: FormData) => {
     const newQuestion = Object.fromEntries(newEntries) as Partial<Question>;
 
     const questionnaire_id = formData.get('questionnaire_id')?.toString();
+    const group_id = toPositiveNumber(formData.get('group_id')?.toString());
+    if (group_id < 0) throw new Error('Question Group ID not provided');
+
     const owner_id = await getOwnerId();
     const questionnaires = await sql`
       SELECT configuration FROM michaela_questionnaires
       WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id};`;
 
-    const configuration = JSON.parse(questionnaires.rows[0].configuration) as Question[];
-    configuration.push(newQuestion as Question);
+    const configuration = JSON.parse(questionnaires.rows[0].configuration) as Question[][];
+    configuration[group_id].push(newQuestion as Question);
 
     await sql`
       UPDATE michaela_questionnaires
@@ -125,7 +129,7 @@ export const assignQuestionnaire = async (formData: FormData) => {
   }
 };
 
-export const overwriteQuestionnaire = async (formData: FormData) => {
+export const assignQuestionnaireToUser = async (formData: FormData) => {
   const questionnaire_id = formData.get('questionnaire_id')?.toString();
   const user_id = formData.get('user_id')?.toString();
 

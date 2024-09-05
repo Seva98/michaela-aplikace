@@ -10,19 +10,23 @@ import { LabeledInput } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
+import { addQuestionToQuestionnaire } from '@/db/answers/createAnswers';
 import { unstable_noStore } from 'next/cache';
 import { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from 'react';
+import SingleChoiceQuestionConfiguration from './singleChoiceQuestionConfiguration';
 
 const EditQuestion = ({
   action,
   variant,
   questionnaire_id,
+  group_id,
   onQuestionChange,
   children,
 }: {
   action: (formData: FormData) => void;
   variant: 'create' | 'edit';
   questionnaire_id: number;
+  group_id?: number;
   onQuestionChange?: (question: Question) => void;
   children: ReactNode;
 }) => {
@@ -35,7 +39,6 @@ const EditQuestion = ({
   const [text, setText] = useState('');
   const [description, setDescription] = useState('');
   const [placeholder, setPlaceholder] = useState('');
-  const [group, setGroup] = useState('');
   const [required, setRequired] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
@@ -44,7 +47,11 @@ const EditQuestion = ({
     setPending(true);
     const formData = new FormData(event.currentTarget);
     try {
-      await action(formData);
+      if (variant === 'create') {
+        addQuestionToQuestionnaire(formData);
+      } else {
+        // editQuestionInQuestinnaire(formData)
+      }
       setOpen(false);
     } catch (error) {
       console.error('Form submission error:', error);
@@ -57,13 +64,12 @@ const EditQuestion = ({
     onQuestionChange?.({
       text,
       description,
-      group,
       placeholder,
       required,
       disabled,
       type,
     });
-  }, [text, description, group, placeholder, required, disabled, type, onQuestionChange]);
+  }, [text, description, placeholder, required, disabled, type, onQuestionChange]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -85,6 +91,7 @@ const EditQuestion = ({
               <SelectItem value={QuestionType.TEXTAREA}>Dlouhý text</SelectItem>
               <SelectItem value={QuestionType.NUMBER}>Číslo</SelectItem>
               <SelectItem value={QuestionType.EMAIL}>Email</SelectItem>
+              <SelectItem value={QuestionType.DATE}>Datum</SelectItem>
               <SelectItem value={QuestionType.SINGLECHOICE}>Jedna možnost</SelectItem>
               <SelectItem value={QuestionType.RATING}>Hodnocení</SelectItem>
             </SelectContent>
@@ -101,6 +108,7 @@ const EditQuestion = ({
           ) : (
             <LabeledInput label="Titulek otázky" name="text" placeholder="Nadpis otázky" value={text} onChange={(e) => setText(e.target.value)} />
           )}
+          {type === QuestionType.SINGLECHOICE && <SingleChoiceQuestionConfiguration />}
           {type !== QuestionType.INFO && (
             <LabeledGrowingTextarea
               label="Popis otázky"
@@ -121,15 +129,6 @@ const EditQuestion = ({
               onChange={(e) => setPlaceholder(e.target.value)}
             />
           )}
-          {type !== QuestionType.INFO && (
-            <LabeledInput
-              label="Skupina"
-              name="group"
-              placeholder="Otázky se stejnou skupinou jsou na 1 stránce"
-              value={group}
-              onChange={(e) => setGroup(e.target.value)}
-            />
-          )}
           <div className="flex justify-evenly  gap-2">
             {type !== QuestionType.INFO && (
               <Button type="button" className="w-full" variant={required ? 'default' : 'outline'} onClick={() => setRequired(!required)}>
@@ -146,6 +145,7 @@ const EditQuestion = ({
           </div>
           <FormSubmitButton>{variant === 'create' ? 'Přidat' : 'Uložit'} otázku</FormSubmitButton>
           <input type="hidden" name="questionnaire_id" value={questionnaire_id} />
+          {group_id !== undefined && <input type="hidden" name="group_id" value={group_id} />}
         </FormContent>
       </DialogContent>
     </Dialog>

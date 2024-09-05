@@ -1,4 +1,4 @@
-import { groupQuestions, Question as QuestionType } from './configuration';
+import { Question as QuestionType } from './configuration';
 import Typography from '@/components/ui/typography';
 import QuestionsGroup from './questionsGroup';
 import NavigationAndProgress from './navigationAndProgress';
@@ -21,11 +21,10 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
   const { current_progress: answerProgress, answer, answer_id } = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
   if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${questionnaire_id}/${answerProgress + 1}`);
 
-  const questions = JSON.parse(answer) as QuestionType[];
-  const groupedQuestions = groupQuestions(questions);
-  const totalQuestions = groupedQuestions.length;
+  const questions = JSON.parse(answer) as QuestionType[][];
+  const totalQuestions = questions.flat().length;
 
-  const questionGroupToRender = groupedQuestions[parsedCurrentProgress - 1];
+  const questionGroupToRender = questions[parsedCurrentProgress - 1];
 
   const updateAnswerAndRedirect = async (formData: FormData) => {
     'use server';

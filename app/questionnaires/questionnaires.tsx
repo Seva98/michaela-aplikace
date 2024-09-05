@@ -1,4 +1,4 @@
-import { assignQuestionnaire, overwriteQuestionnaire } from '@/db/answers/createAnswers';
+import { assignQuestionnaireToUser } from '@/db/answers/createAnswers';
 import { getAnswers } from '@/db/answers/getAnswers';
 import { getQuestionnaires } from '@/db/questionnaires/getQuestionnaire';
 import { getAllUsers } from '@/db/users/getUsers';
@@ -8,7 +8,6 @@ import { getName } from '@/utils/db/user/getName';
 import FormWithError from '@/components/common/formWithError';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import { deleteAnswers } from '@/db/answers/deleteAnswers';
-import { updateQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
@@ -24,14 +23,10 @@ const Questionnaires = async () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <FormWithError action={updateQuestionnaire}>
-        <input type="hidden" name="name" value="Testovací dotazník" />
-        <FormSubmitButton>Obnovit dotazníky</FormSubmitButton>
-      </FormWithError>
       {questionnaires.map(({ questionnaire_id, name }) => (
         <div key={`questionnaire-${questionnaire_id}`} className="shadow-lg w-fit  border border-gray-100 p-4 flex flex-col gap-4">
           <div className="grid grid-cols-[600px_200px] gap-4 items-center">
-            <FormWithError action={overwriteQuestionnaire} key={questionnaire_id} className="grid grid-cols-3 gap-4 items-center">
+            <FormWithError action={assignQuestionnaireToUser} key={questionnaire_id} className="grid grid-cols-3 gap-4 items-center">
               <Link
                 href={`
                 /questionnaires/edit/${questionnaire_id}

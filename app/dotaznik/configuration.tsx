@@ -289,23 +289,3 @@ stupnice od 0 do 4
   { text: 'stehna (míra v cm)', type: QuestionType.NUMBER, required: true },
   { text: 'paže (míra v cm)', type: QuestionType.NUMBER, required: true },
 ];
-
-export const groupQuestions = (questions: Question[]) => {
-  const grouped = questions.reduce((acc, question) => {
-    if (question.group) {
-      const groupIndex = acc.findIndex((group) => group[0]?.group === question.group);
-      if (groupIndex >= 0) {
-        acc[groupIndex].push(question);
-      } else {
-        acc.push([question]);
-      }
-    } else {
-      acc.push([question]);
-    }
-    return acc;
-  }, [] as Question[][]);
-
-  return grouped;
-};
-
-export const groupedQuestions = groupQuestions(questions);

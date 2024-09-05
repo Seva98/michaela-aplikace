@@ -1,15 +1,7 @@
-import Loader from '@/components/common/loader';
 import Section from '@/components/containers/section';
-import Typography from '@/components/ui/typography';
-import { createQuestionnaire } from '@/db/questionnaires/createQuestionnaire';
-import { getQuestionnaireById } from '@/db/questionnaires/getQuestionnaire';
 import { checkAdmin } from '@/utils/roles';
-import { getSession } from '@auth0/nextjs-auth0';
-import { redirect } from 'next/navigation';
-import Configuration from './newQuestion';
 import Preview from './preview';
 import CurrentConfiguration from './currentConfiguration';
-import NewQuestion from './newQuestion';
 
 export type QuestionnaireEditParams = {
   params: {
@@ -24,7 +16,6 @@ const Page = async ({ params }: QuestionnaireEditParams) => {
     <Section title="Nový dotazník">
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <CurrentConfiguration params={params} />
-        <NewQuestion params={params} />
         <Preview params={params} />
       </div>
     </Section>

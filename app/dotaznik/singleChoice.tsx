@@ -7,12 +7,13 @@ import { useState } from 'react';
 const SingleChoice = ({ label, name, answers, value, disabled }: { label: string; name?: string; answers: string[]; value?: string; disabled?: boolean }) => {
   const [answer, setAnswer] = useState(value ?? '');
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  console.log(answers);
 
   return (
     <div>
       <Typography className="text-center font-semibold mb-2">{label}</Typography>
       <div className="relative flex flex-col gap-1">
-        {answers.map((newAnswer, i) => (
+        {JSON.parse(answers).map((newAnswer, i) => (
           <div className="flex gap-2 items-center" key={`answer${label}-${i}`}>
             <Button
               variant={answer === newAnswer ? 'default' : 'outline'}
