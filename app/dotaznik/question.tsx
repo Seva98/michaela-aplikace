@@ -21,6 +21,7 @@ const Question = ({ question }: { question: QuestionProp }) => {
     case QuestionType.TEXT:
     case QuestionType.EMAIL:
     case QuestionType.NUMBER:
+    case QuestionType.PHONE:
     case QuestionType.DATE:
       return (
         <LabeledInput
@@ -53,7 +54,7 @@ const Question = ({ question }: { question: QuestionProp }) => {
     case QuestionType.RATING:
       return <RatedInput name={name} label={requiredText} value={value} disabled={pending} />;
     case QuestionType.SINGLECHOICE:
-      return <SingleChoice answers={answers ?? []} name={name} value={value} label={requiredText} disabled={pending} />;
+      return <SingleChoice answers={answers ?? []} description={description} name={name} value={value} label={requiredText} disabled={pending} />;
     default:
       return null;
   }

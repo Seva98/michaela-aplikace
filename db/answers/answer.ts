@@ -5,4 +5,5 @@ export type Answer = {
   questionnaire_id: number;
   answer: string;
   current_progress: number;
+  last_updated: Date;
 };

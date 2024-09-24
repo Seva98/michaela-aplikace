@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { User } from '@/db/users/user';
 import { FormContent } from '../containers/content';
 import { LabeledInput } from '../ui/input';
@@ -43,6 +43,7 @@ const EditUser = ({ action, user, children, defaultOpen = false }: { action: 'cr
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{action === 'create' ? 'Nový klient' : 'Upravit klienta'}</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
         <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <input type="hidden" name="id" value={user_id} />

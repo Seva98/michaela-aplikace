@@ -9,7 +9,6 @@ const CurrentConfiguration = async ({ params }: QuestionnaireEditParams) => {
   unstable_noStore();
   const { questionnaire_id } = params;
   const questionnaire = await getQuestionnaireById(parseInt(params.questionnaire_id));
-  console.log(questionnaire);
   const questions = JSON.parse(questionnaire.configuration) as Question[][];
 
   return (

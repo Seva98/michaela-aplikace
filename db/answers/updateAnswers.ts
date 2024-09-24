@@ -26,7 +26,7 @@ export const updateAnswers = async (formData: FormData) => {
 
     await sql`
     UPDATE michaela_answers
-    SET answer = ${JSON.stringify(parsedAnswers)}, current_progress = ${new_progress} 
+    SET answer = ${JSON.stringify(parsedAnswers)}, current_progress = ${new_progress}, last_updated = NOW()
     WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
 
     return answers;

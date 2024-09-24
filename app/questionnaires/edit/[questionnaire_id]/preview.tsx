@@ -10,8 +10,6 @@ const Preview = async ({ params }: QuestionnaireEditParams) => {
   const questionnaire = await getQuestionnaireById(parseInt(params.questionnaire_id));
   const questions = JSON.parse(questionnaire.configuration) as QuestionType[][];
 
-  console.log(questions);
-
   return (
     <div className="shadow-lg w-full  border border-gray-100 p-4">
       <Typography variant="h2">Náhled dotazníku</Typography>

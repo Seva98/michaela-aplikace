@@ -2,13 +2,11 @@
 
 import { useState } from 'react';
 import { Question } from '@/app/dotaznik/configuration';
-import { updateQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
+import { addPageToQuestionnaire, updateQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
 import { Button } from '@/components/ui/button';
-import { addPageToQuestionnaire, addQuestionToQuestionnaire } from '@/db/answers/createAnswers';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import EditQuestion from './editQuestion';
 import { unstable_noStore } from 'next/cache';
-import Delete from '@/components/common/delete';
 import DeleteQuestionnaireQuestion from './deleteQuestionnaireQuestion';
 import Typography from '@/components/ui/typography';
 
@@ -62,29 +60,12 @@ const EditCurrentConfiguration = ({ questionnaireQuestions, questionnaire_id }: 
     setDragOver(null);
   };
 
-  console.log(questionnaireQuestions);
-
   return (
     <div className="flex flex-col gap-1">
       {questionnaireQuestions.map((questions, groupIndex) => (
         <div className=" w-full mb-4" key={`question-group-preview-${groupIndex}`}>
           <div className="font-semibold mb-1">Strana č.{groupIndex + 1}</div>
-          {questions.length === 0 && (
-            <div className="flex gap-4 items-center">
-              <div
-                className="p-2 border-2 border-dashed border-gray-300 text-center w-full max-w-md text-gray-400 select-none"
-                onDragOver={(e) => onDragOver(e, groupIndex, 0)}
-                onDrop={(e) => onDropEmpty(e, groupIndex)}
-                onDragLeave={onDragLeave}
-              >
-                Přetáhni sem otázku
-              </div>
-              <EditQuestion action={addQuestionToQuestionnaire} group_id={groupIndex} variant="create" questionnaire_id={parseInt(questionnaire_id)}>
-                <Button>Nová otázka </Button>
-              </EditQuestion>
-            </div>
-          )}
-          {questions.map(({ text }, questionIndex) => (
+          {questions.map((question, questionIndex) => (
             <div className="flex gap-4" key={`question-preview-${groupIndex}-${questionIndex}`}>
               <div
                 className={`flex gap-2 p-2 items-center max-w-md w-full hover:cursor-grab ${
@@ -101,19 +82,34 @@ const EditCurrentConfiguration = ({ questionnaireQuestions, questionnaire_id }: 
                   <Typography variant="small" className="w-[80px]">
                     Otázka č.{questionIndex + 1}
                   </Typography>
-                  <div>{text}</div>
+                  <EditQuestion
+                    question={question}
+                    question_id={questionIndex}
+                    group_id={groupIndex}
+                    variant="edit"
+                    questionnaire_id={parseInt(questionnaire_id)}
+                    key={`question-dialog-${groupIndex}-${questionIndex}`}
+                  >
+                    <div>{question.text}</div>
+                  </EditQuestion>
                 </div>
               </div>
-              <div className="flex gap-2 items-center">
-                <DeleteQuestionnaireQuestion groupIndex={groupIndex} questionIndex={questionIndex} questionnaire_id={parseInt(questionnaire_id)} />
-                {questionIndex === questions.length - 1 && (
-                  <EditQuestion action={addQuestionToQuestionnaire} group_id={groupIndex} variant="create" questionnaire_id={parseInt(questionnaire_id)}>
-                    <Button>Nová otázka</Button>
-                  </EditQuestion>
-                )}
-              </div>
+              <DeleteQuestionnaireQuestion groupIndex={groupIndex} questionIndex={questionIndex} questionnaire_id={parseInt(questionnaire_id)} />
             </div>
           ))}
+          <div className="flex gap-4 items-center">
+            <div
+              className="p-2 border-2 border-dashed border-gray-300 text-center w-full max-w-md text-gray-400 select-none"
+              onDragOver={(e) => onDragOver(e, groupIndex, 0)}
+              onDrop={(e) => onDropEmpty(e, groupIndex)}
+              onDragLeave={onDragLeave}
+            >
+              Přetáhni sem otázku
+            </div>
+            <EditQuestion group_id={groupIndex} variant="create" questionnaire_id={parseInt(questionnaire_id)}>
+              <Button>Nová otázka </Button>
+            </EditQuestion>
+          </div>
         </div>
       ))}
       <form action={addPageToQuestionnaire} className="max-w-md">

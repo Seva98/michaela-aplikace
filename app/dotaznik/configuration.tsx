@@ -32,6 +32,7 @@ export enum QuestionKey {
   NAME = 'name',
   VALUE = 'value',
   TYPE = 'type',
+  KEY = 'key',
 }
 
 export type Question = {
@@ -52,10 +53,12 @@ export enum QuestionType {
   TEXT = 'text',
   NUMBER = 'number',
   EMAIL = 'email',
+  PHONE = 'tel',
   DATE = 'date',
   TEXTAREA = 'textarea',
   RATING = 'rating',
   SINGLECHOICE = 'singlechoice',
+  SPECIAL = 'special',
 }
 
 export const questions: Question[] = [

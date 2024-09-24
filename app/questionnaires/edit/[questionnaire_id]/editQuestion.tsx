@@ -5,42 +5,69 @@ import FormSubmitButton from '@/components/common/formSubmitButton';
 import GrowingTextarea, { LabeledGrowingTextarea } from '@/components/common/growingTextarea';
 import { FormContent } from '@/components/containers/content';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { LabeledInput } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
-import { addQuestionToQuestionnaire } from '@/db/answers/createAnswers';
 import { unstable_noStore } from 'next/cache';
 import { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from 'react';
 import SingleChoiceQuestionConfiguration from './singleChoiceQuestionConfiguration';
+import { addQuestionToQuestionnaire, editQuestionInQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
+import Loader from '@/components/common/loader';
+import SelectQuestionType from './selectQuestionType';
+import QuestionText from './questionText';
+import QuestionDescription from './questionDescription';
+import QuestionPlaceholder from './questionPlaceholder';
+import QuestionRequiredDisabled from './questionRequiredDisabled';
+import QuestionSpecial from './questionSpecial';
 
 const EditQuestion = ({
-  action,
   variant,
+  question,
   questionnaire_id,
   group_id,
-  onQuestionChange,
+  question_id,
   children,
 }: {
-  action: (formData: FormData) => void;
   variant: 'create' | 'edit';
+  question?: Question;
   questionnaire_id: number;
   group_id?: number;
-  onQuestionChange?: (question: Question) => void;
+  question_id?: number;
   children: ReactNode;
 }) => {
+  console.log(question);
   unstable_noStore();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
+  const [type, setType] = useState<QuestionType>(question ? question.type : QuestionType.INFO);
+  const [text, setText] = useState(question ? question.text : '');
+  const [description, setDescription] = useState(question?.description ?? '');
+  const [placeholder, setPlaceholder] = useState(question?.placeholder ?? '');
+  const [required, setRequired] = useState(question?.required ?? true);
+  const [disabled, setDisabled] = useState(question?.disabled ?? false);
 
-  const [type, setType] = useState<QuestionType>(QuestionType.INFO);
-  const [text, setText] = useState('');
-  const [description, setDescription] = useState('');
-  const [placeholder, setPlaceholder] = useState('');
-  const [required, setRequired] = useState(true);
-  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (open) {
+      if (variant === 'edit' && question) {
+        setType(question.type);
+        setText(question.text);
+        setDescription(question?.description ?? '');
+        setPlaceholder(question?.placeholder ?? '');
+        setRequired(question?.required ?? true);
+        setDisabled(question?.disabled ?? false);
+      } else {
+        setType(QuestionType.INFO);
+        setText('');
+        setDescription('');
+        setPlaceholder('');
+        setRequired(true);
+        setDisabled(false);
+      }
+    }
+  }, [open, variant, question]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,104 +75,47 @@ const EditQuestion = ({
     const formData = new FormData(event.currentTarget);
     try {
       if (variant === 'create') {
-        addQuestionToQuestionnaire(formData);
+        await addQuestionToQuestionnaire(formData);
       } else {
-        // editQuestionInQuestinnaire(formData)
+        await editQuestionInQuestionnaire(formData);
       }
-      setOpen(false);
     } catch (error) {
       console.error('Form submission error:', error);
       setError((error as Error).message);
+      return;
     }
+    // reset();
     setPending(false);
+    setOpen(false);
   };
-
-  useEffect(() => {
-    onQuestionChange?.({
-      text,
-      description,
-      placeholder,
-      required,
-      disabled,
-      type,
-    });
-  }, [text, description, placeholder, required, disabled, type, onQuestionChange]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{variant === 'create' ? 'Nová otázky' : 'Upravit otázky'}</DialogTitle>
+          <DialogTitle>{variant === 'create' ? 'Nová otázka' : 'Upravit otázku'}</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
         <FormContent className="flex flex-col gap-2" onSubmit={handleSubmit}>
-          <Typography variant="h3">{variant === 'create' ? 'Nová otázka' : 'Upravit Otázku'}</Typography>
           <Label htmlFor="type">Typ otázky</Label>
-          <Select name="type" value={type} onValueChange={(t) => setType(t as QuestionType)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Typ otázky" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={QuestionType.INFO}>Info</SelectItem>
-              <SelectItem value={QuestionType.TEXT}>Text</SelectItem>
-              <SelectItem value={QuestionType.TEXTAREA}>Dlouhý text</SelectItem>
-              <SelectItem value={QuestionType.NUMBER}>Číslo</SelectItem>
-              <SelectItem value={QuestionType.EMAIL}>Email</SelectItem>
-              <SelectItem value={QuestionType.DATE}>Datum</SelectItem>
-              <SelectItem value={QuestionType.SINGLECHOICE}>Jedna možnost</SelectItem>
-              <SelectItem value={QuestionType.RATING}>Hodnocení</SelectItem>
-            </SelectContent>
-          </Select>
-          {type === QuestionType.INFO ? (
-            <GrowingTextarea
-              label="Text"
-              name="text"
-              rows={6}
-              placeholder="Text otázky"
-              value={text}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
-            />
+          <SelectQuestionType type={type} onTypeChange={setType} />
+          {type === QuestionType.SPECIAL ? (
+            <QuestionSpecial />
           ) : (
-            <LabeledInput label="Titulek otázky" name="text" placeholder="Nadpis otázky" value={text} onChange={(e) => setText(e.target.value)} />
+            <>
+              <QuestionText type={type} text={text} onTextChange={setText} />
+              {type === QuestionType.SINGLECHOICE && <SingleChoiceQuestionConfiguration question={question} />}
+              <QuestionDescription type={type} description={description} onDescriptionChange={setDescription} />
+              <QuestionPlaceholder type={type} placeholder={placeholder} onPlaceholderChange={setPlaceholder} />
+              <QuestionRequiredDisabled type={type} required={required} disabled={disabled} onRequiredChange={setRequired} onDisabledChange={setDisabled} />
+            </>
           )}
-          {type === QuestionType.SINGLECHOICE && <SingleChoiceQuestionConfiguration />}
-          {type !== QuestionType.INFO && (
-            <LabeledGrowingTextarea
-              label="Popis otázky"
-              name="description"
-              placeholder="Delší popis otázky"
-              rows={6}
-              value={description}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
-            />
-          )}
-
-          {type !== QuestionType.INFO && (
-            <LabeledInput
-              label="Nápověda"
-              name="placeholder"
-              placeholder="Nápověda vypada takto"
-              value={placeholder}
-              onChange={(e) => setPlaceholder(e.target.value)}
-            />
-          )}
-          <div className="flex justify-evenly  gap-2">
-            {type !== QuestionType.INFO && (
-              <Button type="button" className="w-full" variant={required ? 'default' : 'outline'} onClick={() => setRequired(!required)}>
-                {required ? 'Povinná' : 'Nepovinná'} otázka
-              </Button>
-            )}
-            <input type="text" value={`${required ? 'true' : ''}`} className="hidden" name="required" readOnly />
-            {type !== QuestionType.INFO && (
-              <Button type="button" className="w-full" variant={disabled ? 'outline' : 'default'} onClick={() => setDisabled(!disabled)}>
-                {disabled ? 'Nepovolená' : 'Povolená'} otázka
-              </Button>
-            )}
-            <input type="text" value={`${disabled ? 'true' : ''}`} className="hidden" name="disabled" readOnly />
-          </div>
-          <FormSubmitButton>{variant === 'create' ? 'Přidat' : 'Uložit'} otázku</FormSubmitButton>
           <input type="hidden" name="questionnaire_id" value={questionnaire_id} />
+          {question_id !== undefined && <input type="hidden" name="question_id" value={question_id} />}
           {group_id !== undefined && <input type="hidden" name="group_id" value={group_id} />}
+          {error && <Typography variant="error">{error}</Typography>}
+          <FormSubmitButton disabled={pending}>{pending ? <Loader /> : variant === 'create' ? 'Přidat otázku' : 'Uložit otázku'}</FormSubmitButton>
         </FormContent>
       </DialogContent>
     </Dialog>
