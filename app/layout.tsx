@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation';
 import { cn } from '@/utils/cn';
 import PopupMenu from './popupMenu';
 import { isAdmin } from '@/utils/roles';
+import Unauthorized from './unauthorized';
+import { getUserByEmail } from '@/db/users/getUsers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,13 +23,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
-  // if (!session?.user) redirect('/api/auth/login');
+  const user = await getUserByEmail(session?.user.email);
 
   return (
     <html lang="en">
       <UserProvider>
         <body className={cn(inter.className)}>
-          {children}
+          {user ? children : <Unauthorized />}
           {isAdmin(session) && <PopupMenu className="absolute top-4 right-4" />}
         </body>
       </UserProvider>

@@ -15,6 +15,7 @@ export type TypographyVariant =
   | 'tiny'
   | 'muted'
   | 'error'
+  | 'error-standard'
   | 'div'
   | 'success';
 
@@ -56,6 +57,8 @@ const Typography = ({
       return <p className={cn(`text-sm text-muted-foreground`, className)}>{children}</p>;
     case 'error':
       return <div className={cn(`text-sm font-medium text-muted-foreground text-red-500 mt-1 leading-none`, className)}>{children}</div>;
+    case 'error-standard':
+      return <div className={cn(`font-medium text-muted-foreground text-red-500 mt-1 leading-none`, className)}>{children}</div>;
     case 'success':
       return <div className={cn(`text-sm font-medium text-muted-foreground text-green-500 mt-1 leading-none`, className)}>{children}</div>;
     default:

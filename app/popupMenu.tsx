@@ -40,6 +40,17 @@ const PopupMenu = ({ className }: { className: string }) => {
     <div className={className} ref={popupRef}>
       <div className={cn('absolute top-8 right-20  transition-opacity', opened ? 'opacity-100 z-50' : 'opacity-0 -z-50')}>
         <div className="bg-white border border-gray-100 shadow-xl p-4 flex flex-col gap-4">
+          <Typography variant="h6">Kalendář</Typography>
+          <Link href="/sessions">
+            <Button variant="outline" className="w-full" onClick={close}>
+              Kalendář
+            </Button>
+          </Link>
+          <Link href="/sessions/planning">
+            <Button variant="outline" className="w-full" onClick={close}>
+              Plánování termínů
+            </Button>
+          </Link>
           <Typography variant="h6">Klienti</Typography>
           <EditUser action="create">
             <Button variant="outline" className="w-full" onClick={close}>

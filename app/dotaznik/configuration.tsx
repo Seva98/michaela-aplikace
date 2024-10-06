@@ -46,6 +46,7 @@ export type Question = {
   [QuestionKey.NAME]?: string;
   [QuestionKey.VALUE]?: string;
   [QuestionKey.TYPE]: QuestionType;
+  [QuestionKey.KEY]?: string;
 };
 
 export enum QuestionType {

@@ -1,0 +1,31 @@
+import { sql } from '@vercel/postgres';
+import { CalendarSession } from './calendarSession';
+
+export const getCalendarSessions = async (start_date: string, end_date: string) => {
+  try {
+    const result = await sql`
+    SELECT 
+        sess.session_id,
+        sess.session_date::text,
+        sess.note,
+        sess.rating,
+        u.first_name,
+        u.last_name
+    FROM 
+        public.michaela_sessions sess
+    JOIN 
+        public.michaela_user_subscriptions us ON sess.user_subscription_id = us.user_subscription_id
+    JOIN 
+        public.michaela_users u ON us.user_id = u.user_id
+    WHERE
+        sess.session_date >= ${start_date} AND sess.session_date <= ${end_date}
+    ORDER BY 
+        sess.session_date DESC; -- Order by the most recent session first
+
+    `;
+    return result.rows as CalendarSession[];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

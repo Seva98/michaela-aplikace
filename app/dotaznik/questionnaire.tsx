@@ -18,11 +18,10 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
 
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
-  const { current_progress: answerProgress, answer, answer_id } = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
+  const { current_progress: answerProgress, total_questions, answer, answer_id } = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
   if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${questionnaire_id}/${answerProgress + 1}`);
 
   const questions = JSON.parse(answer) as QuestionType[][];
-  const totalQuestions = questions.flat().length;
 
   const questionGroupToRender = questions[parsedCurrentProgress - 1];
 
@@ -51,7 +50,7 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
         questionnaire_id={parsedQuestionnaireId}
         currentPage={parsedCurrentProgress}
         currentMaxProgress={answerProgress}
-        totalQuestions={totalQuestions}
+        totalQuestions={total_questions}
       />
       <input type="hidden" name="answer_id" value={answer_id} />
       <input type="hidden" name="user_id" value={user?.user_id} />

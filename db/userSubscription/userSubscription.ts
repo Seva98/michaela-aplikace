@@ -2,7 +2,7 @@ export type SubscriptionSession = {
   session_id: number;
   session_date: string;
   note?: string;
-  rating: number;
+  rating?: number;
 };
 
 export type ActivatedSubscription = {
@@ -18,6 +18,7 @@ export type ActivatedSubscription = {
 };
 
 export type UserSubscription = {
+  session_id?: number;
   user_id: number;
   name: string;
   color: string;

@@ -6,4 +6,5 @@ export type Answer = {
   answer: string;
   current_progress: number;
   last_updated: Date;
+  total_questions: number;
 };

@@ -2,8 +2,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useState } from 'react';
 
 enum Subtype {
-  NAME = 'name',
-  SURNAME = 'surname',
+  NAME = 'first_name',
+  SURNAME = 'last_name',
   EMAIL = 'email',
   PHONE = 'phone',
   BIRTHDAY = 'birthday',

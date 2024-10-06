@@ -6,6 +6,7 @@ import { getUserByEmail } from '@/db/users/getUsers';
 import WelcomeMessage from './welcomeMessage';
 import ActiveSubscription from './activeSubscription';
 import PreviousSubscriptions from './previousSubscriptions';
+import UserQuestionnaires from './userQuestionnaires';
 
 const ProfilePage = async () => {
   const session = await getSession();
@@ -16,14 +17,15 @@ const ProfilePage = async () => {
     <Section className="relevant" title="Tvůj profil">
       <div className="flex flex-col gap-8">
         <WelcomeMessage />
-        <div className="grid grid-cols-[auto_auto_1fr] gap-8">
+        <UserQuestionnaires />
+        {/* <div className="grid grid-cols-[auto_1fr] gap-8">
           <ProfilePicture />
           <ActiveSubscription />
-          <div className="shadow border rounded p-4 border-gray-100 overflow-auto">
-            <Typography variant="h3">Tvoje předchozí členství</Typography>
-            <PreviousSubscriptions />
-          </div>
         </div>
+        <div className="shadow border rounded p-4 border-gray-100 overflow-auto">
+          <Typography variant="h3">Tvoje předchozí členství</Typography>
+          <PreviousSubscriptions />
+        </div> */}
       </div>
     </Section>
   );

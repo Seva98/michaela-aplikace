@@ -41,7 +41,8 @@ export const getUserQuestionnaires = async (user_id?: number) => {
           a.questionnaire_id,
           q.name, 
           a.answer,
-          a.current_progress
+          a.current_progress,
+          a.total_questions
       FROM 
           public.michaela_answers a
       JOIN 
