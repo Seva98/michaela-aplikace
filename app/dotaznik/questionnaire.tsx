@@ -18,6 +18,8 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
 
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
+  const answers = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
+  console.log(answers);
   const { current_progress: answerProgress, total_questions, answer, answer_id } = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
   if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${questionnaire_id}/${answerProgress + 1}`);
 
@@ -37,10 +39,10 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
   };
 
   return (
-    <form className="flex flex-col p-8 h-screen w-screen justify-between items-center" action={updateAnswerAndRedirect}>
+    <form className="flex flex-col p-8 min-h-screen-w-header w-screen justify-between items-center" action={updateAnswerAndRedirect}>
       <Typography variant="h1">Vstupní dotázník</Typography>
       <div className="relative w-full max-w-md flex items-center">
-        <QuestionsGroup index={parsedCurrentProgress} currentPage={parsedCurrentProgress}>
+        <QuestionsGroup>
           {questionGroupToRender.map((question, questionIndex) => (
             <Question question={question} key={questionIndex} />
           ))}

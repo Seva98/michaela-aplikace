@@ -45,6 +45,7 @@ const GrowingTextarea = ({ defaultValue, rows = 1, className, ...props }: { rows
       }}
       rows={rows} // Use the rows prop
       style={{ minHeight: `calc(${rows * 1.5}em + 12px)` }} // Set the minimum height dynamically
+      defaultValue={defaultValue}
       {...props}
     />
   );

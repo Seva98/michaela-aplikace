@@ -25,7 +25,7 @@ const UserQuestionnaires = async () => {
             <div>
               Odpovězeno {current_progress} z {total_questions} otázek
             </div>
-            <Link href={`/dotaznik/${questionnaire_id}`}>
+            <Link href={`/dotaznik/${questionnaire_id}/${current_progress}`}>
               <Button>Přejít na dotazník</Button>
             </Link>
           </div>

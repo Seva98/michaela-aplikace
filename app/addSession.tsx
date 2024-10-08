@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createSession } from '@/db/sessions/createSession';
 import { today, todayWithTime } from '@/utils/dates';
 import Rating from '../components/form/rating';
+import { getButtonColorStyle } from '@/utils/colors';
 
 const AddSession = ({ user_subscription_id, color }: { user_subscription_id: number; color: string }) => {
   return (
@@ -15,13 +16,7 @@ const AddSession = ({ user_subscription_id, color }: { user_subscription_id: num
       <div className="grid grid-cols-1 gap-1">
         <input type="hidden" name="user_subscription_id" value={user_subscription_id} />
         <Input type="datetime-local" name="session_date" defaultValue={todayWithTime()} />
-        <FormSubmitButton
-          style={{
-            backgroundColor: color,
-          }}
-        >
-          Přidat trénink
-        </FormSubmitButton>
+        <FormSubmitButton style={getButtonColorStyle(color)}>Přidat trénink</FormSubmitButton>
       </div>
     </FormWithError>
   );

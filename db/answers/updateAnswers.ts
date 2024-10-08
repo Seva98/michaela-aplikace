@@ -11,15 +11,20 @@ export const updateAnswers = async (formData: FormData) => {
     const answer_id = formData.get('answer_id')?.toString();
     const current_progress = parseInt(formData.get('current_progress')?.toString() ?? '0');
 
+    console.log(answers);
+
     const answerResponse = await sql`
     SELECT * FROM michaela_answers WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
     const { answer, current_progress: existing_progress } = answerResponse.rows[0] as Answer;
 
-    const parsedAnswers = JSON.parse(answer) as Question[];
-    answers.forEach((answer) => {
-      const foundAnswer = parsedAnswers.find((parsedAnswer) => parsedAnswer.name === answer.key);
-      if (!foundAnswer) return;
-      foundAnswer.value = answer.value.toString();
+    const parsedAnswers = JSON.parse(answer) as Question[][];
+    parsedAnswers.forEach((questionArray, i) => {
+      questionArray.forEach((parsedAnswer, j) => {
+        const foundAnswer = answers.find((answer) => answer.key === parsedAnswer.name);
+        if (foundAnswer) {
+          parsedAnswer.value = foundAnswer.value.toString();
+        }
+      });
     });
 
     const new_progress = current_progress > existing_progress ? current_progress : existing_progress;

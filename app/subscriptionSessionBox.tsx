@@ -8,6 +8,7 @@ import { useState } from 'react';
 import SubscriptionSessionState from './subscriptionSessionState';
 import SubscriptionSessionHover from './subscriptionSessionHover';
 import { getSubscriptionHistoryState, getSubscriptionHistoryStateColor } from '@/utils/db/subscriptions/subscriptionHistoryState';
+import { getButtonColorStyle } from '@/utils/colors';
 
 const SubscriptionHistoryBox = ({
   session,
@@ -37,9 +38,7 @@ const SubscriptionHistoryBox = ({
       onMouseLeave={() => setActive(false)}
       onTouchStart={() => setActive(true)}
       onTouchEnd={() => setActive(false)}
-      style={{
-        backgroundColor: getSubscriptionHistoryStateColor(state, color),
-      }}
+      style={getButtonColorStyle(getSubscriptionHistoryStateColor(state, color))}
     >
       <SubscriptionSessionState handleClick={() => setActive(true)} state={state} />
       {hover && <SubscriptionSessionHover active={active} color={color} state={state} session={session} />}

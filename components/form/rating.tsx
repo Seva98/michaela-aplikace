@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
+import { getButtonColorStyle } from '@/utils/colors';
 import { StarIcon } from '@radix-ui/react-icons';
 import { MouseEvent, useState } from 'react';
 
@@ -34,9 +35,9 @@ const Rating = ({ color, user_subscription_id }: { color: string; user_subscript
               )}
               onClick={(e) => handleRating(e, i)}
               onMouseEnter={() => handleMouseEnter(i)}
-              style={{ backgroundColor: color }}
+              style={getButtonColorStyle(color)}
             >
-              <StarIcon className="text-white" />
+              <StarIcon color="white" />
             </Button>
           </div>
         ))}

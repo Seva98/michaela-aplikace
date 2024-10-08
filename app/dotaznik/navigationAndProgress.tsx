@@ -49,7 +49,6 @@ const NavigationAndProgress = ({
       document.removeEventListener('keydown', handleKeyDown);
     };
   });
-  console.log(currentPage);
 
   return (
     <div className="flex gap-4 justify-between w-full mt-8">
@@ -64,9 +63,13 @@ const NavigationAndProgress = ({
         </Typography>
         <Progress className="w-[200px]" value={currentPage + 1} max={totalQuestions} />
       </div>
-      <FormSubmitButton className="w-fit" disabled={currentPage === totalQuestions}>
-        Další ⬇️
-      </FormSubmitButton>
+      {currentPage < totalQuestions ? (
+        <FormSubmitButton className="w-fit" disabled={currentPage === totalQuestions}>
+          Další ⬇️
+        </FormSubmitButton>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

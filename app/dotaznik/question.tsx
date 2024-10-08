@@ -17,6 +17,8 @@ const Question = ({ question }: { question: QuestionProp }) => {
 
   const requiredText = required ? `${text}*` : text;
 
+  console.log(question);
+
   switch (type) {
     case QuestionType.TEXT:
     case QuestionType.EMAIL:
@@ -45,6 +47,7 @@ const Question = ({ question }: { question: QuestionProp }) => {
           placeholder={placeholder}
           name={name}
           defaultValue={value}
+          required={required}
           disabled={pending}
           className="text-center"
         />

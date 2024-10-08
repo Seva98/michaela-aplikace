@@ -1,7 +1,6 @@
 import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
 import { czechDateWithTime, getCzechWeekdayName, isHoursDifferenceMoreThan } from '@/utils/dates';
-import SubscriptionSessionState from '../subscriptionSessionState';
-import { getSubscriptionHistoryState, getSubscriptionHistoryStateColor } from '@/utils/db/subscriptions/subscriptionHistoryState';
+import { getSubscriptionHistoryState } from '@/utils/db/subscriptions/subscriptionHistoryState';
 import { Button } from '@/components/ui/button';
 import SubscriptionHistoryBox from '../subscriptionSessionBox';
 import Typography from '@/components/ui/typography';

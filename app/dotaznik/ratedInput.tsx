@@ -5,7 +5,7 @@ import Typography from '@/components/ui/typography';
 import { cn } from '@/utils/cn';
 import { useState } from 'react';
 
-const RatedInput = ({ label, name, value, disabled }: { label: string; name?: string; value?: string; disabled?: boolean }) => {
+const RatedInput = ({ label, name, value, disabled, required }: { label: string; name?: string; value?: string; disabled?: boolean; required?: boolean }) => {
   const [rating, setRating] = useState(parseInt(value ?? ''));
 
   return (
@@ -30,7 +30,7 @@ const RatedInput = ({ label, name, value, disabled }: { label: string; name?: st
         </div>
         <Typography className="text-xs">Závažné problémy</Typography>
       </div>
-      <input type="hidden" name={name} value={rating} />
+      <input type="hidden" name={name} value={rating} required={required} />
     </div>
   );
 };

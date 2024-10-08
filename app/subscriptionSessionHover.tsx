@@ -3,6 +3,7 @@ import { czechDateWithTime } from '@/utils/dates';
 import Typography from '@/components/ui/typography';
 import { StarIcon } from '@radix-ui/react-icons';
 import { SubscritpionHistoryState } from '@/utils/db/subscriptions/subscriptionHistoryState';
+import { getButtonColorStyle } from '@/utils/colors';
 
 const SubscriptionSessionHover = ({
   active,
@@ -25,7 +26,7 @@ const SubscriptionSessionHover = ({
             {session?.rating && (
               <div className="flex gap-1 items-center">
                 <Typography>{session.rating}</Typography>
-                <div className="w-6 h-6 flex justify-center items-center text-white rounded" style={{ backgroundColor: color }}>
+                <div className="w-6 h-6 flex justify-center items-center text-white rounded" style={getButtonColorStyle(color)}>
                   <StarIcon />
                 </div>
               </div>

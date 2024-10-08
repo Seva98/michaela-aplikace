@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Typography from '@/components/ui/typography';
 import { activateSubscription } from '@/db/subscriptions/activateSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
+import { getButtonColorStyle } from '@/utils/colors';
 import { today } from '@/utils/dates';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -42,13 +43,7 @@ const AddSubscription = ({ subscriptions, user_id, color }: { subscriptions: Sub
           ))}
         </SelectContent>
       </Select>
-      <FormSubmitButton
-        style={{
-          backgroundColor: color,
-        }}
-      >
-        Uložit
-      </FormSubmitButton>
+      <FormSubmitButton style={getButtonColorStyle(color)}>Uložit</FormSubmitButton>
     </FormWithError>
   );
 };

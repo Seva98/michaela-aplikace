@@ -11,6 +11,7 @@ const SingleChoice = ({
   value,
   description,
   disabled,
+  required,
 }: {
   label: string;
   name?: string;
@@ -18,8 +19,9 @@ const SingleChoice = ({
   value?: string;
   description?: string;
   disabled?: boolean;
+  required?: boolean;
 }) => {
-  const [answer, setAnswer] = useState(value ?? '');
+  const [answer, setAnswer] = useState(value ?? undefined);
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   return (
@@ -32,11 +34,10 @@ const SingleChoice = ({
       )}
       <div className="relative flex flex-col gap-1">
         {answers.map((newAnswer, i) => (
-          <div className="flex gap-2 items-center" key={`answer${label}-${i}`}>
+          <div className="flex gap-2 items-center cursor-pointer hover:bg-teal-50 rounded-md" key={`answer${label}-${i}`} onClick={() => setAnswer(newAnswer)}>
             <Button
               variant={answer === newAnswer ? 'default' : 'outline'}
               className={cn('h-10 w-10 p-0 rounded flex justify-center items-center transition-opacity')}
-              onClick={() => setAnswer(newAnswer)}
               type="button"
               disabled={disabled}
             >
@@ -46,7 +47,7 @@ const SingleChoice = ({
           </div>
         ))}
       </div>
-      <input type="hidden" name={name} value={answer} disabled={disabled} />
+      <input type="hidden" name={name} value={answer} disabled={disabled} required={required} />
     </div>
   );
 };

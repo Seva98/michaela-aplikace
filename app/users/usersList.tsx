@@ -9,6 +9,7 @@ import { deleteUser } from '@/db/users/deleteUser';
 import { getAllUsers } from '@/db/users/getUsers';
 import { changeUserOrder, toggleUserVisibility } from '@/db/users/updateUser';
 import { cn } from '@/utils/cn';
+import { getTextColorStyle } from '@/utils/colors';
 import { getName } from '@/utils/db/user/getName';
 import { TriangleRightIcon } from '@radix-ui/react-icons';
 import { unstable_noStore } from 'next/cache';
@@ -25,8 +26,7 @@ const UsersList = async ({ gridClass }: { gridClass: string }) => {
           <div className={cn(gridClass)}>
             <ChangeOrder action={changeUserOrder} id={user.user_id} idKey="user_id" itemIndex={i} itemsLength={users.length} />
             <div className="w-6 h-6" style={{ backgroundColor: user.color }} />
-            <Typography>{getName(user.first_name, user.last_name)}</Typography>
-
+            <Typography style={getTextColorStyle(user.color)}>{getName(user.first_name, user.last_name)}</Typography>
             <Typography>{user.email}</Typography>
             <Typography>{user.phone}</Typography>
             <Link href={`/users/${user.user_id}`} className="flex justify-between items-center">

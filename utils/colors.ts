@@ -16,3 +16,12 @@ export function hexToRgba(hex: string, alpha: number): string {
 
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+export const getButtonColorStyle = (color?: string) => ({
+  backgroundColor: color,
+  backgroundImage: color ? 'unset' : undefined,
+});
+
+export const getTextColorStyle = (color?: string) => ({
+  color,
+});

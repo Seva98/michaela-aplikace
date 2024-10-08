@@ -1,12 +1,12 @@
 import Section from '@/components/containers/section';
-import FormattedAnswer from './formattedAnswer';
+import FormattedAnswers from './formattedAnswers';
 
 export type AnswerParams = { params: { answer_id: string } };
 
 const Page = async ({ params }: AnswerParams) => {
   return (
     <Section title="Odpovědi">
-      <FormattedAnswer params={params} />
+      <FormattedAnswers params={params} />
     </Section>
   );
 };
