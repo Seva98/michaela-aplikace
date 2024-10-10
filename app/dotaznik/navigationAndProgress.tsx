@@ -2,8 +2,6 @@
 
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import { Button } from '@/components/ui/button';
-import Typography from '@/components/ui/typography';
-import { Progress } from '@radix-ui/react-progress';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import SelectPage from './selectPage';
@@ -14,11 +12,13 @@ const NavigationAndProgress = ({
   currentMaxProgress,
   questionnaire_id,
   totalQuestions,
+  isLastPage,
 }: {
   currentPage: number;
   currentMaxProgress: number;
   questionnaire_id: number;
   totalQuestions: number;
+  isLastPage: boolean;
 }) => {
   unstable_noStore();
   const router = useRouter();
@@ -55,16 +55,11 @@ const NavigationAndProgress = ({
       <Button className="w-fit" variant="secondary" onClick={handlePrevious} disabled={currentPage <= 1} type="button">
         Zpět ⬆️
       </Button>
-      <div className="text-center">
-        <Typography className="grid grid-cols-[auto_auto_auto] gap-1 items-center">
-          <div>Otázka</div>
-          <SelectPage currentPage={currentPage} currentMaxProgress={currentMaxProgress} questionnaire_id={questionnaire_id} />
-          <div>z {totalQuestions}</div>
-        </Typography>
-        <Progress className="w-[200px]" value={currentPage + 1} max={totalQuestions} />
+      <div className="text-center w-[200px]">
+        <SelectPage currentPage={currentPage} currentMaxProgress={currentMaxProgress} questionnaire_id={questionnaire_id} totalQuestions={totalQuestions} />
       </div>
-      {currentPage < totalQuestions ? (
-        <FormSubmitButton className="w-fit" disabled={currentPage === totalQuestions}>
+      {currentPage < totalQuestions + 1 ? (
+        <FormSubmitButton className="w-fit" disabled={currentPage === totalQuestions + 1}>
           Další ⬇️
         </FormSubmitButton>
       ) : (

@@ -2,6 +2,7 @@
 
 import { Question, QuestionKey, questions } from '@/app/dotaznik/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
+import { getNormalizedQuestionnaire } from '@/utils/db/questionnaire/getNormalizedQuestionnaire';
 import { toPositiveNumber } from '@/utils/number';
 import { sql } from '@vercel/postgres';
 
@@ -50,7 +51,7 @@ export const addPageToQuestionnaire = async (formData: FormData) => {
 
     await sql`
       UPDATE michaela_questionnaires
-      SET configuration = ${JSON.stringify(configuration)}
+      SET configuration = ${getNormalizedQuestionnaire(configuration)}
       WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
     `;
   } catch (error) {
@@ -88,7 +89,7 @@ export const addQuestionToQuestionnaire = async (formData: FormData) => {
 
     await sql`
       UPDATE michaela_questionnaires
-      SET configuration = ${JSON.stringify(configuration)}
+      SET configuration = ${getNormalizedQuestionnaire(configuration)}
       WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
     `;
   } catch (error) {
@@ -129,7 +130,7 @@ export const editQuestionInQuestionnaire = async (formData: FormData) => {
 
     await sql`
       UPDATE michaela_questionnaires
-      SET configuration = ${JSON.stringify(configuration)}
+      SET configuration = ${getNormalizedQuestionnaire(configuration)}
       WHERE questionnaire_id = ${questionnaire_id} AND owner_id = ${owner_id}
     `;
   } catch (error) {
