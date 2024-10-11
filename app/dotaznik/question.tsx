@@ -55,9 +55,11 @@ const Question = ({ question }: { question: QuestionProp }) => {
     case QuestionType.INFO:
       return <Markdown content={text} />;
     case QuestionType.RATING:
-      return <RatedInput name={name} label={requiredText} value={value} disabled={pending} />;
+      return <RatedInput name={name} label={requiredText} value={value} disabled={pending} required={required} />;
     case QuestionType.SINGLECHOICE:
-      return <SingleChoice answers={answers ?? []} description={description} name={name} value={value} label={requiredText} disabled={pending} />;
+      return (
+        <SingleChoice answers={answers ?? []} description={description} name={name} value={value} label={requiredText} disabled={pending} required={required} />
+      );
     default:
       return null;
   }

@@ -17,7 +17,9 @@ const SelectPage = ({
 }) => {
   unstable_noStore();
   const router = useRouter();
-  const reachedLastPage = currentPage > currentMaxProgress;
+  const reachedLastPage = currentPage > totalQuestions;
+
+  console.log(currentPage, currentMaxProgress, reachedLastPage);
 
   return (
     <Typography className="grid grid-cols-[auto_auto_auto] gap-1 items-center">
@@ -32,7 +34,7 @@ const SelectPage = ({
           <SelectValue placeholder={reachedLastPage ? '' : currentPage} />
         </SelectTrigger>
         <SelectContent>
-          {Array.from({ length: reachedLastPage ? totalQuestions : currentMaxProgress }).map((_, p) => (
+          {Array.from({ length: reachedLastPage ? totalQuestions : currentMaxProgress + 1 }).map((_, p) => (
             <SelectItem key={`page-${p}`} value={`${p + 1}`}>
               {p + 1}
             </SelectItem>

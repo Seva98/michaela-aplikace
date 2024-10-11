@@ -8,7 +8,7 @@ const SingleChoice = ({
   label,
   name,
   answers,
-  value,
+  value = '',
   description,
   disabled,
   required,
@@ -21,7 +21,7 @@ const SingleChoice = ({
   disabled?: boolean;
   required?: boolean;
 }) => {
-  const [answer, setAnswer] = useState(value ?? undefined);
+  const [answer, setAnswer] = useState(value);
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   return (
@@ -32,7 +32,7 @@ const SingleChoice = ({
           {description}
         </Typography>
       )}
-      <div className="relative flex flex-col gap-1">
+      <div className="relative flex flex-col gap-1 pb-px">
         {answers.map((newAnswer, i) => (
           <div className="flex gap-2 items-center cursor-pointer hover:bg-teal-50 rounded-md" key={`answer${label}-${i}`} onClick={() => setAnswer(newAnswer)}>
             <Button
@@ -46,8 +46,8 @@ const SingleChoice = ({
             <Typography>{newAnswer}</Typography>
           </div>
         ))}
+        <input className="absolute bottom-0 left-0 h-px w-10 text-white" name={name} value={answer} required={required} />
       </div>
-      <input type="hidden" name={name} value={answer} disabled={disabled} required={required} />
     </div>
   );
 };
