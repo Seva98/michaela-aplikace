@@ -46,7 +46,7 @@ const SingleChoice = ({
             <Typography>{newAnswer}</Typography>
           </div>
         ))}
-        <input className="absolute bottom-0 left-0 h-px w-10 text-white" name={name} value={answer} required={required} />
+        <input className="absolute bottom-0 left-0 h-px w-10 text-white" name={name} value={answer} required={required} onChange={() => {}} />
       </div>
     </div>
   );
