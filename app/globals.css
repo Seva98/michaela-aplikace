@@ -14,9 +14,6 @@
     @apply text-teal-500;
   }
 
-  button {
-    @apply uppercase;
-  }
 
 
   button:disabled {

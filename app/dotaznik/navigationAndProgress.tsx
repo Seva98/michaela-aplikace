@@ -10,13 +10,13 @@ import { unstable_noStore } from 'next/cache';
 const NavigationAndProgress = ({
   currentPage,
   currentMaxProgress,
-  questionnaire_id,
+  answer_id,
   totalQuestions,
   isLastPage,
 }: {
   currentPage: number;
   currentMaxProgress: number;
-  questionnaire_id: number;
+  answer_id: number;
   totalQuestions: number;
   isLastPage: boolean;
 }) => {
@@ -30,7 +30,7 @@ const NavigationAndProgress = ({
   };
 
   const handlePrevious = () => {
-    router.push(`/dotaznik/${questionnaire_id}/${currentPage - 1 > 1 ? currentPage - 1 : 1}`);
+    router.push(`/dotaznik/${answer_id}/${currentPage - 1 > 1 ? currentPage - 1 : 1}`);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -56,7 +56,7 @@ const NavigationAndProgress = ({
         Zpět ⬆️
       </Button>
       <div className="text-center w-[200px]">
-        <SelectPage currentPage={currentPage} currentMaxProgress={currentMaxProgress} questionnaire_id={questionnaire_id} totalQuestions={totalQuestions} />
+        <SelectPage currentPage={currentPage} currentMaxProgress={currentMaxProgress} answer_id={answer_id} totalQuestions={totalQuestions} />
       </div>
       {currentPage < totalQuestions + 1 ? (
         <FormSubmitButton className="w-fit" disabled={currentPage === totalQuestions + 1}>

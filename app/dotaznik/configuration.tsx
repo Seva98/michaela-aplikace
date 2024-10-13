@@ -1,5 +1,3 @@
-import { updateAnswers, updateUserAnswers } from '@/db/answers/updateAnswers';
-import { updateUser } from '@/db/users/updateUser';
 import Question from './question';
 
 const healthIssues = [

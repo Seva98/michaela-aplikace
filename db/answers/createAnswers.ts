@@ -17,16 +17,6 @@ export const assignQuestionnaireToUser = async (formData: FormData) => {
 
     if (!questionnaires.rowCount) throw new Error('Questionnaire not found');
 
-    const foundQuestionnaire = await sql`
-      SELECT * FROM michaela_answers
-      WHERE questionnaire_id = ${questionnaire_id} AND user_id = ${user_id} AND owner_id = ${owner_id};`;
-
-    if (foundQuestionnaire.rowCount) {
-      await sql`
-        DELETE FROM michaela_answers
-        WHERE questionnaire_id = ${questionnaire_id} AND user_id = ${user_id} AND owner_id = ${owner_id};`;
-    }
-
     const parsedAnswers = JSON.parse(questionnaires.rows[0].configuration) as Question[][];
     const user = await sql`
       SELECT * FROM michaela_users
@@ -62,7 +52,7 @@ export const assignQuestionnaireToUser = async (formData: FormData) => {
     });
 
     const result = await sql`
-      INSERT INTO michaela_answers (questionnaire_id, user_id, owner_id, answer, total_questions)
+      INSERT INTO michaela_questionnaire_answers (questionnaire_id, user_id, owner_id, answer, total_questions)
       VALUES (${questionnaire_id}, ${user_id}, ${owner_id}, ${JSON.stringify(parsedAnswers)}, ${parsedAnswers.length})
       RETURNING *;
     `;

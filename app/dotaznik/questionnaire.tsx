@@ -9,19 +9,19 @@ import { redirect } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { getAsnwersByUser } from '@/db/answers/getAnswers';
-import { QuestionnaireParams } from './[questionnaire_id]/page';
+import { QuestionnaireParams } from './[answer_id]/page';
 import Link from 'next/link';
 
-const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1' } }: {} & QuestionnaireParams) => {
+const Questionnaire = async ({ params: { answer_id, current_progress = '1' } }: {} & QuestionnaireParams) => {
   unstable_noStore();
-  const parsedQuestionnaireId = parseInt(questionnaire_id);
+  const parsedAnswerId = parseInt(answer_id);
   const parsedCurrentProgress = parseInt(current_progress) >= 1 ? parseInt(current_progress) : 1;
 
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
-  const answers = await getAsnwersByUser(parsedQuestionnaireId, user?.user_id);
-  const { current_progress: answerProgress, total_questions, answer, answer_id } = answers;
-  if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${questionnaire_id}/${answerProgress + 1}`);
+  const answers = await getAsnwersByUser(parsedAnswerId, user?.user_id);
+  const { current_progress: answerProgress, total_questions, answer } = answers;
+  if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${parsedAnswerId}/${answerProgress + 1}`);
 
   const questions = JSON.parse(answer) as QuestionObj[][];
 
@@ -31,7 +31,7 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
     'use server';
     try {
       await updateAnswers(formData);
-      redirect(`/dotaznik/${questionnaire_id}/${parsedCurrentProgress + 1}`);
+      redirect(`/dotaznik/${parsedAnswerId}/${parsedCurrentProgress + 1}`);
     } catch (error) {
       console.error(error);
       throw error;
@@ -54,7 +54,7 @@ const Questionnaire = async ({ params: { questionnaire_id, current_progress = '1
         </QuestionsGroup>
       </div>
       <NavigationAndProgress
-        questionnaire_id={parsedQuestionnaireId}
+        answer_id={parsedAnswerId}
         currentPage={parsedCurrentProgress}
         currentMaxProgress={answerProgress}
         totalQuestions={total_questions}

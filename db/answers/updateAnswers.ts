@@ -14,7 +14,7 @@ export const updateAnswers = async (formData: FormData) => {
     console.log(answers);
 
     const answerResponse = await sql`
-    SELECT * FROM michaela_answers WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
+    SELECT * FROM michaela_questionnaire_answers WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
     const { answer, current_progress: existing_progress } = answerResponse.rows[0] as Answer;
 
     const parsedAnswers = JSON.parse(answer) as Question[][];
@@ -30,7 +30,7 @@ export const updateAnswers = async (formData: FormData) => {
     const new_progress = current_progress > existing_progress ? current_progress : existing_progress;
 
     await sql`
-    UPDATE michaela_answers
+    UPDATE michaela_questionnaire_answers
     SET answer = ${JSON.stringify(parsedAnswers)}, current_progress = ${new_progress}, last_updated = NOW()
     WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
 
@@ -38,16 +38,5 @@ export const updateAnswers = async (formData: FormData) => {
   } catch (error) {
     console.error(error);
     return error;
-  }
-};
-
-export const updateUserAnswers = async (formData: FormData) => {
-  try {
-    const birthday = formData.get('birthday')?.toString();
-    const phone = formData.get('phone')?.toString();
-    await updateAnswers(formData);
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };

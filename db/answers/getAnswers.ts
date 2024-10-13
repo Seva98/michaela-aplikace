@@ -7,7 +7,7 @@ export const getAnswers = async () => {
     const owner_id = await getOwnerId();
 
     const result = await sql`
-      SELECT * FROM michaela_answers
+      SELECT * FROM michaela_questionnaire_answers
       WHERE owner_id = ${owner_id};
     `;
     return result.rows as Answer[];
@@ -17,11 +17,11 @@ export const getAnswers = async () => {
   }
 };
 
-export const getAsnwersByUser = async (questionnaire_id?: number, user_id?: number) => {
+export const getAsnwersByUser = async (answer_id?: number, user_id?: number) => {
   try {
     const result = await sql`
-      SELECT * FROM michaela_answers
-      WHERE user_id = ${user_id} AND questionnaire_id = ${questionnaire_id};
+      SELECT * FROM michaela_questionnaire_answers
+      WHERE user_id = ${user_id} AND answer_id = ${answer_id};
     `;
     return result.rows[0] as Answer;
   } catch (error) {
@@ -35,7 +35,7 @@ export const getAnswersById = async (answer_id: number) => {
     const ownerId = await getOwnerId();
 
     const result = await sql`
-      SELECT * FROM michaela_answers
+      SELECT * FROM michaela_questionnaire_answers
       WHERE answer_id = ${answer_id} AND owner_id = ${ownerId};
     `;
     return result.rows[0] as Answer;

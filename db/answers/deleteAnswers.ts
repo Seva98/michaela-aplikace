@@ -11,7 +11,7 @@ export const deleteAnswers = async (formData: FormData) => {
     const owner_id = await getOwnerId();
 
     await sql`
-        DELETE FROM michaela_answers
+        DELETE FROM michaela_questionnaire_answers
         WHERE answer_id = ${answer_id} AND user_id = ${user_id} AND owner_id = ${owner_id};`;
   } catch (error) {
     console.error(error);

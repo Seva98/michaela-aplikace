@@ -5,12 +5,12 @@ import { unstable_noStore } from 'next/cache';
 import { useRouter } from 'next/navigation';
 
 const SelectPage = ({
-  questionnaire_id,
+  answer_id,
   currentPage,
   currentMaxProgress,
   totalQuestions,
 }: {
-  questionnaire_id: number;
+  answer_id: number;
   currentPage: number;
   currentMaxProgress: number;
   totalQuestions: number;
@@ -27,7 +27,7 @@ const SelectPage = ({
       <Select
         value={reachedLastPage ? '' : `${currentPage}`}
         onValueChange={(p) => {
-          router.push(`/dotaznik/${questionnaire_id}/${parseInt(p)}`);
+          router.push(`/dotaznik/${answer_id}/${parseInt(p)}`);
         }}
       >
         <SelectTrigger>

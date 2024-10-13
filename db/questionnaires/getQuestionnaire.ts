@@ -44,10 +44,11 @@ export const getUserQuestionnaires = async (user_id?: number) => {
           a.current_progress,
           a.total_questions
       FROM 
-          public.michaela_answers a
+          public.michaela_questionnaire_answers a
       JOIN 
           public.michaela_questionnaires q ON a.questionnaire_id = q.questionnaire_id
-      WHERE user_id = ${user_id};
+      WHERE user_id = ${user_id}
+      ORDER BY answer_id;
     `;
     return result.rows as Array<{ name: string } & Answer>;
   } catch (error) {

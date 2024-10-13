@@ -1,17 +1,18 @@
 import { getSession } from '@auth0/nextjs-auth0';
 import Typography from '@/components/ui/typography';
 import { getUserByEmail } from '@/db/users/getUsers';
-import Section from '@/components/containers/section';
 import { unstable_noStore } from 'next/cache';
 import { getUserQuestionnaires } from '@/db/questionnaires/getQuestionnaire';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { czechDate } from '@/utils/dates';
 import Card from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-const getQuestionnaireLink = (questionnaire_id: number, current_progress: number, total_questions: number) =>
-  `/dotaznik/${questionnaire_id}/${current_progress === total_questions ? total_questions + 1 : current_progress}`;
+const getQuestionnaireLink = (answer_id: number, current_progress: number, total_questions: number) => {
+  const isFirst = current_progress === 1;
+  const isLast = current_progress === total_questions;
+  const page = isFirst ? 1 : isLast ? total_questions + 1 : current_progress + 1;
+  return `/dotaznik/${answer_id}/${page}`;
+};
 
 const UserQuestionnaires = async () => {
   unstable_noStore();
@@ -32,15 +33,15 @@ const UserQuestionnaires = async () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {userQuestionnaires.map(({ questionnaire_id, name, current_progress, total_questions }, index) => (
-              <TableRow key={`questionniare-${questionnaire_id}`}>
+            {userQuestionnaires.map(({ answer_id, name, current_progress, total_questions }, index) => (
+              <TableRow key={`questionniare-${answer_id}`}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{name}</TableCell>
                 <TableCell>
                   {current_progress} z {total_questions} otázek
                 </TableCell>
                 <TableCell>
-                  <Link href={getQuestionnaireLink(questionnaire_id, current_progress, total_questions)}>Otevřít dotazník</Link>
+                  <Link href={getQuestionnaireLink(answer_id, current_progress, total_questions)}>Otevřít dotazník</Link>
                 </TableCell>
               </TableRow>
             ))}
