@@ -1,8 +1,10 @@
 import { sql } from '@vercel/postgres';
 import { CalendarSession } from './calendarSession';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 
 export const getCalendarSessions = async (start_date: string, end_date: string) => {
   try {
+    const owner_id = await getOwnerId();
     const result = await sql`
     SELECT 
         sess.session_id,
@@ -18,7 +20,7 @@ export const getCalendarSessions = async (start_date: string, end_date: string) 
     JOIN 
         public.michaela_users u ON us.user_id = u.user_id
     WHERE
-        sess.session_date >= ${start_date} AND sess.session_date <= ${end_date}
+        sess.session_date >= ${start_date} AND sess.session_date <= ${end_date} AND sess.owner_id = ${owner_id}
     ORDER BY 
         sess.session_date DESC; -- Order by the most recent session first
 

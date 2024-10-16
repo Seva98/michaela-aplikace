@@ -2,6 +2,7 @@ import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { Questionnaire } from './questionnaire';
 import { sql } from '@vercel/postgres';
 import { Answer } from '../answers/answer';
+import { checkValidUser } from '@/utils/db/user/checkValidUser';
 
 export const getQuestionnaires = async () => {
   try {
@@ -33,6 +34,7 @@ export const getQuestionnaireById = async (questionnaire_id: number) => {
 
 export const getUserQuestionnaires = async (user_id?: number) => {
   try {
+    await checkValidUser(user_id);
     const result = await sql`
       SELECT 
           a.answer_id,

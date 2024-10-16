@@ -1,9 +1,15 @@
 import 'server-only';
 import { sql } from '@vercel/postgres';
 import { ActivatedSubscription, UserSubscription } from './userSubscription';
+import { getOwnerId } from '@/utils/db/owner/getOwnerId';
+import { getUserId } from '@/utils/db/user/getUserId';
+import { isOwnerOrAdmin } from '@/utils/db/user/isAdminOrUser';
+import { Role } from '@/utils/db/user/role';
+import { checkValidUser } from '@/utils/db/user/checkValidUser';
 
 export const getLatestSubscriptionOfAllUsers = async () => {
   try {
+    const owner_id = await getOwnerId();
     const result = await sql`
         WITH session_counts AS (
             SELECT user_subscription_id, COUNT(*) AS session_count
@@ -52,7 +58,7 @@ export const getLatestSubscriptionOfAllUsers = async () => {
             michaela_users u
         LEFT JOIN
             latest_subscriptions v ON u.user_id = v.user_id
-        WHERE u.is_hidden = FALSE
+        WHERE u.is_hidden = FALSE AND u.owner_id = ${owner_id}
         ORDER BY
             u.user_id;
         `;
@@ -65,6 +71,7 @@ export const getLatestSubscriptionOfAllUsers = async () => {
 
 export const getAllActiveSubscriptions = async () => {
   try {
+    const owner_id = await getOwnerId();
     const result = await sql`
     WITH session_counts AS (
         SELECT user_subscription_id, COUNT(*) AS session_count
@@ -112,7 +119,7 @@ export const getAllActiveSubscriptions = async () => {
             JOIN michaela_subscriptions s ON us.subscription_id = s.subscription_id
             WHERE us.is_completed = FALSE
         ) v ON u.user_id = v.user_id
-    WHERE u.is_hidden = FALSE
+    WHERE u.is_hidden = FALSE AND u.owner_id = ${owner_id}
     ORDER BY
         u.user_id;
     `;
@@ -124,6 +131,7 @@ export const getAllActiveSubscriptions = async () => {
 };
 export const getUserSubscriptions = async (user_id: number) => {
   try {
+    await checkValidUser(user_id);
     const result = await sql`
     WITH session_counts AS (
         SELECT user_subscription_id, COUNT(*) AS session_count
@@ -182,6 +190,7 @@ export const getUserSubscriptions = async (user_id: number) => {
 };
 
 export const getAllPastSubscriptionsOfUser = async (user_id: number) => {
+  await checkValidUser(user_id);
   try {
     const result = await sql`
     WITH session_counts AS (

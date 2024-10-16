@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography';
 import { UserSubscription } from '@/db/userSubscription/userSubscription';
-import { isSubscriptionActive } from '@/utils/db/subscriptions/isSubscriptionCompleted';
+import { hasRemainingSessions, isSubscriptionActive } from '@/utils/db/subscriptions/isSubscriptionCompleted';
 import { TriangleRightIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import ActiveSubscription from './activeSubscription';
@@ -30,6 +30,11 @@ const CurrentSubscription = async ({
       )}
       {active_subscription && <ActiveSubscription subscription={active_subscription} color={color} />}
       {!isSubscriptionActive(active_subscription) && <AddSubscription subscriptions={subscriptions} user_id={user_id} color={color} />}
+      {isSubscriptionActive(active_subscription) && !hasRemainingSessions(active_subscription) && (
+        <Typography variant="small" className="mb-auto">
+          Před aktivaci nového členství nejprve ukonči současné členství 👆🏼
+        </Typography>
+      )}
     </div>
   );
 };

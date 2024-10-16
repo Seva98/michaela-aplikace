@@ -1,5 +1,7 @@
 import { getLatestSubscriptionOfAllUsers } from '@/db/userSubscription/getUserSubscription';
 import CurrentSubscription from './currentSubscription';
+import Typography from '@/components/ui/typography';
+import CreateUserAlert from '@/components/alerts/createUserAlert';
 
 const UsersSummary = async () => {
   const users = await getLatestSubscriptionOfAllUsers();
@@ -9,6 +11,7 @@ const UsersSummary = async () => {
       {users.map((user_subscription) => (
         <CurrentSubscription key={`user-${user_subscription.user_id}`} user_subscription={user_subscription} />
       ))}
+      {users.length === 0 && <CreateUserAlert />}
     </div>
   );
 };

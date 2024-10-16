@@ -1,6 +1,7 @@
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { Answer } from './answer';
+import { checkValidUser } from '@/utils/db/user/checkValidUser';
 
 export const getAnswers = async () => {
   try {
@@ -19,6 +20,7 @@ export const getAnswers = async () => {
 
 export const getAsnwersByUser = async (answer_id?: number, user_id?: number) => {
   try {
+    await checkValidUser(user_id);
     const result = await sql`
       SELECT * FROM michaela_questionnaire_answers
       WHERE user_id = ${user_id} AND answer_id = ${answer_id};

@@ -9,7 +9,8 @@ export const activateSubscription = async (formData: FormData, subscription_id: 
   const start_date = formData.get('start_date')?.toString() || '';
   const owner_id = await getOwnerId();
 
-  const checkSubscription = await sql`SELECT * FROM michaela_user_subscriptions WHERE user_id = ${user_id} AND is_completed = false`;
+  const checkSubscription =
+    await sql`SELECT * FROM michaela_user_subscriptions WHERE user_id = ${user_id} AND is_completed = false AND owner_id = ${owner_id};`;
 
   if (checkSubscription.rows.length > 0) {
     return 'User already has an active subscription';

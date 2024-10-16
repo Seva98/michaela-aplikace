@@ -6,7 +6,9 @@ import SubscriptionHistory from './subscriptionHistory';
 import SubscriptionState from './subscriptionState';
 import { hasRemainingSessions } from '@/utils/db/subscriptions/isSubscriptionCompleted';
 
-const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSubscription; color: string }) => {
+const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSubscription | null; color: string }) => {
+  if (!subscription) return null;
+
   const { subscription_name, expiration_date, number_of_sessions, subscription_sessions, user_subscription_id, is_completed } = subscription;
 
   return (

@@ -9,6 +9,7 @@ import { cn } from '@/utils/cn';
 import Unauthorized from '@/app/unauthorized';
 import PopupMenu from '@/app/popupMenu';
 import { isAdmin } from '@/utils/roles';
+import { getOwnerByEmail } from '@/db/owners/getOwner';
 
 export const metadata = {
   title: 'Michaela Ševčík - Osobní trénink, Plzeň',
@@ -24,6 +25,9 @@ const merriweather = Merriweather_Sans({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
+  const owner = await getOwnerByEmail(session?.user.email);
+
+  console.log(owner);
 
   return (
     <html lang="en">
@@ -31,7 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body className={cn(merriweather.className)}>
           <Navbar adminPadding={isAdmin(session)} />
           <main className="min-h-screen-w-header">
-            {user || !isAdmin(session) ? children : <Unauthorized />}
+            {user || owner ? children : <Unauthorized />}
             {isAdmin(session) && <PopupMenu className="absolute top-0 right-4" />}
           </main>
           <Footer />

@@ -11,8 +11,6 @@ export const updateAnswers = async (formData: FormData) => {
     const answer_id = formData.get('answer_id')?.toString();
     const current_progress = parseInt(formData.get('current_progress')?.toString() ?? '0');
 
-    console.log(answers);
-
     const answerResponse = await sql`
     SELECT * FROM michaela_questionnaire_answers WHERE user_id = ${user_id} AND answer_id = ${answer_id}`;
     const { answer, current_progress: existing_progress } = answerResponse.rows[0] as Answer;

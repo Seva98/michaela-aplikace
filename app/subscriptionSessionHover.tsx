@@ -21,6 +21,7 @@ const SubscriptionSessionHover = ({
       <div className="relative">
         {state !== 'not_planned' && (
           <div className="absolute min-w-max flex flex-col gap-2 top-0 left-3 p-4 bg-white text-black transition-opacity shadow rounded">
+            <Typography>{state === 'completed' ? 'Dokončeno' : state === 'expired' ? 'Expirovalo' : 'Naplánováno'}</Typography>
             {state === 'expired' && <div>Expirovalo</div>}
             {session?.session_date && <div>{czechDateWithTime(session?.session_date)}</div>}
             {session?.rating && (
