@@ -25,7 +25,7 @@ const Rating = ({ color, user_subscription_id }: { color: string; user_subscript
 
   return (
     <>
-      <div className="relative grid grid-cols-10 gap-1" onMouseLeave={handleMouseLeave}>
+      <div className="relative grid grid-cols-10 gap-1 w-fit mx-auto" onMouseLeave={handleMouseLeave}>
         {Array.from({ length: 10 }).map((_, i) => (
           <div className={cn('relative')} key={`box-${user_subscription_id}-${i}`}>
             <Button

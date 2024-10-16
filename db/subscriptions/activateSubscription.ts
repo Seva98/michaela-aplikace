@@ -26,9 +26,14 @@ export const activateSubscription = async (formData: FormData, subscription_id: 
   return 'Subscription activated';
 };
 
-export const completeSubscription = async (formData: FormData) => {
+export const updateSubscriptionState = async (formData: FormData) => {
   const user_subscription_id = formData.get('user_subscription_id')?.toString() || '';
+  const new_state = formData.get('new_state')?.toString() || '';
   const owner_id = await getOwnerId();
+
+  if (!new_state || !['active', 'completed'].includes(new_state)) {
+    throw new Error('Invalid new subscription state');
+  }
 
   // Verify the subscription belongs to the owner
   const subscriptionCheck = await sql`
@@ -44,7 +49,7 @@ export const completeSubscription = async (formData: FormData) => {
 
   await sql`
     UPDATE michaela_user_subscriptions
-    SET is_completed = true,
+    SET is_completed = ${new_state === 'completed'},
       completion_date = NOW()
     WHERE user_subscription_id = ${user_subscription_id} AND owner_id = ${owner_id};
     `;

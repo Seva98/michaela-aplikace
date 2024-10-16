@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Question } from '@/app/dotaznik/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 import { addPageToQuestionnaire, updateQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
 import { Button } from '@/components/ui/button';
 import FormSubmitButton from '@/components/common/formSubmitButton';

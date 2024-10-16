@@ -21,7 +21,7 @@ const Questionnaire = async ({ params: { answer_id, current_progress = '1' } }: 
   const user = await getUserByEmail(session?.user.email);
   const answers = await getAsnwersByUser(parsedAnswerId, user?.user_id);
   const { current_progress: answerProgress, total_questions, answer } = answers;
-  if (parsedCurrentProgress - 1 > answerProgress) redirect(`/dotaznik/${parsedAnswerId}/${answerProgress + 1}`);
+  if (parsedCurrentProgress - 1 > answerProgress) redirect(`/profile/questionnaire/${parsedAnswerId}/${answerProgress + 1}`);
 
   const questions = JSON.parse(answer) as QuestionObj[][];
 
@@ -31,7 +31,7 @@ const Questionnaire = async ({ params: { answer_id, current_progress = '1' } }: 
     'use server';
     try {
       await updateAnswers(formData);
-      redirect(`/dotaznik/${parsedAnswerId}/${parsedCurrentProgress + 1}`);
+      redirect(`/profile/questionnaire/${parsedAnswerId}/${parsedCurrentProgress + 1}`);
     } catch (error) {
       console.error(error);
       throw error;

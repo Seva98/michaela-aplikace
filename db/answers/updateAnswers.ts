@@ -2,7 +2,7 @@
 
 import { sql } from '@vercel/postgres';
 import { Answer } from './answer';
-import { Question } from '@/app/dotaznik/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 
 export const updateAnswers = async (formData: FormData) => {
   try {

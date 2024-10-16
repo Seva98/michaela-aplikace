@@ -1,4 +1,4 @@
-import { QuestionType } from '@/app/dotaznik/configuration';
+import { QuestionType } from '@/app/profile/questionnaire/configuration';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const SelectQuestionType = ({ type, onTypeChange }: { type: QuestionType; onTypeChange: (type: QuestionType) => void }) => {

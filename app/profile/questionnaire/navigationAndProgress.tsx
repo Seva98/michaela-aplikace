@@ -30,7 +30,7 @@ const NavigationAndProgress = ({
   };
 
   const handlePrevious = () => {
-    router.push(`/dotaznik/${answer_id}/${currentPage - 1 > 1 ? currentPage - 1 : 1}`);
+    router.push(`/profile/questionnaire/${answer_id}/${currentPage - 1 > 1 ? currentPage - 1 : 1}`);
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {

@@ -5,7 +5,6 @@ import { Button, ButtonProps } from '../ui/button';
 import Loader from './loader';
 
 const FormSubmitButton = ({
-  size,
   children,
   ...props
 }: Readonly<{

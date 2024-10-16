@@ -20,7 +20,7 @@ const SubscriptionHistory = async ({
   const session = await getSession();
 
   return (
-    <div className="grid grid-cols-[repeat(5,auto)] w-full gap-1 justify-start">
+    <div className="grid grid-cols-[repeat(5,auto)] mx-auto gap-1 justify-start ">
       {Array.from({ length: number_of_sessions }, (_, i) => (
         <SubscriptionHistoryBox
           key={`session-${i}`}

@@ -1,4 +1,4 @@
-import { QuestionType } from '@/app/dotaznik/configuration';
+import { QuestionType } from '@/app/profile/questionnaire/configuration';
 import { Button } from '@/components/ui/button';
 
 const QuestionRequiredDisabled = ({

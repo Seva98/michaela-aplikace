@@ -18,6 +18,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-9 px-4 py-2',
+        xs: 'h-6 px-2.5 py-1.5 text-xs',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
         icon: 'h-9 w-9',
@@ -41,3 +42,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, va
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };
+
+export type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>['variant']>;
+export type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>['size']>;

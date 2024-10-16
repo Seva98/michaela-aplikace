@@ -1,6 +1,6 @@
 import { getAnswersById } from '@/db/answers/getAnswers';
 import { AnswerParams } from './page';
-import { Question, QuestionKey } from '@/app/dotaznik/configuration';
+import { Question, QuestionKey } from '@/app/profile/questionnaire/configuration';
 import Typography from '@/components/ui/typography';
 import Card from '@/components/ui/card';
 

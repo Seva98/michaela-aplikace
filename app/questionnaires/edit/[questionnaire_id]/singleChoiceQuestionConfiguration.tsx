@@ -1,6 +1,6 @@
 'use client';
 
-import { Question } from '@/app/dotaznik/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Typography from '@/components/ui/typography';

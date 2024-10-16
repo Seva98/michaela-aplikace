@@ -2,8 +2,8 @@ import { getQuestionnaireById } from '@/db/questionnaires/getQuestionnaire';
 import { unstable_noStore } from 'next/cache';
 import { QuestionnaireEditParams } from './page';
 import Typography from '@/components/ui/typography';
-import { Question as QuestionType } from '@/app/dotaznik/configuration';
-import Question from '@/app/dotaznik/question';
+import { Question as QuestionType } from '@/app/profile/questionnaire/configuration';
+import Question from '@/app/profile/questionnaire/question';
 
 const Preview = async ({ params }: QuestionnaireEditParams) => {
   unstable_noStore();

@@ -1,6 +1,5 @@
 import Section from '@/components/containers/section';
 import Questionnaires from './questionnaires';
-import QuestionnairesHeader from './questionnairesHeader';
 
 const Page = async () => {
   const gridClass = 'grid grid-cols-[1fr_1fr_1fr_1fr] gap-2 items-center';

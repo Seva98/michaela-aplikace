@@ -1,4 +1,4 @@
-import { Question } from '@/app/dotaznik/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 
 export const getNormalizedQuestionnaire = (questionnaire: Question[][]) =>
   JSON.stringify(

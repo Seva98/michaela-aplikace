@@ -10,14 +10,12 @@ import { getButtonColorStyle } from '@/utils/colors';
 
 const AddSession = ({ user_subscription_id, color }: { user_subscription_id: number; color: string }) => {
   return (
-    <FormWithError className="flex flex-col gap-1" action={createSession}>
-      <Textarea placeholder="Poznámka" name="note"></Textarea>
+    <FormWithError className="flex flex-col gap-2 h-full" action={createSession}>
+      <Input type="datetime-local" name="session_date" defaultValue={todayWithTime()} className="flex-none" />
       <Rating color={color} user_subscription_id={user_subscription_id} />
-      <div className="grid grid-cols-1 gap-1">
-        <input type="hidden" name="user_subscription_id" value={user_subscription_id} />
-        <Input type="datetime-local" name="session_date" defaultValue={todayWithTime()} />
-        <FormSubmitButton style={getButtonColorStyle(color)}>Přidat trénink</FormSubmitButton>
-      </div>
+      <Textarea placeholder="Poznámka k tréninku" name="note" className="min-h-[5rem] h-full"></Textarea>
+      <FormSubmitButton style={getButtonColorStyle(color)}>Přidat trénink</FormSubmitButton>
+      <input type="hidden" name="user_subscription_id" value={user_subscription_id} />
     </FormWithError>
   );
 };

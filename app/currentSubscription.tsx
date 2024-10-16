@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography';
 import { UserSubscription } from '@/db/userSubscription/userSubscription';
-import { isSubscriptionCompleted } from '@/utils/db/subscriptions/isSubscriptionCompleted';
+import { isSubscriptionActive } from '@/utils/db/subscriptions/isSubscriptionCompleted';
 import { TriangleRightIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import ActiveSubscription from './activeSubscription';
@@ -19,7 +19,7 @@ const CurrentSubscription = async ({
   const subscriptions = await getSubscriptions();
 
   return (
-    <div className="flex flex-col gap-2 shadow-lg  border border-gray-100 p-4 w-[292px]">
+    <div className="flex flex-col flex-grow gap-2 shadow-lg  border border-gray-100 p-4 min-w-[280px] max-w-[350px] basis-[280px] w-full">
       {isDetail ? (
         <Typography variant="h3">Aktivní členství</Typography>
       ) : (
@@ -28,11 +28,8 @@ const CurrentSubscription = async ({
           <TriangleRightIcon className="w-6 h-6" />
         </Link>
       )}
-      {active_subscription && !isSubscriptionCompleted(active_subscription) ? (
-        <ActiveSubscription subscription={active_subscription} color={color} />
-      ) : (
-        <AddSubscription subscriptions={subscriptions} user_id={user_id} color={color} />
-      )}
+      {active_subscription && <ActiveSubscription subscription={active_subscription} color={color} />}
+      {!isSubscriptionActive(active_subscription) && <AddSubscription subscriptions={subscriptions} user_id={user_id} color={color} />}
     </div>
   );
 };

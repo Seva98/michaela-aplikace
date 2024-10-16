@@ -2,7 +2,7 @@ import Typography from '@/components/ui/typography';
 import { getQuestionnaireById } from '@/db/questionnaires/getQuestionnaire';
 import { unstable_noStore } from 'next/cache';
 import { QuestionnaireEditParams } from './page';
-import { Question } from '@/app/dotaznik/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 import EditCurrentConfiguration from './editCurrentConfiguration';
 
 const CurrentConfiguration = async ({ params }: QuestionnaireEditParams) => {

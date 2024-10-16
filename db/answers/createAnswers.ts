@@ -1,6 +1,6 @@
 'use server';
 
-import { Question, QuestionKey } from '@/app/dotaznik/configuration';
+import { Question, QuestionKey } from '@/app/profile/questionnaire/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 import { User } from '../users/user';

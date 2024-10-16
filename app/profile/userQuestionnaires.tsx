@@ -11,7 +11,7 @@ const getQuestionnaireLink = (answer_id: number, current_progress: number, total
   const isFirst = current_progress === 1;
   const isLast = current_progress === total_questions;
   const page = isFirst ? 1 : isLast ? total_questions + 1 : current_progress + 1;
-  return `/dotaznik/${answer_id}/${page}`;
+  return `/profile/questionnaire/${answer_id}/${page}`;
 };
 
 const UserQuestionnaires = async () => {

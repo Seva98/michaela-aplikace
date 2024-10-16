@@ -27,7 +27,7 @@ const SelectPage = ({
       <Select
         value={reachedLastPage ? '' : `${currentPage}`}
         onValueChange={(p) => {
-          router.push(`/dotaznik/${answer_id}/${parseInt(p)}`);
+          router.push(`/profile/questionnaire/${answer_id}/${parseInt(p)}`);
         }}
       >
         <SelectTrigger>

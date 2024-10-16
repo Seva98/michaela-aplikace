@@ -1,6 +1,6 @@
 'use client';
 
-import { Question, QuestionType } from '@/app/dotaznik/configuration';
+import { Question, QuestionType } from '@/app/profile/questionnaire/configuration';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import GrowingTextarea, { LabeledGrowingTextarea } from '@/components/common/growingTextarea';
 import { FormContent } from '@/components/containers/content';
