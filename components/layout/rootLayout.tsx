@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body className={cn(merriweather.className)}>
           <Navbar adminPadding={isAdmin(session)} />
           <main className="min-h-screen-w-header">
-            {user ? children : <Unauthorized />}
+            {user || !isAdmin(session) ? children : <Unauthorized />}
             {isAdmin(session) && <PopupMenu className="absolute top-0 right-4" />}
           </main>
           <Footer />
