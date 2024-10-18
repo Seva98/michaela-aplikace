@@ -19,8 +19,6 @@ const SelectPage = ({
   const router = useRouter();
   const reachedLastPage = currentPage > totalQuestions;
 
-  console.log(currentPage, currentMaxProgress, reachedLastPage);
-
   return (
     <Typography className="grid grid-cols-[auto_auto_auto] gap-1 items-center">
       <div>Otázka</div>

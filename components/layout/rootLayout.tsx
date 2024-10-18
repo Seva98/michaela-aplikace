@@ -27,8 +27,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const user = await getUserByEmail(session?.user.email);
   const owner = await getOwnerByEmail(session?.user.email);
 
-  console.log(owner);
-
   return (
     <html lang="en">
       <UserProvider>

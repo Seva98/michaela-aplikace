@@ -1,4 +1,4 @@
-import { SubscriptionExpired } from './db/subscriptions/isSubscriptionCompleted';
+import { SubscriptionExpired } from './db/subscriptions/geSubscritionStatus';
 
 export const today = () => {
   const date = new Date();
@@ -9,7 +9,7 @@ export const today = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const daysLater = (days: number) => {
+const daysLater = (days: number) => {
   const date = new Date();
   date.setDate(date.getDate() + days);
   return date;
@@ -94,7 +94,7 @@ export const remainingDays = (expirationDateStr: string | null) => {
   return SubscriptionExpired.EXPIRED;
 };
 
-export const hoursDifference = (date1: string, date2: string) => {
+const hoursDifference = (date1: string, date2: string) => {
   const date1Obj = new Date(date1);
   const date2Obj = new Date(date2);
   const diffTime = Math.abs(date2Obj.getTime() - date1Obj.getTime());

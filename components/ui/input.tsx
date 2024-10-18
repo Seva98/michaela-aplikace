@@ -41,7 +41,7 @@ export const LabeledInput = React.forwardRef<HTMLInputElement, InputProps & { la
         </Label>
         <Input {...props} ref={ref} />
         {description && (
-          <Typography variant="small" className="text-gray-700">
+          <Typography variant="tiny" className="text-teal-800/60 pt-1">
             {description}
           </Typography>
         )}

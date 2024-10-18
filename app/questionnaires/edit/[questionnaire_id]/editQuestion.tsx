@@ -37,7 +37,6 @@ const EditQuestion = ({
   question_id?: number;
   children: ReactNode;
 }) => {
-  console.log(question);
   unstable_noStore();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);

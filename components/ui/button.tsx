@@ -11,8 +11,9 @@ const buttonVariants = cva(
         default: 'text-stone-50 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-800 hover:to-teal-900 shadow ',
         destructive: 'bg-red-500 text-stone-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-stone-50 dark:hover:bg-red-900/90',
         outline:
-          'border border-stone-200 bg-white shadow-sm hover:bg-stone-100 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-950 dark:hover:bg-stone-800 dark:hover:text-stone-50',
-        secondary: 'bg-stone-100 hover:bg-stone-300/80 text-stone-900 shadow-sm  dark:bg-stone-800 dark:text-stone-50 dark:hover:bg-stone-800/80',
+          'border border-teal-800/30 bg-white shadow-sm hover:bg-teal-800/10 hover:text-teal-900 dark:border-stone-800 dark:bg-stone-950 dark:hover:bg-stone-800 dark:hover:text-stone-50',
+        secondary:
+          'border border-teal-800/30 bg-stone-100 hover:bg-stone-300/80 text-stone-900 shadow-sm  dark:bg-stone-800 dark:text-stone-50 dark:hover:bg-stone-800/80',
         ghost: 'hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-50',
         link: 'text-stone-900 underline-offset-4 hover:underline dark:text-stone-50',
       },

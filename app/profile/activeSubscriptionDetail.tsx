@@ -1,8 +1,8 @@
 import Typography from '@/components/ui/typography';
-import { czechDate, isExpired, remainingDays } from '@/utils/dates';
+import { czechDate, remainingDays } from '@/utils/dates';
 import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
 import SubscriptionHistoryTable from './subscriptionHistoryTable';
-import { SubscriptionExpired } from '@/utils/db/subscriptions/isSubscriptionCompleted';
+import { SubscriptionExpired } from '@/utils/db/subscriptions/geSubscritionStatus';
 
 const getExpiredColor = (active_subscription: ActivatedSubscription) =>
   remainingDays(active_subscription.expiration_date) === SubscriptionExpired.EXPIRED ? 'text-red-500' : 'text-current';

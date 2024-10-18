@@ -1,41 +1,66 @@
 import ChangeOrder from '@/components/common/changeOrder';
-import ComponentWithError from '@/components/common/componentWithError';
 import Delete from '@/components/common/delete';
-import FormSubmitButton from '@/components/common/formSubmitButton';
-import ToggleVisibility from '@/components/common/toggleVisibility';
-import { Input, LabeledInput } from '@/components/ui/input';
+import ToggleVisibility from '@/components/common/actionButton/toggleVisibility';
 import Typography from '@/components/ui/typography';
 import { deleteSubscription } from '@/db/subscriptions/deleteSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { changeSubscriptionOrder, toggleSubscriptionVisibility, updateSubscription } from '@/db/subscriptions/updateSubscriptions';
-import { cn } from '@/utils/cn';
 import { unstable_noStore } from 'next/cache';
+import { Table, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import TableRowWithError from '@/components/common/error/tableRowWithError';
+import { Button } from '@/components/ui/button';
+import EditSubscription from '@/components/edit/editSubscription';
+import { Pencil1Icon } from '@radix-ui/react-icons';
+import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
 
-const SubscriptionsList = ({ subscriptions, gridClass }: { subscriptions: Subscription[]; gridClass: string }) => {
+const SubscriptionsList = ({ subscriptions }: { subscriptions: Subscription[] }) => {
   unstable_noStore();
 
   return (
-    <>
-      {subscriptions.map(({ subscription_id, name, number_of_sessions, expiration_days, price_per_session, is_hidden }, i) => (
-        <ComponentWithError key={`subscription-${subscription_id}`}>
-          <div className={cn(gridClass)}>
-            <ChangeOrder action={changeSubscriptionOrder} id={subscription_id} idKey="subscription_id" itemIndex={i} itemsLength={subscriptions.length} />
-            <form action={updateSubscription} className="flex gap-2 items-end">
-              <Input type="hidden" name="subscription_id" value={subscription_id} />
-              <LabeledInput label="Název" type="text" name="name" defaultValue={name} />
-              <LabeledInput label="Počet lekcí" type="number" name="number_of_sessions" defaultValue={number_of_sessions} />
-              <LabeledInput label="Cena za lekci" type="number" name="price_per_session" defaultValue={price_per_session} />
-              <LabeledInput label="Platnost (dní)" type="number" name="expiration_days" defaultValue={expiration_days} />
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Pořadí</TableHead>
+          <TableHead>Název</TableHead>
+          <TableHead>Počet lekcí</TableHead>
+          <TableHead>Cena za lekci</TableHead>
+          <TableHead>Platnost (dní)</TableHead>
+          <TableHead>Cena celkem</TableHead>
+          <TableHead>Akce</TableHead>
+        </TableRow>
+        {subscriptions.map(({ subscription_id, name, number_of_sessions, expiration_days, price_per_session, is_hidden }, i) => (
+          <TableRowWithError key={`subscription-${subscription_id}`}>
+            <TableCell>
+              <ChangeOrder action={changeSubscriptionOrder} id={subscription_id} idKey="subscription_id" itemIndex={i} itemsLength={subscriptions.length} />
+            </TableCell>
+            <TableCell>
+              <Typography>{name}</Typography>
+            </TableCell>
+            <TableCell>
+              <Typography>{number_of_sessions}</Typography>
+            </TableCell>
+            <TableCell>
+              <Typography>{price_per_session} Kč</Typography>
+            </TableCell>
+            <TableCell>
+              <Typography>{expiration_days === 0 ? 'Bez expirace' : expiration_days}</Typography>
+            </TableCell>
+            <TableCell>
               <Typography>{number_of_sessions * price_per_session} Kč</Typography>
-              <FormSubmitButton className="ms-auto">Uložit</FormSubmitButton>
-            </form>
-            <ToggleVisibility action={toggleSubscriptionVisibility} id={subscription_id} idKey="subscription_id" is_hidden={is_hidden} />
-            <Delete action={deleteSubscription} id={subscription_id} idKey="subscription_id" />
-          </div>
-        </ComponentWithError>
-      ))}
-      <hr />
-    </>
+            </TableCell>
+            <CommonActionsTableCell
+              object={subscriptions[i]}
+              EditComponent={EditSubscription}
+              toggleVisibilityAction={toggleSubscriptionVisibility}
+              id={subscription_id}
+              id_key={`subscription_id`}
+              is_hidden={is_hidden}
+              deleteAction={deleteSubscription}
+            />
+          </TableRowWithError>
+        ))}
+      </TableHeader>
+    </Table>
   );
 };
 

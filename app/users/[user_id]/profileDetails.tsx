@@ -1,7 +1,7 @@
 import Markdown from '@/components/common/markdown';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
-import EditUser from '@/components/user/editUser';
+import EditUser from '@/components/edit/editUser';
 import { getUserById } from '@/db/users/getUsers';
 import { getName } from '@/utils/db/user/getName';
 import { calculateAge, czechDate } from '@/utils/dates';

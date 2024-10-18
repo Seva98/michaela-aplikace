@@ -19,7 +19,7 @@ const EditColor = ({ color }: { color?: string }) => {
       />
       <Button
         style={{
-          backgroundColor: selectedColor,
+          background: selectedColor,
         }}
         className="w-full col-span-2 "
         onClick={(e) => e.preventDefault()}

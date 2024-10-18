@@ -8,7 +8,7 @@ type Props = {
 
 const Card = ({ children, title, className }: Props) => {
   return (
-    <div className={cn('shadow-lg border border-gray-100 p-4', title ? 'flex flex-col gap-4' : '')}>
+    <div className={cn('shadow-lg border border-teal-800/10 p-4', title ? 'flex flex-col gap-4' : '')}>
       {title && <Typography variant="h3">{title}</Typography>}
       <div className={cn(className)}>{children}</div>
     </div>

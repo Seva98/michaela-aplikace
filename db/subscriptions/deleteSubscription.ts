@@ -14,7 +14,7 @@ export const deleteSubscription = async (formData: FormData) => {
     `;
 
     await sql`
-      SELECT resequence_orders('michaela_subscriptions', 'order', 'subscription_id');
+      SELECT resequence_orders('michaela_subscriptions', 'order', 'subscription_id', ${owner_id});
     `;
 
     revalidatePath('/', 'page');

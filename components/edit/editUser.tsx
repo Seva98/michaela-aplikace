@@ -13,8 +13,18 @@ import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
 
-const EditUser = ({ action, user, children, defaultOpen = false }: { action: 'create' | 'edit'; user?: User; children: ReactNode; defaultOpen?: boolean }) => {
-  const { email, first_name, last_name, user_id, address, bio, birthday, phone, color } = user || {};
+const EditUser = ({
+  action,
+  object,
+  children,
+  defaultOpen = false,
+}: {
+  action: 'create' | 'edit';
+  object?: User;
+  children?: ReactNode;
+  defaultOpen?: boolean;
+}) => {
+  const { email, first_name, last_name, user_id, address, bio, birthday, phone, color } = object || {};
   const [open, setOpen] = useState(defaultOpen);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');

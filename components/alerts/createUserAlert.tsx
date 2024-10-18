@@ -1,6 +1,6 @@
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import EditUser from '../user/editUser';
+import EditUser from '../edit/editUser';
 import { Button } from '../ui/button';
 
 const CreateUserAlert = () => {

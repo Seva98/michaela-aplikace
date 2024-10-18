@@ -13,8 +13,6 @@ import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import Delete from '@/components/common/delete';
 import { deleteQuestionnaire } from '@/db/questionnaires/deleteQuestionnaire';
-import { czechDate, czechDateWithTime } from '@/utils/dates';
-import { cn } from '@/utils/cn';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
@@ -24,8 +22,6 @@ const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
   const questionnaires = await getQuestionnaires();
   const answers = await getAnswers();
   const users = await getAllUsers();
-
-  console.log(answers);
 
   return (
     <>

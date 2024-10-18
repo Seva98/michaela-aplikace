@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
-import EditUser from '@/components/user/editUser';
+import EditUser from '@/components/edit/editUser';
 import { cn } from '@/utils/cn';
 import { PlusIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';

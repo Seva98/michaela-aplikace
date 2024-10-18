@@ -1,5 +1,5 @@
 import { HTMLProps, ReactNode } from 'react';
-import ComponentWithError from './componentWithError';
+import ComponentWithError from './error/componentWithError';
 
 const FormWithError = ({ children, ...props }: { children: ReactNode } & HTMLProps<HTMLFormElement>) => {
   return (

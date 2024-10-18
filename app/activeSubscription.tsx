@@ -4,7 +4,7 @@ import { czechDate, isExpired } from '@/utils/dates';
 import AddSession from './addSession';
 import SubscriptionHistory from './subscriptionHistory';
 import SubscriptionState from './subscriptionState';
-import { hasRemainingSessions } from '@/utils/db/subscriptions/isSubscriptionCompleted';
+import { hasRemainingSessions } from '@/utils/db/subscriptions/geSubscritionStatus';
 
 const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSubscription | null; color: string }) => {
   if (!subscription) return null;

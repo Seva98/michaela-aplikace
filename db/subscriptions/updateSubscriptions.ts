@@ -28,11 +28,6 @@ export const toggleSubscriptionVisibility = async (formData: FormData) => {
   await sql`UPDATE michaela_subscriptions 
   SET is_hidden = ${!is_hidden} 
   WHERE subscription_id = ${subscription_id} AND owner_id = ${owner_id};`;
-
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
-  revalidatePath('/subscriptions', 'page');
 };
 
 export const updateSubscription = async (formData: FormData) => {
@@ -45,7 +40,9 @@ export const updateSubscription = async (formData: FormData) => {
   };
   const owner_id = await getOwnerId();
 
-  await sql`
+  console.log(subscription_id, name, number_of_sessions, price_per_session, expiration_days);
+
+  const result = await sql`
         UPDATE michaela_subscriptions
         SET name = ${name},
             number_of_sessions = ${number_of_sessions},
@@ -54,8 +51,5 @@ export const updateSubscription = async (formData: FormData) => {
         WHERE subscription_id = ${subscription_id} AND owner_id = ${owner_id};
     `;
 
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
-  revalidatePath('/subscriptions', 'page');
+  console.log('result', result);
 };

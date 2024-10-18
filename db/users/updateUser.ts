@@ -40,9 +40,6 @@ export const updateUser = async (state: unknown) => {
       RETURNING *;
     `;
 
-    revalidatePath('/', 'page');
-    revalidatePath('/users', 'page');
-    revalidatePath(`/users/${userData.id}`);
     return result.rows[0] as User;
   } catch (error) {
     if (error instanceof z.ZodError) {

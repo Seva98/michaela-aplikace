@@ -110,7 +110,6 @@ export const editQuestionInQuestionnaire = async (formData: FormData) => {
         return [key, value];
       });
     const newQuestion = Object.fromEntries(newEntries) as Partial<Question>;
-    console.log(newQuestion);
 
     const questionnaire_id = formData.get('questionnaire_id')?.toString();
     const group_id = toPositiveNumber(formData.get('group_id')?.toString());

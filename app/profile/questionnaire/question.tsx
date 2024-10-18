@@ -17,8 +17,6 @@ const Question = ({ question }: { question: QuestionProp }) => {
 
   const requiredText = required ? `${text}*` : text;
 
-  console.log(question);
-
   switch (type) {
     case QuestionType.TEXT:
     case QuestionType.EMAIL:
