@@ -4,13 +4,8 @@ import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 
 export const deleteSession = async (formData: FormData) => {
-  try {
-    const id = parseInt(formData.get('session_id')?.toString() || '0', 10);
-    const owner_id = await getOwnerId();
+  const id = parseInt(formData.get('session_id')?.toString() || '0', 10);
+  const owner_id = await getOwnerId();
 
-    await sql`DELETE FROM michaela_sessions WHERE session_id = ${id} AND owner_id=${owner_id}`;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  await sql`DELETE FROM michaela_sessions WHERE session_id = ${id} AND owner_id=${owner_id}`;
 };

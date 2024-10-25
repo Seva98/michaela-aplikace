@@ -7,8 +7,8 @@ import EditCurrentConfiguration from './editCurrentConfiguration';
 
 const CurrentConfiguration = async ({ params }: QuestionnaireEditParams) => {
   unstable_noStore();
-  const { questionnaire_id } = params;
-  const questionnaire = await getQuestionnaireById(parseInt(params.questionnaire_id));
+  const { questionnaire_id } = await params;
+  const questionnaire = await getQuestionnaireById(parseInt(questionnaire_id));
   const questions = JSON.parse(questionnaire.configuration) as Question[][];
 
   return (

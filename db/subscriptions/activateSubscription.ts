@@ -13,18 +13,13 @@ export const activateSubscription = async (formData: FormData, subscription_id: 
     await sql`SELECT * FROM michaela_user_subscriptions WHERE user_id = ${user_id} AND is_completed = false AND owner_id = ${owner_id};`;
 
   if (checkSubscription.rows.length > 0) {
-    return 'User already has an active subscription';
+    throw new Error('User already has an active subscription');
   }
 
   await sql`
     INSERT INTO michaela_user_subscriptions (user_id, subscription_id, start_date, owner_id)
     VALUES (${user_id}, ${subscription_id}, ${start_date}, ${owner_id});
     `;
-
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
-  return 'Subscription activated';
 };
 
 export const updateSubscriptionState = async (formData: FormData) => {
@@ -54,9 +49,4 @@ export const updateSubscriptionState = async (formData: FormData) => {
       completion_date = NOW()
     WHERE user_subscription_id = ${user_subscription_id} AND owner_id = ${owner_id};
     `;
-
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
-  return 'Subscription deactivated';
 };

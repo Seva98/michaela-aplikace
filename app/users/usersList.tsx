@@ -11,6 +11,7 @@ import { unstable_noStore } from 'next/cache';
 import Link from 'next/link';
 import TableRowWithError from '@/components/common/error/tableRowWithError';
 import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
+import { Route } from 'next';
 
 const UsersList = async () => {
   unstable_noStore();
@@ -35,7 +36,7 @@ const UsersList = async () => {
             </TableCell>
             <TableCell className="flex space-x-2 items-center">
               <div className="w-6 h-6" style={{ backgroundColor: user.color }} />
-              <Link href={`/users/${user.user_id}`} className="flex justify-between items-center font-semibold">
+              <Link href={`/users/${user.user_id}` as Route} className="flex justify-between items-center font-semibold">
                 <Typography style={getTextColorStyle(user.color)}>{getName(user.first_name, user.last_name)}</Typography>
               </Link>
             </TableCell>

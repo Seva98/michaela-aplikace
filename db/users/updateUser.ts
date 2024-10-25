@@ -8,24 +8,23 @@ import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 export const updateUser = async (state: unknown) => {
   const formData = state as FormData;
 
-  try {
-    const userData = {
-      id: parseInt(formData.get('id')?.toString() || '0', 10),
-      email: formData.get('email')?.toString(),
-      first_name: formData.get('first_name')?.toString(),
-      last_name: formData.get('last_name')?.toString(),
-      address: formData.get('address')?.toString(),
-      birthday: formData.get('birthday')?.toString(),
-      phone: formData.get('phone')?.toString(),
-      bio: formData.get('bio')?.toString(),
-      color: formData.get('color')?.toString(),
-    };
+  const userData = {
+    id: parseInt(formData.get('id')?.toString() || '0', 10),
+    email: formData.get('email')?.toString(),
+    first_name: formData.get('first_name')?.toString(),
+    last_name: formData.get('last_name')?.toString(),
+    address: formData.get('address')?.toString(),
+    birthday: formData.get('birthday')?.toString(),
+    phone: formData.get('phone')?.toString(),
+    bio: formData.get('bio')?.toString(),
+    color: formData.get('color')?.toString(),
+  };
 
-    const owner_id = await getOwnerId();
+  const owner_id = await getOwnerId();
 
-    const validatedData = userSchema.parse(userData);
+  const validatedData = userSchema.parse(userData);
 
-    const result = await sql`
+  await sql`
       UPDATE michaela_users
       SET
         email = ${validatedData.email},
@@ -39,16 +38,6 @@ export const updateUser = async (state: unknown) => {
       WHERE user_id = ${userData.id} AND owner_id = ${owner_id}
       RETURNING *;
     `;
-
-    return result.rows[0] as User;
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error('Validation error:', error.errors);
-      return new Error('Invalid input data');
-    }
-    console.error(error);
-    throw error;
-  }
 };
 
 export const changeUserOrder = async (formData: FormData) => {
@@ -59,10 +48,6 @@ export const changeUserOrder = async (formData: FormData) => {
   const owner_id = await getOwnerId();
 
   await sql`SELECT adjust_user_order(${user_id}, ${amount}, ${owner_id});`;
-
-  // revalidatePath('/');
-  // revalidatePath('/users', 'page');
-  // revalidatePath('/users/[slug]', 'page');
 };
 
 export const toggleUserVisibility = async (formData: FormData) => {
@@ -73,8 +58,4 @@ export const toggleUserVisibility = async (formData: FormData) => {
   const owner_id = await getOwnerId();
 
   await sql`UPDATE michaela_users SET is_hidden = ${!is_hidden} WHERE user_id = ${user_id} AND owner_id = ${owner_id};`;
-
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
 };

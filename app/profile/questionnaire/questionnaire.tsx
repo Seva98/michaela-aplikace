@@ -1,4 +1,4 @@
-import { QuestionType, Question as QuestionObj } from './configuration';
+import { Question as QuestionObj } from './configuration';
 import Typography from '@/components/ui/typography';
 import QuestionsGroup from './questionsGroup';
 import NavigationAndProgress from './navigationAndProgress';
@@ -12,7 +12,8 @@ import { getAsnwersByUser } from '@/db/answers/getAnswers';
 import { QuestionnaireParams } from './[answer_id]/page';
 import Link from 'next/link';
 
-const Questionnaire = async ({ params: { answer_id, current_progress = '1' } }: {} & QuestionnaireParams) => {
+const Questionnaire = async ({ params }: {} & QuestionnaireParams) => {
+  const { answer_id, current_progress = '1' } = await params;
   unstable_noStore();
   const parsedAnswerId = parseInt(answer_id);
   const parsedCurrentProgress = parseInt(current_progress) >= 1 ? parseInt(current_progress) : 1;

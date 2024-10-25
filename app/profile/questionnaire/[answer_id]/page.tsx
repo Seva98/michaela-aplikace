@@ -1,10 +1,10 @@
 import Questionnaire from '../questionnaire';
 
 export type QuestionnaireParams = {
-  params: {
+  params: Promise<{
     answer_id: string;
     current_progress?: string;
-  };
+  }>;
 };
 
 const Page = async ({ params }: {} & QuestionnaireParams) => {

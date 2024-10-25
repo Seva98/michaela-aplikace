@@ -7,10 +7,11 @@ import { deleteUserSubscription } from '@/db/userSubscription/deleteUserSubscrip
 import { getAllPastSubscriptionsOfUser } from '@/db/userSubscription/getUserSubscription';
 import { czechDate } from '@/utils/dates';
 import { unstable_noStore } from 'next/cache';
-import { UserPageProps } from './page';
+import { UserPageParams } from './page';
 import Delete from '@/components/common/delete';
 
-const PreviousSubsriptions = async ({ params: { user_id } }: UserPageProps) => {
+const PreviousSubsriptions = async ({ params }: UserPageParams) => {
+  const { user_id } = await params;
   unstable_noStore();
   const subscriptions = await getAllPastSubscriptionsOfUser(user_id);
   const user = await getUserById(user_id);

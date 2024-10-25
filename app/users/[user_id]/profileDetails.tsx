@@ -9,11 +9,11 @@ import { Pencil1Icon } from '@radix-ui/react-icons';
 import { unstable_noStore } from 'next/cache';
 import { FaHome, FaPhone } from 'react-icons/fa';
 import { RiMailFill } from 'react-icons/ri';
-import { UserPageProps } from './page';
+import { UserPageParams } from './page';
 
-const ProfileDetails = async ({ params }: UserPageProps) => {
+const ProfileDetails = async ({ params }: UserPageParams) => {
   unstable_noStore();
-  const { user_id } = params;
+  const { user_id } = await params;
   const user = await getUserById(user_id);
   const { created_at, email, first_name, last_name, address, bio, birthday, phone } = user;
 

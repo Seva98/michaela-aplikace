@@ -12,10 +12,6 @@ export const changeSubscriptionOrder = async (formData: FormData) => {
   const owner_id = await getOwnerId();
 
   await sql`SELECT adjust_subscription_order(${subscription_id}, ${amount}, ${owner_id});`;
-
-  revalidatePath('/');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
 };
 
 export const toggleSubscriptionVisibility = async (formData: FormData) => {
@@ -40,9 +36,7 @@ export const updateSubscription = async (formData: FormData) => {
   };
   const owner_id = await getOwnerId();
 
-  console.log(subscription_id, name, number_of_sessions, price_per_session, expiration_days);
-
-  const result = await sql`
+  await sql`
         UPDATE michaela_subscriptions
         SET name = ${name},
             number_of_sessions = ${number_of_sessions},
@@ -50,6 +44,4 @@ export const updateSubscription = async (formData: FormData) => {
             expiration_days = ${expiration_days}
         WHERE subscription_id = ${subscription_id} AND owner_id = ${owner_id};
     `;
-
-  console.log('result', result);
 };

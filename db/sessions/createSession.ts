@@ -1,7 +1,6 @@
 'use server';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
 import 'server-only';
 import { z } from 'zod';
 
@@ -23,9 +22,4 @@ export const createSession = async (formData: FormData) => {
     VALUES (${user_subscription_id}, ${session_date}, ${note}, ${rating}, ${owner_id})
     RETURNING session_id;
   `;
-  revalidatePath('/', 'page');
-  revalidatePath('/users', 'page');
-  revalidatePath('/users/[slug]', 'page');
-  revalidatePath('/sessions', 'page');
-  revalidatePath('/sessions/[slug]', 'page');
 };

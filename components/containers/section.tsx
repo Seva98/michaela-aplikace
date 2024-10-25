@@ -2,6 +2,7 @@ import { cn } from '@/utils/cn';
 import { TriangleLeftIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import Typography from '../ui/typography';
+import { Route } from 'next';
 
 const Section = ({
   children,
@@ -27,7 +28,7 @@ const Section = ({
         )}
         {sublink && (
           <>
-            <Link href={sublink.href} className="flex items-center">
+            <Link href={sublink.href as Route} className="flex items-center">
               <Typography variant="h3">{sublink.label}</Typography>
             </Link>
             <TriangleLeftIcon className="w-10 h-10" />

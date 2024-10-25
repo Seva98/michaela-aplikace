@@ -15,6 +15,7 @@ import Delete from '@/components/common/delete';
 import { deleteQuestionnaire } from '@/db/questionnaires/deleteQuestionnaire';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Route } from 'next';
 
 const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
   unstable_noStore();
@@ -28,11 +29,7 @@ const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
       {questionnaires.map(({ questionnaire_id, name }) => (
         <div key={`questionnaire-${questionnaire_id}`} className="flex flex-col gap-4 shadow-lg border border-gray-100 p-4">
           <div className="flex justify-between items-center gap-4 px-2">
-            <Link
-              href={`
-                /questionnaires/edit/${questionnaire_id}
-                `}
-            >
+            <Link href={`/questionnaires/edit/${questionnaire_id}` as Route}>
               <Typography variant="h4">{name}</Typography>
             </Link>
             <Delete action={deleteQuestionnaire} id={questionnaire_id} idKey="questionnaire_id" variant="icon" className="w-full" />
@@ -64,7 +61,7 @@ const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
                       <TableCell>{last_updated.toLocaleString()}</TableCell>
 
                       <TableCell className="flex gap-4 justify-end">
-                        <Link href={`/questionnaires/answer/${answer_id}`} className="w-28">
+                        <Link href={`/questionnaires/answer/${answer_id}` as Route} className="w-28">
                           <Button variant="outline" className="w-full">
                             Odpovědi
                           </Button>

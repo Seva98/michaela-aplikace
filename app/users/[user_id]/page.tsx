@@ -9,15 +9,15 @@ import { notFound } from 'next/navigation';
 import { unstable_noStore } from 'next/cache';
 import CurrentSubscriptionDetail from './currentSubscriptionDetail';
 
-export type UserPageProps = {
-  params: {
+export type UserPageParams = {
+  params: Promise<{
     user_id: number;
-  };
+  }>;
 };
 
-const UserPage = async ({ params }: UserPageProps) => {
+const UserPage = async ({ params }: UserPageParams) => {
   unstable_noStore();
-  const { user_id } = params;
+  const { user_id } = await params;
   const user_subscription = await getUserSubscriptions(user_id);
   const user = await getUserById(user_id);
   if (!user) notFound();

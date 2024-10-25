@@ -1,11 +1,12 @@
 import { getAnswersById } from '@/db/answers/getAnswers';
 import { AnswerParams } from './page';
-import { Question, QuestionKey } from '@/app/profile/questionnaire/configuration';
+import { Question } from '@/app/profile/questionnaire/configuration';
 import Typography from '@/components/ui/typography';
 import Card from '@/components/ui/card';
 
 const FormattedAnswers = async ({ params }: AnswerParams) => {
-  const parsedId = parseInt(params.answer_id);
+  const { answer_id } = await params;
+  const parsedId = parseInt(answer_id);
   const { answer } = await getAnswersById(parsedId);
   const questions = JSON.parse(answer) as Question[][];
 

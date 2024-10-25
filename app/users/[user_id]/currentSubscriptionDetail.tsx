@@ -1,5 +1,5 @@
 import { unstable_noStore } from 'next/cache';
-import { UserPageProps } from './page';
+import { UserPageParams } from './page';
 import { czechDate } from '@/utils/dates';
 import Rating from '@/components/form/rating';
 import Typography from '@/components/ui/typography';
@@ -13,9 +13,9 @@ import { deleteSession } from '@/db/sessions/deleteSession';
 import Save from '@/components/common/save';
 import GrowingTextarea from '@/components/common/growingTextarea';
 
-const CurrentSubscriptionDetail = async ({ params }: UserPageProps) => {
+const CurrentSubscriptionDetail = async ({ params }: UserPageParams) => {
   unstable_noStore();
-  const { user_id } = params;
+  const { user_id } = await params;
   const user = await getUserById(user_id);
 
   const userSubSessions = await getUserSubscritpitonsWithSessions(user_id, 20, 0);

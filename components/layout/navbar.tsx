@@ -7,6 +7,7 @@ import NavbarLink from './navbarLink';
 import { navbarLinks } from './constants';
 import Typography from '../ui/typography';
 import { cn } from '@/utils/cn';
+import { Route } from 'next';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function Navbar() {
       <nav className={cn(`${isMenuOpen ? 'py-2' : ''}`)}>
         <div className={`flex ${isMenuOpen ? 'flex-col' : 'hidden'} lg:flex-row justify-center lg:space-x-4 text-lg list-none lg:block`}>
           {navbarLinks.map(({ href, text }) => (
-            <NavbarLink key={href} href={href} text={text} />
+            <NavbarLink key={href} href={href as Route} text={text} />
           ))}
         </div>
       </nav>

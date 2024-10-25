@@ -1,7 +1,7 @@
 import Section from '@/components/containers/section';
 import FormattedAnswers from './formattedAnswers';
 
-export type AnswerParams = { params: { answer_id: string } };
+export type AnswerParams = { params: Promise<{ answer_id: string }> };
 
 const Page = async ({ params }: AnswerParams) => {
   return (

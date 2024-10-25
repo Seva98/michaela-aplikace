@@ -7,14 +7,9 @@ export const deleteAnswers = async (formData: FormData) => {
   const answer_id = formData.get('answer_id')?.toString();
   const user_id = formData.get('user_id')?.toString();
 
-  try {
-    const owner_id = await getOwnerId();
+  const owner_id = await getOwnerId();
 
-    await sql`
+  await sql`
         DELETE FROM michaela_questionnaire_answers
         WHERE answer_id = ${answer_id} AND user_id = ${user_id} AND owner_id = ${owner_id};`;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };

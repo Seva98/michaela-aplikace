@@ -6,12 +6,13 @@ import { getUserQuestionnaires } from '@/db/questionnaires/getQuestionnaire';
 import Link from 'next/link';
 import Card from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Route } from 'next';
 
 const getQuestionnaireLink = (answer_id: number, current_progress: number, total_questions: number) => {
   const isFirst = current_progress === 1;
   const isLast = current_progress === total_questions;
   const page = isFirst ? 1 : isLast ? total_questions + 1 : current_progress + 1;
-  return `/profile/questionnaire/${answer_id}/${page}`;
+  return `/profile/questionnaire/${answer_id}/${page}` as Route;
 };
 
 const UserQuestionnaires = async () => {

@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import Typography from '../ui/typography';
 import { Button } from '../ui/button';
+import { Route } from 'next';
 
 type NavbarLink = {
-  href: string;
+  href: Route;
   children: React.ReactNode;
 };
 
-const NavbarLink = ({ href, text }: { href: string; text: string }) => {
+const NavbarLink = ({ href, text }: { href: Route; text: string }) => {
   return (
     <Link className="uppercase" href={href}>
       <Button variant="ghost" className="p-0">

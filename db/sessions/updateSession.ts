@@ -12,9 +12,7 @@ export const updateSession = async (formData: FormData) => {
   };
   const owner_id = await getOwnerId();
 
-  console.log('updateSession', { session_id, note, rating, session_date, owner_id });
-
-  const result = await sql`
+  await sql`
     UPDATE michaela_sessions
     SET
       note = ${note},
@@ -23,6 +21,4 @@ export const updateSession = async (formData: FormData) => {
     WHERE session_id = ${session_id} AND owner_id = ${owner_id}
     RETURNING *;
   `;
-
-  console.log(result);
 };
