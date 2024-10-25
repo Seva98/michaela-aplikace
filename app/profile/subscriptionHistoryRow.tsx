@@ -25,15 +25,7 @@ const SubscriptionHistoryRow = ({
   return (
     <div className="flex justify-between">
       <div className="flex gap-4 items-center">
-        <SubscriptionHistoryBox
-          session={session}
-          subscription_sessions={subscription_sessions}
-          is_completed={is_completed}
-          index={index}
-          color={color}
-          size="small"
-          hover={false}
-        />
+        <SubscriptionHistoryBox session={session} state={state} color={color} size="small" hover={false} />
 
         {session?.session_date ? (
           <div className="grid grid-cols-[75px_1fr]">

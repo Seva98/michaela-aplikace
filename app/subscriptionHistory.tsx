@@ -3,6 +3,8 @@ import { getSubscriptionSession, getUserSubscriptionSession } from '@/utils/db/s
 import SubscriptionHistoryBox from './subscriptionSessionBox';
 import { getSession } from '@auth0/nextjs-auth0';
 import { isAdmin } from '@/utils/roles';
+import { getSubscriptionHistoryState } from '@/utils/db/subscriptions/subscriptionHistoryState';
+import { unstable_noStore } from 'next/cache';
 
 const SubscriptionHistory = async ({
   subscription_sessions,
@@ -17,6 +19,7 @@ const SubscriptionHistory = async ({
   size?: 'small' | 'large';
   color: string;
 }) => {
+  unstable_noStore();
   const session = await getSession();
 
   return (
@@ -24,10 +27,9 @@ const SubscriptionHistory = async ({
       {Array.from({ length: number_of_sessions }, (_, i) => (
         <SubscriptionHistoryBox
           key={`session-${i}`}
-          session={!isAdmin(session) ? getSubscriptionSession(subscription_sessions, i) : getUserSubscriptionSession(subscription_sessions, i)}
-          subscription_sessions={subscription_sessions}
-          is_completed={is_completed}
-          index={i}
+          // To limit client side data
+          session={isAdmin(session) ? getSubscriptionSession(subscription_sessions, i) : getUserSubscriptionSession(subscription_sessions, i)}
+          state={getSubscriptionHistoryState(subscription_sessions, i, is_completed)}
           size={size}
           color={color}
         />

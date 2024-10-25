@@ -22,7 +22,7 @@ const ProfileDetails = async ({ params }: UserPageProps) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <Typography variant="h2">{getName(first_name, last_name)}</Typography>
-          <EditUser user={user} action="edit">
+          <EditUser object={user} action="edit">
             <Button variant="ghost">
               <Pencil1Icon />
             </Button>

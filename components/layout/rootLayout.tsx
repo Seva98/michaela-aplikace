@@ -10,6 +10,7 @@ import Unauthorized from '@/app/unauthorized';
 import PopupMenu from '@/app/popupMenu';
 import { isAdmin } from '@/utils/roles';
 import { getOwnerByEmail } from '@/db/owners/getOwner';
+import { AdminMenu } from './adminMenu';
 
 export const metadata = {
   title: 'Michaela Ševčík - Osobní trénink, Plzeň',
@@ -30,13 +31,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <UserProvider>
-        <body className={cn(merriweather.className)}>
-          <Navbar adminPadding={isAdmin(session)} />
-          <main className="min-h-screen-w-header">
-            {user || owner ? children : <Unauthorized />}
-            {isAdmin(session) && <PopupMenu className="absolute top-0 right-4" />}
-          </main>
-          <Footer />
+        <body className={cn(merriweather.className, 'flex')}>
+          <div className="flex-1 flex flex-col min-h-screen">
+            <Navbar />
+            {isAdmin(session) && <AdminMenu />}
+            <main className="min-h-screen-w-header flex-grow">{user || owner ? children : <Unauthorized />}</main>
+            <Footer />
+          </div>
         </body>
       </UserProvider>
     </html>

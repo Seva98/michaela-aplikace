@@ -6,8 +6,8 @@ import { getButtonColorStyle } from '@/utils/colors';
 import { StarIcon } from '@radix-ui/react-icons';
 import { MouseEvent, useState } from 'react';
 
-const Rating = ({ color, user_subscription_id }: { color: string; user_subscription_id: number }) => {
-  const [rating, setRating] = useState(4);
+const Rating = ({ color, user_subscription_id, defaultRating }: { color: string; user_subscription_id: number; defaultRating?: number }) => {
+  const [rating, setRating] = useState(defaultRating ?? 4);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const handleRating = (e: MouseEvent<HTMLButtonElement>, i: number) => {

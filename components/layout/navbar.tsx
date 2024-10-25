@@ -8,7 +8,7 @@ import { navbarLinks } from './constants';
 import Typography from '../ui/typography';
 import { cn } from '@/utils/cn';
 
-export default function Navbar({ adminPadding }: { adminPadding?: boolean }) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu() {
@@ -24,7 +24,7 @@ export default function Navbar({ adminPadding }: { adminPadding?: boolean }) {
             Michaela Ševčík
           </Typography>
         </Link>
-        <div className={cn('lg:hidden', adminPadding ? 'pe-12' : '')} onClick={toggleMenu} aria-label="Toggle menu">
+        <div className={cn('lg:hidden')} onClick={toggleMenu} aria-label="Toggle menu">
           <div className="relative w-6 h-6 ">
             <span
               className="absolute block w-full h-[2px] transition-all duration-500 bg-teal-700"
@@ -50,7 +50,7 @@ export default function Navbar({ adminPadding }: { adminPadding?: boolean }) {
           </div>
         </div>
       </div>
-      <nav className={cn(`${isMenuOpen ? 'py-2' : ''}`, adminPadding ? 'pe-12' : '')}>
+      <nav className={cn(`${isMenuOpen ? 'py-2' : ''}`)}>
         <div className={`flex ${isMenuOpen ? 'flex-col' : 'hidden'} lg:flex-row justify-center lg:space-x-4 text-lg list-none lg:block`}>
           {navbarLinks.map(({ href, text }) => (
             <NavbarLink key={href} href={href} text={text} />

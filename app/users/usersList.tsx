@@ -1,8 +1,4 @@
 import ChangeOrder from '@/components/common/changeOrder';
-import ComponentWithError from '@/components/common/error/componentWithError';
-import Delete from '@/components/common/delete';
-import ToggleVisibility from '@/components/common/actionButton/toggleVisibility';
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Typography from '@/components/ui/typography';
 import EditUser from '@/components/edit/editUser';
@@ -11,7 +7,6 @@ import { getAllUsers } from '@/db/users/getUsers';
 import { changeUserOrder, toggleUserVisibility } from '@/db/users/updateUser';
 import { getTextColorStyle } from '@/utils/colors';
 import { getName } from '@/utils/db/user/getName';
-import { TriangleRightIcon } from '@radix-ui/react-icons';
 import { unstable_noStore } from 'next/cache';
 import Link from 'next/link';
 import TableRowWithError from '@/components/common/error/tableRowWithError';

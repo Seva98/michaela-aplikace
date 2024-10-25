@@ -15,10 +15,7 @@ export const getLatestSubscriptionOfAllUsers = async () => {
         ),
         latest_subscriptions AS (
             SELECT DISTINCT ON (us.user_id) us.*, s.name AS subscription_name, s.expiration_days, s.number_of_sessions,
-                CASE 
-                    WHEN s.expiration_days = 0 THEN NULL
-                    ELSE (us.start_date + s.expiration_days * INTERVAL '1 day')
-                END AS expiration_date
+                (us.start_date + NULLIF(s.expiration_days, 0) * INTERVAL '1 day') AS expiration_date
             FROM michaela_user_subscriptions us
             JOIN michaela_subscriptions s ON us.subscription_id = s.subscription_id
             ORDER BY us.user_id, us.start_date DESC
@@ -42,9 +39,9 @@ export const getLatestSubscriptionOfAllUsers = async () => {
                                 'session_count', sc.session_count,
                                 'note', sess.note,
                                 'rating', sess.rating
-                            ))
+                            ) ORDER BY sess.session_date)
                             FROM michaela_sessions sess
-                            JOIN session_counts sc ON sess.user_subscription_id = sc.user_subscription_id
+                            LEFT JOIN session_counts sc ON sess.user_subscription_id = sc.user_subscription_id
                             WHERE sess.user_subscription_id = v.user_subscription_id
                         ),
                         'user_subscription_id', v.user_subscription_id
@@ -94,7 +91,7 @@ export const getUserSubscriptions = async (user_id: number) => {
                             'session_count', sc.session_count,
                             'note', sess.note,
                             'rating', sess.rating
-                        ))
+                        ) ORDER BY sess.session_date)
                         FROM michaela_sessions sess
                         JOIN session_counts sc ON sess.user_subscription_id = sc.user_subscription_id
                         WHERE sess.user_subscription_id = v.user_subscription_id
@@ -149,7 +146,7 @@ export const getAllPastSubscriptionsOfUser = async (user_id: number) => {
                 'session_count', sc.session_count,
                 'note', sess.note,
                 'rating', sess.rating
-            ))
+            ) ORDER BY sess.session_date)
             FROM michaela_sessions sess
             JOIN session_counts sc ON sess.user_subscription_id = sc.user_subscription_id
             WHERE sess.user_subscription_id = v.user_subscription_id

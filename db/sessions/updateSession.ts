@@ -4,19 +4,25 @@ import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { sql } from '@vercel/postgres';
 
 export const updateSession = async (formData: FormData) => {
-  const { session_id, note, rating } = {
+  const { session_id, note, rating, session_date } = {
     session_id: parseInt(formData.get('session_id')?.toString() || '0', 10),
     note: formData.get('note')?.toString(),
     rating: parseInt(formData.get('rating')?.toString() || '0', 10),
+    session_date: formData.get('session_date')?.toString(),
   };
   const owner_id = await getOwnerId();
 
-  await sql`
+  console.log('updateSession', { session_id, note, rating, session_date, owner_id });
+
+  const result = await sql`
     UPDATE michaela_sessions
     SET
       note = ${note},
-      rating = ${rating}
+      rating = ${rating},
+      session_date = ${session_date}
     WHERE session_id = ${session_id} AND owner_id = ${owner_id}
     RETURNING *;
   `;
+
+  console.log(result);
 };

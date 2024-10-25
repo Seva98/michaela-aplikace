@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import EditUser from '@/components/edit/editUser';
 
-const NewSubscription = () => {
+const NewUser = () => {
   return (
     <EditUser action="create">
       <Button variant="outline" className="w-full">
@@ -11,4 +11,4 @@ const NewSubscription = () => {
   );
 };
 
-export default NewSubscription;
+export default NewUser;
