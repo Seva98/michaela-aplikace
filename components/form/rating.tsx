@@ -25,9 +25,9 @@ const Rating = ({ color, user_subscription_id, defaultRating }: { color: string;
 
   return (
     <>
-      <div className="relative grid grid-cols-10 gap-1 w-fit mx-auto" onMouseLeave={handleMouseLeave}>
+      <div className="grid grid-cols-10 gap-1 w-fit mx-auto" onMouseLeave={handleMouseLeave}>
         {Array.from({ length: 10 }).map((_, i) => (
-          <div className={cn('relative')} key={`box-${user_subscription_id}-${i}`}>
+          <div key={`box-${user_subscription_id}-${i}`}>
             <Button
               className={cn(
                 'h-6 w-6 p-0 rounded flex justify-center items-center transition-opacity',
