@@ -29,13 +29,10 @@ const Rating = ({ color, user_subscription_id, defaultRating }: { color: string;
         {Array.from({ length: 10 }).map((_, i) => (
           <div key={`box-${user_subscription_id}-${i}`}>
             <Button
-              className={cn(
-                'h-6 w-6 p-0 rounded flex justify-center items-center transition-opacity',
-                i <= (hoverIndex !== null ? hoverIndex : rating) ? 'opacity-100' : 'opacity-10',
-              )}
+              className={cn('h-6 w-6 p-0 rounded flex justify-center items-center transition-opacity')}
               onClick={(e) => handleRating(e, i)}
               onMouseEnter={() => handleMouseEnter(i)}
-              style={getButtonColorStyle(color)}
+              style={i <= (hoverIndex !== null ? hoverIndex : rating) ? getButtonColorStyle(color) : { background: '#ddd' }}
             >
               <StarIcon color="white" />
             </Button>
