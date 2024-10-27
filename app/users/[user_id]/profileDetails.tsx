@@ -1,7 +1,7 @@
 import Markdown from '@/components/common/markdown';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
-import EditUser from '@/components/edit/editUser';
+import EditUserDialog from '@/components/edit/editUserDialog';
 import { getUserById } from '@/db/users/getUsers';
 import { getName } from '@/utils/db/user/getName';
 import { calculateAge, czechDate } from '@/utils/dates';
@@ -22,11 +22,11 @@ const ProfileDetails = async ({ params }: UserPageParams) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <Typography variant="h2">{getName(first_name, last_name)}</Typography>
-          <EditUser object={user} action="edit">
+          <EditUserDialog object={user} action="edit">
             <Button variant="ghost">
               <Pencil1Icon />
             </Button>
-          </EditUser>
+          </EditUserDialog>
         </div>
         <Typography variant="small">{calculateAge(birthday)}</Typography>
         <Typography variant="small">Klientem od {czechDate(created_at)}</Typography>

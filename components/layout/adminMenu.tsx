@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { FaUser, FaRegCreditCard } from 'react-icons/fa';
-import { RiHome2Fill, RiQuestionnaireFill } from 'react-icons/ri';
+import { RiCalendar2Fill, RiHome2Fill, RiQuestionnaireFill } from 'react-icons/ri';
 import Typography from '../ui/typography';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn';
@@ -11,6 +11,7 @@ import { Route } from 'next';
 
 const items = [
   { icon: <RiHome2Fill />, name: 'Přehled', href: '/' },
+  { icon: <RiCalendar2Fill />, name: 'Kalendář', href: '/sessions' },
   { icon: <FaUser />, name: 'Klienti', href: '/users' },
   { icon: <FaRegCreditCard />, name: 'Členství', href: '/subscriptions' },
   { icon: <RiQuestionnaireFill />, name: 'Dotazníky', href: '/questionnaires' },

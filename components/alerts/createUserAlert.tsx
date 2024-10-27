@@ -1,6 +1,6 @@
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import EditUser from '../edit/editUser';
+import EditUserDialog from '../edit/editUserDialog';
 import { Button } from '../ui/button';
 
 const CreateUserAlert = () => {
@@ -11,9 +11,9 @@ const CreateUserAlert = () => {
         <AlertTitle>Chybí klienti</AlertTitle>
         <AlertDescription>Nejdříve přidej nějakého klienta</AlertDescription>
       </Alert>
-      <EditUser action="create">
+      <EditUserDialog action="create">
         <Button>Přidat klienta</Button>
-      </EditUser>
+      </EditUserDialog>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import ReactMarkdown, { Components } from 'react-markdown';
-import Typography from '../ui/typography';
+import Typography, { TypographyVariant } from '../ui/typography';
 
-const MarkdownComponents: Components = {
+const MarkdownComponents = (variant: TypographyVariant): Components => ({
   // @ts-ignore
   p: ({ children, node }: { children: any; node: any }) => {
     const firstChild = node.children[0];
@@ -31,7 +31,7 @@ const MarkdownComponents: Components = {
       );
     }
 
-    return <Typography variant="p">{children as React.ReactNode}</Typography>;
+    return <Typography variant={variant}>{children as React.ReactNode}</Typography>;
   },
   h1: ({ children }) => <Typography variant="h1">{children as React.ReactNode}</Typography>,
   h2: ({ children }) => <Typography variant="h2">{children as React.ReactNode}</Typography>,
@@ -43,10 +43,10 @@ const MarkdownComponents: Components = {
   li: ({ children }) => <li className="[&:not(:first-child)]:mt-4 pl-5 md:pl-8 space-y-1 list-inside">{children as React.ReactNode}</li>,
   ul: ({ children }) => <ul className="[&:not(:first-child)]:mt-4 pl-5 md:pl-8 space-y-1 list-disc">{children as React.ReactNode}</ul>,
   ol: ({ children }) => <ol>{children as React.ReactNode}</ol>,
-};
+});
 
-const Markdown = ({ content }: { content?: string }) => {
-  return <ReactMarkdown components={MarkdownComponents}>{content}</ReactMarkdown>;
+const Markdown = ({ content, variant = 'p' }: { content?: string; variant?: TypographyVariant }) => {
+  return <ReactMarkdown components={MarkdownComponents(variant)}>{content}</ReactMarkdown>;
 };
 
 export default Markdown;

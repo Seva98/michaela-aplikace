@@ -8,11 +8,13 @@ export const getCalendarSessions = async (start_date: string, end_date: string) 
     const result = await sql`
     SELECT 
         sess.session_id,
+        sess.user_subscription_id,
         sess.session_date::text,
         sess.note,
         sess.rating,
         u.first_name,
-        u.last_name
+        u.last_name,
+        u.color
     FROM 
         public.michaela_sessions sess
     JOIN 
@@ -22,7 +24,7 @@ export const getCalendarSessions = async (start_date: string, end_date: string) 
     WHERE
         sess.session_date >= ${start_date} AND sess.session_date <= ${end_date} AND sess.owner_id = ${owner_id}
     ORDER BY 
-        sess.session_date DESC; -- Order by the most recent session first
+        sess.session_date ASC;
 
     `;
     return result.rows as CalendarSession[];

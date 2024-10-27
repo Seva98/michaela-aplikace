@@ -11,7 +11,7 @@ import { Subscription } from '@/db/subscriptions/subscription';
 import { createSubscription } from '@/db/subscriptions/createSubscription';
 import { updateSubscription } from '@/db/subscriptions/updateSubscriptions';
 
-const EditSubscription = ({
+const EditSubscriptionDialog = ({
   action,
   object,
   children,
@@ -94,4 +94,4 @@ const EditSubscription = ({
   );
 };
 
-export default EditSubscription;
+export default EditSubscriptionDialog;

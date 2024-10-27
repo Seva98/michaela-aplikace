@@ -6,7 +6,6 @@ import Card from '@/components/ui/card';
 
 const Subscriptions = async () => {
   const subscriptions = await getAllSbuscriptions();
-  console.log(subscriptions);
 
   return (
     <Section className="relevant" title="Členství" linkBack>

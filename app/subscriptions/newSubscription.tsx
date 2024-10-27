@@ -1,13 +1,13 @@
-import EditSubscription from '@/components/edit/editSubscription';
+import EditSubscriptionDialog from '@/components/edit/EditSubscriptionDialog';
 import { Button } from '@/components/ui/button';
 
 const NewSubscription = () => {
   return (
-    <EditSubscription action="create">
+    <EditSubscriptionDialog action="create">
       <Button variant="outline" className="w-full">
         Přidat typ člensví
       </Button>
-    </EditSubscription>
+    </EditSubscriptionDialog>
   );
 };
 

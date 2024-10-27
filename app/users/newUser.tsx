@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
-import EditUser from '@/components/edit/editUser';
+import EditUserDialog from '@/components/edit/editUserDialog';
 
 const NewUser = () => {
   return (
-    <EditUser action="create">
+    <EditUserDialog action="create">
       <Button variant="outline" className="w-full">
         Přidat klienta
       </Button>
-    </EditUser>
+    </EditUserDialog>
   );
 };
 

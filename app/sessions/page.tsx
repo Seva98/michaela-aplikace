@@ -3,6 +3,7 @@ import { getSession } from '@auth0/nextjs-auth0';
 import { isAdmin } from '@/utils/roles';
 import { redirect } from 'next/navigation';
 import Calendar from './calendar';
+import Card from '@/components/ui/card';
 
 export default async function Home() {
   const session = await getSession();
@@ -10,7 +11,9 @@ export default async function Home() {
   if (isAdmin(session)) {
     return (
       <Section className="relevant" title="Kalendář">
-        <Calendar />
+        <Card className="p-0" padding="none">
+          <Calendar />
+        </Card>
       </Section>
     );
   }

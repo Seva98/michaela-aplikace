@@ -13,7 +13,7 @@ import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
 
-const EditUser = ({
+const EditUserDialog = ({
   action,
   object,
   children,
@@ -77,4 +77,4 @@ const EditUser = ({
   );
 };
 
-export default EditUser;
+export default EditUserDialog;

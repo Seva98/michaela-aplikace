@@ -1,5 +1,6 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
 import FormSubmitButton from './formSubmitButton';
+import { ButtonSize } from '../ui/button';
 
 const ChangeOrder = ({
   action,
@@ -7,12 +8,14 @@ const ChangeOrder = ({
   idKey,
   itemIndex,
   itemsLength,
+  size = 'default',
 }: {
   action: (formData: FormData) => void;
   id: number;
   idKey: string;
   itemIndex: number;
   itemsLength: number;
+  size?: ButtonSize;
 }) => {
   return (
     <div className="flex justify-between items-end">
@@ -23,7 +26,7 @@ const ChangeOrder = ({
           <input type="hidden" name={idKey} value={id} />
           <input type="hidden" name="amount" value="-1" />
 
-          <FormSubmitButton variant="ghost">
+          <FormSubmitButton variant="ghost" size={size}>
             <ArrowUpIcon />
           </FormSubmitButton>
         </form>
@@ -34,7 +37,7 @@ const ChangeOrder = ({
         <form action={action}>
           <input type="hidden" name={idKey} value={id} />
           <input type="hidden" name="amount" value="1" />
-          <FormSubmitButton className="float-right" variant="ghost">
+          <FormSubmitButton className="float-right" variant="ghost" size={size}>
             <ArrowDownIcon />
           </FormSubmitButton>
         </form>

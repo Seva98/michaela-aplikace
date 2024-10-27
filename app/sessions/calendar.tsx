@@ -1,32 +1,42 @@
 import { getCalendarSessions } from '@/db/calendarSessions/getCalendarSessions';
-import { cn } from '@/utils/cn';
-import { czechDateDaysLater, czechDateWithTime, daysLaterIsoString, today } from '@/utils/dates';
+import { daysLaterIsoString, today } from '@/utils/dates';
 import { getSameDateSessions } from '@/utils/db/sessions/getSameDateSessions';
-import { getName } from '@/utils/db/user/getName';
 import { unstable_noStore } from 'next/cache';
-
-const calendarColors = ['bg-red-100', 'bg-blue-100', 'bg-green-100', 'bg-yellow-100', 'bg-pink-100', 'bg-purple-100', 'bg-indigo-100', 'bg-gray-100'];
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Fragment } from 'react';
+import CalendarDayRow from './calendarDayRow';
+import CalendarSessionRow from './calendarSessionRow';
 
 const Calendar = async () => {
   unstable_noStore();
   const sessions = await getCalendarSessions(today(), daysLaterIsoString(90));
 
   return (
-    <div className="flex flex-col">
-      {Array.from({ length: 90 }).map((_, i) => (
-        <div key={i} className="flex flex-col">
-          <div className={cn(calendarColors[i % calendarColors.length])}>{czechDateDaysLater(i)}</div>
-          {getSameDateSessions(daysLaterIsoString(i), sessions).map(({ session_id, first_name, last_name, note, rating, session_date }) => (
-            <div key={session_id} className="grid grid-cols-[150px_150px_50px_auto] pl-4">
-              <div>{czechDateWithTime(session_date)}</div>
-              <div>{getName(first_name, last_name)}</div>
-              <div>{rating}</div>
-              <div>{note}</div>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="whitespace-nowrap">Den</TableHead>
+          <TableHead className="whitespace-nowrap">Datum</TableHead>
+          <TableHead className="whitespace-nowrap">Jméno</TableHead>
+          <TableHead className="whitespace-nowrap">Hodnocení</TableHead>
+          <TableHead className="w-full">Poznámka</TableHead>
+          <TableHead>Akce</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: 90 }).map((_, i) => {
+          const sameDateSessions = getSameDateSessions(daysLaterIsoString(i), sessions);
+          return (
+            <Fragment key={i}>
+              <CalendarDayRow index={i} />
+              {sameDateSessions.map((session, index) => (
+                <CalendarSessionRow key={session.session_id} session={session} index={index} />
+              ))}
+            </Fragment>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 
