@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { UserSubscription } from '@/db/userSubscription/userSubscription';
+import { UserSubscription } from '@/db/advanced/userSubscription/userSubscription';
 import { hasRemainingSessions, isSubscriptionActive } from '@/utils/db/subscriptions/geSubscritionStatus';
 import { TriangleRightIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';

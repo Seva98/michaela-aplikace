@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
+import { ActivatedSubscription } from '@/db/advanced/userSubscription/userSubscription';
 import { czechDate, isExpired } from '@/utils/dates';
 import AddSession from './addSession';
 import SubscriptionHistory from './subscriptionHistory';
@@ -21,7 +21,13 @@ const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSu
         <Typography variant={isExpired(expiration_date) ? 'error' : 'muted'}>
           {expiration_date ? `${isExpired(expiration_date) ? 'Expirovalo' : 'Expiruje'} ${czechDate(expiration_date)}` : 'Bez expirace'}
         </Typography>
-        <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} is_completed={is_completed} />
+        <SubscriptionHistory
+          number_of_sessions={number_of_sessions}
+          user_subscription_id={user_subscription_id}
+          subscription_sessions={subscription_sessions}
+          color={color}
+          is_completed={is_completed}
+        />
       </div>
       <hr />
       {hasRemainingSessions(subscription) && <AddSession user_subscription_id={user_subscription_id} color={color} />}

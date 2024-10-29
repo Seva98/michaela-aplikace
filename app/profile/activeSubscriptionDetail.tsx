@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography';
 import { czechDate, remainingDays } from '@/utils/dates';
-import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
+import { ActivatedSubscription } from '@/db/advanced/userSubscription/userSubscription';
 import SubscriptionHistoryTable from './subscriptionHistoryTable';
 import { SubscriptionExpired } from '@/utils/db/subscriptions/geSubscritionStatus';
 
@@ -28,12 +28,3 @@ const ActiveSubscriptionDetail = ({ active_subscription }: { active_subscription
 };
 
 export default ActiveSubscriptionDetail;
-
-{
-  /* <SubscriptionHistory
-  subscription_sessions={active_subscription.subscription_sessions}
-  number_of_sessions={active_subscription?.number_of_sessions}
-  is_completed={active_subscription.is_completed}
-  color="#000"
-/> */
-}

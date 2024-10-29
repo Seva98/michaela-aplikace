@@ -1,4 +1,4 @@
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import { getSubscriptionSession, isSusbscriptionExpired, isSusbscriptionNotPlannedYet } from './getSubscriptionSession';
 import { hexToRgba } from '@/utils/colors';
 

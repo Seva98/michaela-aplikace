@@ -3,7 +3,7 @@ import { UserPageParams } from './page';
 import { czechDate } from '@/utils/dates';
 import Rating from '@/components/form/rating';
 import Typography from '@/components/ui/typography';
-import { getUserSubscritpitonsWithSessions } from '@/db/userSubscriptionsWithSessions/getUserSubscriptionsWithSessions';
+import { getUserSubscritpitonsWithSessions } from '@/db/advanced/userSubscriptionsWithSessions/getUserSubscriptionsWithSessions';
 import Note from '@/components/form/note';
 import { getUserById } from '@/db/users/getUsers';
 import FormSubmitButton from '@/components/common/formSubmitButton';

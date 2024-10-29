@@ -1,4 +1,4 @@
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import { czechDateWithTime, getCzechWeekdayName, isHoursDifferenceMoreThan } from '@/utils/dates';
 import { getSubscriptionHistoryState } from '@/utils/db/subscriptions/subscriptionHistoryState';
 import { Button } from '@/components/ui/button';

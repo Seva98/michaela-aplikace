@@ -6,7 +6,6 @@ import { cn } from '@/utils/cn';
 import { PlusIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import EditSubscriptionDialog from '@/components/edit/EditSubscriptionDialog';
 import NewUser from './users/newUser';
 import NewSubscription from './subscriptions/newSubscription';
 

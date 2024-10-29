@@ -1,4 +1,4 @@
-import { SubscriptionSession } from '../../../db/userSubscription/userSubscription';
+import { SubscriptionSession } from '../../../db/advanced/userSubscription/userSubscription';
 
 export const getSubscriptionSession = (subscription_sessions: SubscriptionSession[], i: number) => {
   if (subscription_sessions && subscription_sessions.length > i) {

@@ -3,7 +3,7 @@ import SubscriptionHistory from '../subscriptionHistory';
 import { czechDate, remainingDays } from '@/utils/dates';
 import { getSession } from '@auth0/nextjs-auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
-import { getUserSubscriptions } from '@/db/userSubscription/getUserSubscription';
+import { getUserSubscriptions } from '@/db/advanced/userSubscription/getUserSubscription';
 import { unstable_noStore } from 'next/cache';
 import ActiveSubscriptionDetail from './activeSubscriptionDetail';
 

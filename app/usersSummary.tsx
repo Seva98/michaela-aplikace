@@ -1,6 +1,5 @@
-import { getLatestSubscriptionOfAllUsers } from '@/db/userSubscription/getUserSubscription';
+import { getLatestSubscriptionOfAllUsers } from '@/db/advanced/userSubscription/getUserSubscription';
 import CurrentSubscription from './currentSubscription';
-import Typography from '@/components/ui/typography';
 import CreateUserAlert from '@/components/alerts/createUserAlert';
 
 const UsersSummary = async () => {

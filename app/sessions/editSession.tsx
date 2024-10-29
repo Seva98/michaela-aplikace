@@ -1,5 +1,5 @@
 import EditSessionDialog from '@/components/edit/editSessionDialog';
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 
 const EditSession = ({ session, children }: { session: SubscriptionSession; children: React.ReactNode }) => {
   return (

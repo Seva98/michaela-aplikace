@@ -1,5 +1,5 @@
 import Section from '@/components/containers/section';
-import { getUserSubscriptions } from '@/db/userSubscription/getUserSubscription';
+import { getUserSubscriptions } from '@/db/advanced/userSubscription/getUserSubscription';
 import PreviousSubsriptions from './previousSubscriptions';
 import { getUserById } from '@/db/users/getUsers';
 import { ProfilePicture } from './profilePicture';

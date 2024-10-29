@@ -1,5 +1,5 @@
 import { getUserByEmail } from '@/db/users/getUsers';
-import { getAllPastSubscriptionsOfUser } from '@/db/userSubscription/getUserSubscription';
+import { getAllPastSubscriptionsOfUser } from '@/db/advanced/userSubscription/getUserSubscription';
 import { getSession } from '@auth0/nextjs-auth0';
 import SubscriptionHistory from '../subscriptionHistory';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';

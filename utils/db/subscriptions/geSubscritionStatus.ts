@@ -1,4 +1,4 @@
-import { ActivatedSubscription } from '@/db/userSubscription/userSubscription';
+import { ActivatedSubscription } from '@/db/advanced/userSubscription/userSubscription';
 
 export enum SubscriptionExpired {
   EXPIRED = 'Expirovalo!',

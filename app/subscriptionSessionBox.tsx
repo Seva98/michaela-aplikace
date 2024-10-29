@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import SubscriptionSessionState from './subscriptionSessionState';
@@ -18,6 +18,7 @@ const SubscriptionHistoryBox = ({
   hover = true,
 }: {
   session?: SubscriptionSession;
+  user_subscription_id: number;
   state: SubscritpionHistoryState;
   size?: 'small' | 'large';
   color: string;

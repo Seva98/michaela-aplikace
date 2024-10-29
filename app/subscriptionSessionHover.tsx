@@ -1,4 +1,4 @@
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import { czechDateWithTime } from '@/utils/dates';
 import Typography from '@/components/ui/typography';
 import { StarIcon } from '@radix-ui/react-icons';

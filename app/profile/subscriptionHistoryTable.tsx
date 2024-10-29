@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import SubscriptionHistoryRow from './subscriptionHistoryRow';
 import { Button } from '@/components/ui/button';
 

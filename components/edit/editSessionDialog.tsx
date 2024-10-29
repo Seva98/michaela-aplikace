@@ -7,7 +7,7 @@ import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
-import { SubscriptionSession } from '@/db/userSubscription/userSubscription';
+import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import Rating from '../form/rating';
 import { LabeledGrowingTextarea } from '../common/growingTextarea';
 import { Label } from '../ui/label';

@@ -6,12 +6,13 @@ import EditCalendarSessionDialog from '@/components/edit/editCalendarSessionDial
 import RatingButton from '@/components/form/ratingButton';
 import { TableCell, TableRow } from '@/components/ui/table';
 import Typography from '@/components/ui/typography';
+import { UserSubscriptionDetail } from '@/db/advanced/userSubscriptionWithDetail/userSubscriptionDetail';
 import { CalendarSession } from '@/db/calendarSessions/calendarSession';
 import { czechDateWithTime } from '@/utils/dates';
 import { getName } from '@/utils/db/user/getName';
 import { useState } from 'react';
 
-const CalendarSessionRow = ({ session, index }: { session: CalendarSession; index: number }) => {
+const CalendarSessionRow = ({ session, userSubscriptionDetails }: { session: CalendarSession; userSubscriptionDetails: UserSubscriptionDetail[] }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const { session_id, first_name, last_name, note, rating, session_date, color } = session;
 
@@ -32,7 +33,7 @@ const CalendarSessionRow = ({ session, index }: { session: CalendarSession; inde
         <TableCell className="max-w-max">{note}</TableCell>
         <TableCell />
       </TableRow>
-      <EditCalendarSessionDialog action="edit" object={session} open={openEdit} setOpen={setOpenEdit} />
+      <EditCalendarSessionDialog action="edit" object={session} open={openEdit} setOpen={setOpenEdit} userSubscriptionDetails={userSubscriptionDetails} />
     </>
   );
 };
