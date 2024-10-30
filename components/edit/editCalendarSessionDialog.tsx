@@ -7,7 +7,7 @@ import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
-import Rating from '../form/rating';
+import Rating from '../rating/rating';
 import { LabeledGrowingTextarea } from '../common/growingTextarea';
 import { Label } from '../ui/label';
 import { updateSessionWithUserSubscriptionId } from '@/db/sessions/updateSession';
@@ -34,6 +34,7 @@ const EditCalendarSessionDialog = ({
   defaultIsoDate?: string;
 }) => {
   const { session_id, user_subscription_id, session_date, note, rating } = object || { session_date: defaultIsoDate };
+  console.log(user_subscription_id);
   const [selectedUserSubscriptionId, setSelectedUserSubscriptionId] = useState(`${user_subscription_id ?? -1}`);
 
   const [pending, setPending] = useState(false);
@@ -66,15 +67,12 @@ const EditCalendarSessionDialog = ({
         </DialogHeader>
         <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <Label htmlFor="user_subscription_id">Klienti s aktivním předplatným</Label>
-          <Select
-            name="user_subscription_id"
-            defaultValue={`${userSubscriptionDetails.find((detail) => detail.user_subscription_id === user_subscription_id)?.user_subscription_id}`}
-            onValueChange={(id) => setSelectedUserSubscriptionId(id)}
-          >
+          <Select name="user_subscription_id" defaultValue={selectedUserSubscriptionId} onValueChange={(id) => setSelectedUserSubscriptionId(id)}>
             <SelectTrigger>
               <SelectValue placeholder="Klient, předplatné" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="-1">VOLNÝ TERMÍN</SelectItem>
               {userSubscriptionDetails.map(
                 ({ user_subscription_id, first_name, last_name, subscription_name, used_sessions, total_sessions, is_fully_booked }) => (
                   <SelectItem key={`sub-${user_subscription_id}`} value={`${user_subscription_id}`} disabled={is_fully_booked}>

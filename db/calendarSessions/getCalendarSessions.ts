@@ -17,15 +17,14 @@ export const getCalendarSessions = async (start_date: string, end_date: string) 
         u.color
     FROM 
         public.michaela_sessions sess
-    JOIN 
+    LEFT JOIN 
         public.michaela_user_subscriptions us ON sess.user_subscription_id = us.user_subscription_id
-    JOIN 
+    LEFT JOIN 
         public.michaela_users u ON us.user_id = u.user_id
     WHERE
         sess.session_date >= ${start_date} AND sess.session_date <= ${end_date} AND sess.owner_id = ${owner_id}
     ORDER BY 
         sess.session_date ASC;
-
     `;
     return result.rows as CalendarSession[];
   } catch (error) {

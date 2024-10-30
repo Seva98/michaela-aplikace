@@ -1,7 +1,7 @@
 import { unstable_noStore } from 'next/cache';
 import { UserPageParams } from './page';
 import { czechDate } from '@/utils/dates';
-import Rating from '@/components/form/rating';
+import Rating from '@/components/rating/rating';
 import Typography from '@/components/ui/typography';
 import { getUserSubscritpitonsWithSessions } from '@/db/advanced/userSubscriptionsWithSessions/getUserSubscriptionsWithSessions';
 import Note from '@/components/form/note';

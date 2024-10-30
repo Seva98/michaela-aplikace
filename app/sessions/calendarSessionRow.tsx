@@ -3,9 +3,8 @@
 import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
 import Color from '@/components/common/color';
 import EditCalendarSessionDialog from '@/components/edit/editCalendarSessionDialog';
-import RatingButton from '@/components/form/ratingButton';
+import RatingText from '@/components/rating/ratingText';
 import { TableCell, TableRow } from '@/components/ui/table';
-import Typography from '@/components/ui/typography';
 import { UserSubscriptionDetail } from '@/db/advanced/userSubscriptionWithDetail/userSubscriptionDetail';
 import { CalendarSession } from '@/db/calendarSessions/calendarSession';
 import { czechDateWithTime } from '@/utils/dates';
@@ -15,6 +14,7 @@ import { useState } from 'react';
 const CalendarSessionRow = ({ session, userSubscriptionDetails }: { session: CalendarSession; userSubscriptionDetails: UserSubscriptionDetail[] }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const { session_id, first_name, last_name, note, rating, session_date, color } = session;
+  console.log(session);
 
   return (
     <>
@@ -25,10 +25,7 @@ const CalendarSessionRow = ({ session, userSubscriptionDetails }: { session: Cal
         <TableCell className="whitespace-nowrap text-right">{czechDateWithTime(session_date).split(' ')[1]}</TableCell>
         <TableCell className="whitespace-nowrap">{getName(first_name, last_name)}</TableCell>
         <TableCell className="whitespace-nowrap ">
-          <div className="flex space-x-2 items-center justify-end">
-            <Typography>{rating}x</Typography>
-            <RatingButton color={color} readonly />
-          </div>
+          <RatingText rating={rating} color={color} />
         </TableCell>
         <TableCell className="max-w-max">{note}</TableCell>
         <TableCell />

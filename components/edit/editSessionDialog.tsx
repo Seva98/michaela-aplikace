@@ -8,7 +8,7 @@ import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
 import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
-import Rating from '../form/rating';
+import Rating from '../rating/rating';
 import { LabeledGrowingTextarea } from '../common/growingTextarea';
 import { Label } from '../ui/label';
 import { updateSession } from '@/db/sessions/updateSession';

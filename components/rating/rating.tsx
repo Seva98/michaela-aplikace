@@ -1,14 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/utils/cn';
 import { getButtonColorStyle } from '@/utils/colors';
-import { StarIcon } from '@radix-ui/react-icons';
 import { MouseEvent, useState } from 'react';
 import RatingButton from './ratingButton';
+import { Button } from '../ui/button';
+import { ResetIcon } from '@radix-ui/react-icons';
 
 const Rating = ({ color, user_subscription_id, defaultRating }: { color: string; user_subscription_id: number; defaultRating?: number }) => {
-  const [rating, setRating] = useState(defaultRating ?? 4);
+  const [rating, setRating] = useState(defaultRating ?? -1);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const handleRating = (e: MouseEvent<HTMLButtonElement>, i: number) => {
@@ -26,7 +25,7 @@ const Rating = ({ color, user_subscription_id, defaultRating }: { color: string;
 
   return (
     <>
-      <div className="grid grid-cols-10 gap-1 w-fit mx-auto" onMouseLeave={handleMouseLeave}>
+      <div className="grid grid-cols-12 gap-1 w-fit mx-auto" onMouseLeave={handleMouseLeave}>
         {Array.from({ length: 10 }).map((_, i) => (
           <div key={`box-${user_subscription_id}-${i}`}>
             <RatingButton
@@ -37,6 +36,16 @@ const Rating = ({ color, user_subscription_id, defaultRating }: { color: string;
             />
           </div>
         ))}
+        <div />
+        <Button
+          className="h-6 w-6 p-0 "
+          type="button"
+          onClick={() => setRating(-1)}
+          onMouseEnter={() => setHoverIndex(-1)}
+          onMouseLeave={() => setHoverIndex(null)}
+        >
+          <ResetIcon />
+        </Button>
       </div>
       <input type="hidden" name="rating" defaultValue={rating} />
     </>
