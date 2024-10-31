@@ -1,10 +1,9 @@
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import FormWithError from '@/components/common/formWithError';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createSession } from '@/db/sessions/createSession';
-import { today, todayWithTime } from '@/utils/dates';
+import { todayWithTime } from '@/utils/dates';
 import Rating from '../components/rating/rating';
 import { getButtonColorStyle } from '@/utils/colors';
 

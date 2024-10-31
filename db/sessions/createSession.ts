@@ -13,7 +13,7 @@ export const createSession = async (formData: FormData) => {
 
   const owner_id = await getOwnerId();
 
-  z.number().int().min(1).max(10).parse(rating);
+  z.number().int().min(-1).max(9).parse(rating);
 
   if (!user_subscription_id || !session_date) {
     throw new Error('Missing required fields');
