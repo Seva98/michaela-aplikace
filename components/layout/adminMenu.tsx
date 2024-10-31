@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn';
 import PopupMenu from '@/app/popupMenu';
 import { Route } from 'next';
+import LogoutButton from './logoutButton';
 
 const items = [
   { icon: <RiHome2Fill />, name: 'Přehled', href: '/' },
@@ -39,6 +40,7 @@ export const AdminMenu = () => {
         </Link>
       ))}
       <PopupMenu className="relative" />
+      <LogoutButton />
     </div>
   );
 };

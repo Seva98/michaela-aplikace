@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import NewUser from './users/newUser';
 import NewSubscription from './subscriptions/newSubscription';
+import RoundedButton from '@/components/common/roundedButton';
 
 const PopupMenu = ({ className }: { className: string }) => {
   const [opened, setOpened] = useState(false);
@@ -53,13 +54,9 @@ const PopupMenu = ({ className }: { className: string }) => {
           </Link>
         </div>
       </div>
-      <Button
-        variant="outline"
-        className={cn('rounded-full p-0 h-8 w-8 shadow-md border-gray-100 transition-transform', opened ? 'rotate-45' : 'rotate-0')}
-        onClick={() => setOpened(!opened)}
-      >
+      <RoundedButton onClick={() => setOpened(!opened)}>
         <PlusIcon className="scale-125" />
-      </Button>
+      </RoundedButton>
     </div>
   );
 };
