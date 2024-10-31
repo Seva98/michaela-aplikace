@@ -6,12 +6,12 @@ import { addPageToQuestionnaire, updateQuestionnaire } from '@/db/questionnaires
 import { Button } from '@/components/ui/button';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import EditQuestion from './editQuestion';
-import { unstable_noStore } from 'next/cache';
+
 import DeleteQuestionnaireQuestion from './deleteQuestionnaireQuestion';
 import Typography from '@/components/ui/typography';
+import FormWithError from '@/components/common/formWithError';
 
 const EditCurrentConfiguration = ({ questionnaireQuestions, questionnaire_id }: { questionnaireQuestions: Question[][]; questionnaire_id: string }) => {
-  unstable_noStore();
   const [dragging, setDragging] = useState<{ groupIndex: number; questionIndex: number } | null>(null);
   const [dragOver, setDragOver] = useState<{ groupIndex: number; questionIndex: number } | null>(null);
 
@@ -112,10 +112,10 @@ const EditCurrentConfiguration = ({ questionnaireQuestions, questionnaire_id }: 
           </div>
         </div>
       ))}
-      <form action={addPageToQuestionnaire} className="max-w-md">
+      <FormWithError action={addPageToQuestionnaire} className="max-w-md">
         <input type="hidden" name="questionnaire_id" value={questionnaire_id} />
         <FormSubmitButton className="w-full">Nová strana</FormSubmitButton>
-      </form>
+      </FormWithError>
     </div>
   );
 };

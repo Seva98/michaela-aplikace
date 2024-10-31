@@ -5,7 +5,7 @@ import Typography from '@/components/ui/typography';
 import { deleteSubscription } from '@/db/subscriptions/deleteSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { changeSubscriptionOrder, toggleSubscriptionVisibility, updateSubscription } from '@/db/subscriptions/updateSubscriptions';
-import { unstable_noStore } from 'next/cache';
+
 import { Table, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import TableRowWithError from '@/components/common/error/tableRowWithError';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,6 @@ import { Pencil1Icon } from '@radix-ui/react-icons';
 import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
 
 const SubscriptionsList = ({ subscriptions }: { subscriptions: Subscription[] }) => {
-  unstable_noStore();
-
   return (
     <Table>
       <TableHeader>

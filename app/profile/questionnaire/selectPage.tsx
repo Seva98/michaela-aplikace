@@ -1,7 +1,7 @@
 'use client';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
-import { unstable_noStore } from 'next/cache';
+
 import { useRouter } from 'next/navigation';
 
 const SelectPage = ({
@@ -15,7 +15,6 @@ const SelectPage = ({
   currentMaxProgress: number;
   totalQuestions: number;
 }) => {
-  unstable_noStore();
   const router = useRouter();
   const reachedLastPage = currentPage > totalQuestions;
 

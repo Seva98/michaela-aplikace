@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import FormSubmitButton from './formSubmitButton';
 import { cn } from '@/utils/cn';
 import { ButtonSize } from '../ui/button';
+import FormWithError from './formWithError';
 
 const Delete = ({
   action,
@@ -27,12 +28,12 @@ const Delete = ({
   };
 
   return (
-    <form action={handleDelete}>
+    <FormWithError action={handleDelete}>
       <input type="hidden" name={idKey} value={id} />
       <FormSubmitButton type="submit" variant={'destructive'} className={cn(className)} size={size}>
         {variant === 'button' ? 'Smazat' : <RiDeleteBin6Line />}
       </FormSubmitButton>
-    </form>
+    </FormWithError>
   );
 };
 

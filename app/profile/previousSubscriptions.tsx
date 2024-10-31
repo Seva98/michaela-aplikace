@@ -4,10 +4,8 @@ import { getSession } from '@auth0/nextjs-auth0';
 import SubscriptionHistory from '../subscriptionHistory';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { czechDate } from '@/utils/dates';
-import { unstable_noStore } from 'next/cache';
 
 const PreviousSubscriptions = async () => {
-  unstable_noStore();
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
   if (!user) return null;

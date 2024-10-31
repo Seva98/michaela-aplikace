@@ -4,17 +4,18 @@ import QuestionsGroup from './questionsGroup';
 import NavigationAndProgress from './navigationAndProgress';
 import Question from './question';
 import { updateAnswers } from '@/db/answers/updateAnswers';
-import { unstable_noStore } from 'next/cache';
+
 import { redirect } from 'next/navigation';
 import { getSession } from '@auth0/nextjs-auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { getAsnwersByUser } from '@/db/answers/getAnswers';
 import { QuestionnaireParams } from './[answer_id]/page';
 import Link from 'next/link';
+import FormWithError from '@/components/common/formWithError';
 
 const Questionnaire = async ({ params }: {} & QuestionnaireParams) => {
   const { answer_id, current_progress = '1' } = await params;
-  unstable_noStore();
+
   const parsedAnswerId = parseInt(answer_id);
   const parsedCurrentProgress = parseInt(current_progress) >= 1 ? parseInt(current_progress) : 1;
 
@@ -40,7 +41,7 @@ const Questionnaire = async ({ params }: {} & QuestionnaireParams) => {
   };
 
   return (
-    <form className="flex flex-col p-8 min-h-screen-w-header w-full justify-between items-center" action={updateAnswerAndRedirect}>
+    <FormWithError className="flex flex-col p-8 min-h-screen-w-header w-full justify-between items-center" action={updateAnswerAndRedirect}>
       <Typography variant="h1">Vstupní dotázník</Typography>
       <div className="relative w-full max-w-md flex items-center">
         <QuestionsGroup>
@@ -64,7 +65,7 @@ const Questionnaire = async ({ params }: {} & QuestionnaireParams) => {
       <input type="hidden" name="answer_id" value={answer_id} />
       <input type="hidden" name="user_id" value={user?.user_id} />
       <input type="hidden" name="current_progress" value={parsedCurrentProgress} />
-    </form>
+    </FormWithError>
   );
 };
 

@@ -6,13 +6,13 @@ import { getUserById } from '@/db/users/getUsers';
 import { deleteUserSubscription } from '@/db/advanced/userSubscription/deleteUserSubscription';
 import { getAllPastSubscriptionsOfUser } from '@/db/advanced/userSubscription/getUserSubscription';
 import { czechDate } from '@/utils/dates';
-import { unstable_noStore } from 'next/cache';
+
 import { UserPageParams } from './page';
 import Delete from '@/components/common/delete';
 
 const PreviousSubsriptions = async ({ params }: UserPageParams) => {
   const { user_id } = await params;
-  unstable_noStore();
+
   const subscriptions = await getAllPastSubscriptionsOfUser(user_id);
   const user = await getUserById(user_id);
   const { color } = user;

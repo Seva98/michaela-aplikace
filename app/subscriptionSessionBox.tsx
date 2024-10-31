@@ -18,7 +18,6 @@ const SubscriptionHistoryBox = ({
   hover = true,
 }: {
   session?: SubscriptionSession;
-  user_subscription_id: number;
   state: SubscritpionHistoryState;
   size?: 'small' | 'large';
   color: string;

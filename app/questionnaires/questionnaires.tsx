@@ -2,7 +2,7 @@ import { assignQuestionnaireToUser } from '@/db/answers/createAnswers';
 import { getAnswers } from '@/db/answers/getAnswers';
 import { getQuestionnaires } from '@/db/questionnaires/getQuestionnaire';
 import { getAllUsers } from '@/db/users/getUsers';
-import { unstable_noStore } from 'next/cache';
+
 import SelectUser from './selectUser';
 import { getName } from '@/utils/db/user/getName';
 import FormWithError from '@/components/common/formWithError';
@@ -18,8 +18,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Route } from 'next';
 
 const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
-  unstable_noStore();
-
   const questionnaires = await getQuestionnaires();
   const answers = await getAnswers();
   const users = await getAllUsers();
@@ -66,13 +64,13 @@ const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
                             Odpovědi
                           </Button>
                         </Link>
-                        <form action={deleteAnswers}>
+                        <FormWithError action={deleteAnswers}>
                           <input type="hidden" name="answer_id" value={answer_id} />
                           <input type="hidden" name="user_id" value={user_id} />
                           <FormSubmitButton type="submit" variant={'destructive'}>
                             <RiDeleteBin6Line />
                           </FormSubmitButton>
-                        </form>
+                        </FormWithError>
                       </TableCell>
                     </TableRow>
                   ))}

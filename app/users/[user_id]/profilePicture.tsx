@@ -5,6 +5,7 @@ import { FaCamera } from 'react-icons/fa';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import { cn } from '@/utils/cn';
 import { useState } from 'react';
+import FormWithError from '@/components/common/formWithError';
 
 export function ProfilePicture({ user_id, image }: { user_id: number; image?: string }) {
   const [selectedImage, setSelectedImage] = useState(image);
@@ -28,7 +29,7 @@ export function ProfilePicture({ user_id, image }: { user_id: number; image?: st
   };
 
   return (
-    <form
+    <FormWithError
       action={async (formData) => {
         setSelectedImage(formData.get('image') as string);
         await uploadImage(formData);
@@ -62,6 +63,6 @@ export function ProfilePicture({ user_id, image }: { user_id: number; image?: st
       <input type="hidden" name="old_image" value={image} />
       <input type="file" id="image" name="image" style={{ display: 'none' }} required onChange={handleImageChange} />
       {showSubmitButton && <FormSubmitButton className="w-full mt-2">Uložit nový obrázek</FormSubmitButton>}
-    </form>
+    </FormWithError>
   );
 }

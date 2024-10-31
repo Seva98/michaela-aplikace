@@ -1,4 +1,3 @@
-import { unstable_noStore } from 'next/cache';
 import { UserPageParams } from './page';
 import { czechDate } from '@/utils/dates';
 import Rating from '@/components/rating/rating';
@@ -12,9 +11,9 @@ import Delete from '@/components/common/delete';
 import { deleteSession } from '@/db/sessions/deleteSession';
 import Save from '@/components/common/save';
 import GrowingTextarea from '@/components/common/growingTextarea';
+import FormWithError from '@/components/common/formWithError';
 
 const CurrentSubscriptionDetail = async ({ params }: UserPageParams) => {
-  unstable_noStore();
   const { user_id } = await params;
   const user = await getUserById(user_id);
 
@@ -36,13 +35,13 @@ const CurrentSubscriptionDetail = async ({ params }: UserPageParams) => {
             sessions.map(({ session_date, rating, note, session_id }, i) => (
               <div className="grid grid-cols-[25px_1fr_82px] gap-2 items-center" key={`session-detail-${session_id}`}>
                 <Typography variant="large">#{i + 1}</Typography>
-                <form className="grid grid-cols-[90px_276px_1fr_auto] gap-2 items-center" action={updateSession}>
+                <FormWithError className="grid grid-cols-[90px_276px_1fr_auto] gap-2 items-center" action={updateSession}>
                   <div>{czechDate(session_date)}</div>
                   <Rating color={user.color} user_subscription_id={rating} />
                   <GrowingTextarea value={note} name="note" />
                   <input type="hidden" name="session_id" value={session_id} />
                   <Save variant="icon" />
-                </form>
+                </FormWithError>
                 <Delete action={deleteSession} id={session_id} idKey="session_id" variant="icon" />
               </div>
             ))}

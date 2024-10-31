@@ -7,7 +7,7 @@ import { getAllUsers } from '@/db/users/getUsers';
 import { changeUserOrder, toggleUserVisibility } from '@/db/users/updateUser';
 import { getTextColorStyle } from '@/utils/colors';
 import { getName } from '@/utils/db/user/getName';
-import { unstable_noStore } from 'next/cache';
+
 import Link from 'next/link';
 import TableRowWithError from '@/components/common/error/tableRowWithError';
 import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
@@ -15,7 +15,6 @@ import { Route } from 'next';
 import Color from '@/components/common/color';
 
 const UsersList = async () => {
-  unstable_noStore();
   const users = await getAllUsers();
 
   return (

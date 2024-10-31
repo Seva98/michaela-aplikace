@@ -4,11 +4,10 @@ import { czechDate, remainingDays } from '@/utils/dates';
 import { getSession } from '@auth0/nextjs-auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { getUserSubscriptions } from '@/db/advanced/userSubscription/getUserSubscription';
-import { unstable_noStore } from 'next/cache';
+
 import ActiveSubscriptionDetail from './activeSubscriptionDetail';
 
 const ActiveSubscription = async () => {
-  unstable_noStore();
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
 

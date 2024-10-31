@@ -1,5 +1,5 @@
 import { getQuestionnaireById } from '@/db/questionnaires/getQuestionnaire';
-import { unstable_noStore } from 'next/cache';
+
 import { QuestionnaireEditParams } from './page';
 import Typography from '@/components/ui/typography';
 import { Question as QuestionType } from '@/app/profile/questionnaire/configuration';
@@ -7,7 +7,6 @@ import Question from '@/app/profile/questionnaire/question';
 import { useState } from 'react';
 
 const Preview = async ({ params }: QuestionnaireEditParams) => {
-  unstable_noStore();
   const { questionnaire_id } = await params;
   const questionnaire = await getQuestionnaireById(parseInt(questionnaire_id));
   const questions = JSON.parse(questionnaire.configuration) as QuestionType[][];

@@ -1,7 +1,6 @@
 'use client';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { FormContent } from '../containers/content';
 import { LabeledInput } from '../ui/input';
 import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
@@ -12,6 +11,7 @@ import Rating from '../rating/rating';
 import { LabeledGrowingTextarea } from '../common/growingTextarea';
 import { Label } from '../ui/label';
 import { updateSession } from '@/db/sessions/updateSession';
+import FormWithError from '../common/formWithError';
 
 const EditSessionDialog = ({ object, children, defaultOpen = false }: { object?: SubscriptionSession; children?: ReactNode; defaultOpen?: boolean }) => {
   const { session_id, session_date, note, rating } = object || {};
@@ -41,7 +41,7 @@ const EditSessionDialog = ({ object, children, defaultOpen = false }: { object?:
           <DialogTitle>{'Upravit trénink'}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
+        <FormWithError action={() => {}} onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <input type="hidden" name="session_id" value={session_id} />
           <LabeledInput label="Datum" type="datetime-local" name="session_date" defaultValue={session_date?.slice(0, 19)} className="flex-none" />
           <LabeledGrowingTextarea
@@ -58,7 +58,7 @@ const EditSessionDialog = ({ object, children, defaultOpen = false }: { object?:
             {pending ? <Loader /> : 'Uložit změny'}
           </Button>
           {error && <Typography variant="error">{error}</Typography>}
-        </FormContent>
+        </FormWithError>
       </DialogContent>
     </Dialog>
   );

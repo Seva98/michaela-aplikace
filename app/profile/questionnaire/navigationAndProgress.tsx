@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import SelectPage from './selectPage';
-import { unstable_noStore } from 'next/cache';
 
 const NavigationAndProgress = ({
   currentPage,
@@ -20,7 +19,6 @@ const NavigationAndProgress = ({
   totalQuestions: number;
   isLastPage: boolean;
 }) => {
-  unstable_noStore();
   const router = useRouter();
 
   const handleNext = () => {

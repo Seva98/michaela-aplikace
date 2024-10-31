@@ -1,6 +1,7 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
 import FormSubmitButton from './formSubmitButton';
 import { ButtonSize } from '../ui/button';
+import FormWithError from './formWithError';
 
 const ChangeOrder = ({
   action,
@@ -22,25 +23,25 @@ const ChangeOrder = ({
       {itemIndex === 0 ? (
         <div />
       ) : (
-        <form action={action}>
+        <FormWithError action={action}>
           <input type="hidden" name={idKey} value={id} />
           <input type="hidden" name="amount" value="-1" />
 
           <FormSubmitButton variant="ghost" size={size}>
             <ArrowUpIcon />
           </FormSubmitButton>
-        </form>
+        </FormWithError>
       )}
       {itemIndex === itemsLength - 1 ? (
         <div />
       ) : (
-        <form action={action}>
+        <FormWithError action={action}>
           <input type="hidden" name={idKey} value={id} />
           <input type="hidden" name="amount" value="1" />
           <FormSubmitButton className="float-right" variant="ghost" size={size}>
             <ArrowDownIcon />
           </FormSubmitButton>
-        </form>
+        </FormWithError>
       )}
     </div>
   );

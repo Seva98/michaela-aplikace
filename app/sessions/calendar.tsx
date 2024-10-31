@@ -1,7 +1,7 @@
 import { getCalendarSessions } from '@/db/calendarSessions/getCalendarSessions';
 import { daysLaterIsoString, today } from '@/utils/dates';
 import { getSameDateSessions } from '@/utils/db/sessions/getSameDateSessions';
-import { unstable_noStore } from 'next/cache';
+
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Fragment } from 'react';
 import CalendarDayRow from './calendarDayRow';
@@ -9,7 +9,6 @@ import CalendarSessionRow from './calendarSessionRow';
 import { getAllUsersLatestSubscriptionWithDetail } from '@/db/advanced/userSubscriptionWithDetail/getUserSubscriptionWithDetail';
 
 const Calendar = async () => {
-  unstable_noStore();
   const sessions = await getCalendarSessions(today(), daysLaterIsoString(90));
   const userSubscriptionDetails = await getAllUsersLatestSubscriptionWithDetail();
 

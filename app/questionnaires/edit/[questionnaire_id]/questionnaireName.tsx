@@ -1,20 +1,20 @@
 'use client';
 
 import FormSubmitButton from '@/components/common/formSubmitButton';
+import FormWithError from '@/components/common/formWithError';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Typography from '@/components/ui/typography';
 import { updateQuestionnaireName } from '@/db/questionnaires/updateQuestionnaire';
 import { CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
-import { unstable_noStore } from 'next/cache';
+
 import { useState } from 'react';
 
 const QuestionnaireName = ({ name, questionnaire_id }: { name: string; questionnaire_id: string }) => {
-  unstable_noStore();
   const [edit, setEdit] = useState(false);
 
   return (
-    <form
+    <FormWithError
       className="flex gap-2 items-center max-w-md justify-between"
       action={async (formData) => {
         await updateQuestionnaireName(formData);
@@ -37,7 +37,7 @@ const QuestionnaireName = ({ name, questionnaire_id }: { name: string; questionn
         </>
       )}
       <input type="hidden" name="questionnaire_id" value={questionnaire_id} />
-    </form>
+    </FormWithError>
   );
 };
 

@@ -1,5 +1,6 @@
 'use client';
 
+import FormWithError from '@/components/common/formWithError';
 import { SelectButton } from '@/components/ui/selectButton';
 import { updateSubscriptionState } from '@/db/subscriptions/activateSubscription';
 import { getButtonColorStyle } from '@/utils/colors';
@@ -25,7 +26,7 @@ const SubscriptionState = ({ is_completed, user_subscription_id, color }: { is_c
   };
 
   return (
-    <form>
+    <FormWithError action={() => {}}>
       <SelectButton
         options={[
           { label: 'Aktivní', value: State.ACTIVE },
@@ -36,7 +37,7 @@ const SubscriptionState = ({ is_completed, user_subscription_id, color }: { is_c
         style={state === State.COMPLETED ? {} : getButtonColorStyle(color)}
         onValueChange={(selectedValue) => changeSubscriptionState(selectedValue)}
       />
-    </form>
+    </FormWithError>
   );
 };
 

@@ -1,7 +1,7 @@
 import { getSession } from '@auth0/nextjs-auth0';
 import Typography from '@/components/ui/typography';
 import { getUserByEmail } from '@/db/users/getUsers';
-import { unstable_noStore } from 'next/cache';
+
 import { getUserQuestionnaires } from '@/db/questionnaires/getQuestionnaire';
 import Link from 'next/link';
 import Card from '@/components/ui/card';
@@ -16,7 +16,6 @@ const getQuestionnaireLink = (answer_id: number, current_progress: number, total
 };
 
 const UserQuestionnaires = async () => {
-  unstable_noStore();
   const session = await getSession();
   const user = await getUserByEmail(session?.user.email);
   const userQuestionnaires = await getUserQuestionnaires(user?.user_id);

@@ -2,16 +2,11 @@
 
 import { Question, QuestionType } from '@/app/profile/questionnaire/configuration';
 import FormSubmitButton from '@/components/common/formSubmitButton';
-import GrowingTextarea, { LabeledGrowingTextarea } from '@/components/common/growingTextarea';
-import { FormContent } from '@/components/containers/content';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { LabeledInput } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
-import { unstable_noStore } from 'next/cache';
-import { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from 'react';
+
+import { FormEvent, ReactNode, useEffect, useState } from 'react';
 import SingleChoiceQuestionConfiguration from './singleChoiceQuestionConfiguration';
 import { addQuestionToQuestionnaire, editQuestionInQuestionnaire } from '@/db/questionnaires/updateQuestionnaire';
 import Loader from '@/components/common/loader';
@@ -21,6 +16,7 @@ import QuestionDescription from './questionDescription';
 import QuestionPlaceholder from './questionPlaceholder';
 import QuestionRequiredDisabled from './questionRequiredDisabled';
 import QuestionSpecial from './questionSpecial';
+import FormWithError from '@/components/common/formWithError';
 
 const EditQuestion = ({
   variant,
@@ -37,7 +33,6 @@ const EditQuestion = ({
   question_id?: number;
   children: ReactNode;
 }) => {
-  unstable_noStore();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
@@ -68,10 +63,8 @@ const EditQuestion = ({
     }
   }, [open, variant, question]);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (formData: FormData) => {
     setPending(true);
-    const formData = new FormData(event.currentTarget);
     try {
       if (variant === 'create') {
         await addQuestionToQuestionnaire(formData);
@@ -96,7 +89,7 @@ const EditQuestion = ({
           <DialogTitle>{variant === 'create' ? 'Nová otázka' : 'Upravit otázku'}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FormContent className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <FormWithError className="flex flex-col gap-2" action={handleSubmit}>
           <Label htmlFor="type">Typ otázky</Label>
           <SelectQuestionType type={type} onTypeChange={setType} />
           {type === QuestionType.SPECIAL ? (
@@ -115,7 +108,7 @@ const EditQuestion = ({
           {group_id !== undefined && <input type="hidden" name="group_id" value={group_id} />}
           {error && <Typography variant="error">{error}</Typography>}
           <FormSubmitButton disabled={pending}>{pending ? <Loader /> : variant === 'create' ? 'Přidat otázku' : 'Uložit otázku'}</FormSubmitButton>
-        </FormContent>
+        </FormWithError>
       </DialogContent>
     </Dialog>
   );

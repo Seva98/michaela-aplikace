@@ -2,7 +2,6 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { User } from '@/db/users/user';
-import { FormContent } from '../containers/content';
 import { LabeledInput } from '../ui/input';
 import { createUser } from '@/db/users/createUser';
 import { updateUser } from '@/db/users/updateUser';
@@ -12,6 +11,7 @@ import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
 import Loader from '../common/loader';
 import Typography from '../ui/typography';
+import FormWithError from '../common/formWithError';
 
 const EditUserDialog = ({
   action,
@@ -55,7 +55,7 @@ const EditUserDialog = ({
           <DialogTitle>{action === 'create' ? 'Nový klient' : 'Upravit klienta'}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
+        <FormWithError action={() => {}} onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <input type="hidden" name="id" value={user_id} />
           <div className="grid grid-cols-2 gap-2">
             <LabeledInput label="Jméno" name="first_name" type="text" defaultValue={first_name} />
@@ -71,7 +71,7 @@ const EditUserDialog = ({
             {pending ? <Loader /> : action === 'create' ? 'Vytvořit klienta' : 'Uložit změny'}
           </Button>
           {error && <Typography variant="error">{error}</Typography>}
-        </FormContent>
+        </FormWithError>
       </DialogContent>
     </Dialog>
   );

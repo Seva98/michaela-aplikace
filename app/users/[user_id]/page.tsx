@@ -6,7 +6,7 @@ import { ProfilePicture } from './profilePicture';
 import ProfileDetails from './profileDetails';
 import CurrentSubscription from '@/app/currentSubscription';
 import { notFound } from 'next/navigation';
-import { unstable_noStore } from 'next/cache';
+
 import CurrentSubscriptionDetail from './currentSubscriptionDetail';
 
 export type UserPageParams = {
@@ -16,7 +16,6 @@ export type UserPageParams = {
 };
 
 const UserPage = async ({ params }: UserPageParams) => {
-  unstable_noStore();
   const { user_id } = await params;
   const user_subscription = await getUserSubscriptions(user_id);
   const user = await getUserById(user_id);

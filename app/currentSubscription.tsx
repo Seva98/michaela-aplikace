@@ -6,8 +6,6 @@ import Link from 'next/link';
 import ActiveSubscription from './activeSubscription';
 import AddSubscription from './addSubscription';
 import { getSubscriptions } from '@/db/subscriptions/getSubscriptions';
-import { unstable_noStore } from 'next/cache';
-import { Route } from 'next';
 
 const CurrentSubscription = async ({
   user_subscription: { user_id, name, active_subscription, color },
@@ -16,7 +14,6 @@ const CurrentSubscription = async ({
   user_subscription: UserSubscription;
   isDetail?: boolean;
 }) => {
-  unstable_noStore();
   const subscriptions = await getSubscriptions();
 
   return (

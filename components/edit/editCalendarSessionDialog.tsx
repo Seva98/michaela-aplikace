@@ -1,7 +1,6 @@
 'use client';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { FormContent } from '../containers/content';
 import { LabeledInput } from '../ui/input';
 import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
@@ -16,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { UserSubscriptionDetail } from '@/db/advanced/userSubscriptionWithDetail/userSubscriptionDetail';
 import { getName } from '@/utils/db/user/getName';
 import { createSession } from '@/db/sessions/createSession';
+import FormWithError from '../common/formWithError';
 
 const EditCalendarSessionDialog = ({
   object,
@@ -65,7 +65,7 @@ const EditCalendarSessionDialog = ({
           <DialogTitle>{action === 'create' ? 'Nový trénink' : 'Upravit trénink'}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
+        <FormWithError action={() => {}} onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <Label htmlFor="user_subscription_id">Klienti s aktivním předplatným</Label>
           <Select name="user_subscription_id" defaultValue={selectedUserSubscriptionId} onValueChange={(id) => setSelectedUserSubscriptionId(id)}>
             <SelectTrigger>
@@ -99,7 +99,7 @@ const EditCalendarSessionDialog = ({
             {pending ? <Loader /> : action === 'create' ? 'Vytvořit trénink' : 'Uložit změny'}
           </Button>
           {error && <Typography variant="error">{error}</Typography>}
-        </FormContent>
+        </FormWithError>
       </DialogContent>
     </Dialog>
   );

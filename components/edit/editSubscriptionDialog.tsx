@@ -1,7 +1,6 @@
 'use client';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { FormContent } from '../containers/content';
 import { LabeledInput } from '../ui/input';
 import { FormEvent, ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
@@ -10,6 +9,7 @@ import Typography from '../ui/typography';
 import { Subscription } from '@/db/subscriptions/subscription';
 import { createSubscription } from '@/db/subscriptions/createSubscription';
 import { updateSubscription } from '@/db/subscriptions/updateSubscriptions';
+import FormWithError from '../common/formWithError';
 
 const EditSubscriptionDialog = ({
   action,
@@ -53,7 +53,7 @@ const EditSubscriptionDialog = ({
           <DialogTitle>{action === 'create' ? 'Nový typ členství' : 'Upravit členství'}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FormContent onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
+        <FormWithError action={() => {}} onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <input type="hidden" name="subscription_id" value={subscription_id} />
           <LabeledInput label="Název*" placeholder="Název" name="name" type="text" required defaultValue={name} />
           <LabeledInput
@@ -88,7 +88,7 @@ const EditSubscriptionDialog = ({
             {pending ? <Loader /> : action === 'create' ? 'Vytvořit členství' : 'Uložit změny'}
           </Button>
           {error && <Typography variant="error">{error}</Typography>}
-        </FormContent>
+        </FormWithError>
       </DialogContent>
     </Dialog>
   );
