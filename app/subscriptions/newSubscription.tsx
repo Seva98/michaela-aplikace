@@ -1,4 +1,4 @@
-import EditSubscriptionDialog from '@/components/edit/EditSubscriptionDialog';
+import EditSubscriptionDialog from '@/components/edit/editSubscriptionDialog';
 import { Button } from '@/components/ui/button';
 
 const NewSubscription = () => {

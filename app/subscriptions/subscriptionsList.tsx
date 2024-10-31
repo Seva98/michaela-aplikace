@@ -1,16 +1,12 @@
 import ChangeOrder from '@/components/common/changeOrder';
-import Delete from '@/components/common/delete';
-import ToggleVisibility from '@/components/common/actionButton/toggleVisibility';
 import Typography from '@/components/ui/typography';
 import { deleteSubscription } from '@/db/subscriptions/deleteSubscription';
 import { Subscription } from '@/db/subscriptions/subscription';
-import { changeSubscriptionOrder, toggleSubscriptionVisibility, updateSubscription } from '@/db/subscriptions/updateSubscriptions';
+import { changeSubscriptionOrder, toggleSubscriptionVisibility } from '@/db/subscriptions/updateSubscriptions';
 
 import { Table, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import TableRowWithError from '@/components/common/error/tableRowWithError';
-import { Button } from '@/components/ui/button';
-import EditSubscriptionDialog from '@/components/edit/EditSubscriptionDialog';
-import { Pencil1Icon } from '@radix-ui/react-icons';
+import EditSubscriptionDialog from '@/components/edit/editSubscriptionDialog';
 import CommonActionsTableCell from '@/components/common/actionButton/commonActionsTableCell';
 
 const SubscriptionsList = ({ subscriptions }: { subscriptions: Subscription[] }) => {
