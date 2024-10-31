@@ -44,6 +44,9 @@ dependencies:
   clsx:
     specifier: ^2.1.1
     version: 2.1.1
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   install:
     specifier: ^0.13.0
     version: 0.13.0
@@ -52,7 +55,7 @@ dependencies:
     version: 0.453.0(react@19.0.0-rc-603e6108-20241029)
   next:
     specifier: 15.0.3-canary.2
-    version: 15.0.3-canary.2(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029)
+    version: 15.0.3-canary.2(@playwright/test@1.48.2)(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029)
   react:
     specifier: 19.0.0-rc-603e6108-20241029
     version: 19.0.0-rc-603e6108-20241029
@@ -79,6 +82,9 @@ dependencies:
     version: 3.23.8
 
 devDependencies:
+  '@playwright/test':
+    specifier: ^1.48.2
+    version: 1.48.2
   '@types/node':
     specifier: ^20
     version: 20.17.1
@@ -124,7 +130,7 @@ packages:
       debug: 4.3.7
       joi: 17.13.3
       jose: 4.15.9
-      next: 15.0.3-canary.2(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029)
+      next: 15.0.3-canary.2(@playwright/test@1.48.2)(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029)
       oauth4webapi: 2.17.0
       openid-client: 5.7.0
       tslib: 2.8.0
@@ -597,6 +603,13 @@ packages:
     engines: {node: '>=14'}
     requiresBuild: true
     optional: true
+
+  /@playwright/test@1.48.2:
+    resolution: {integrity: sha512-54w1xCWfXuax7dz4W2M9uw0gDyh+ti/0K/MxcCUxChFh37kkdxPdfZDw5QBbuPUJHr1CiHJ1hXgSs+GgeQc5Zw==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      playwright: 1.48.2
 
   /@radix-ui/number@1.1.0:
     resolution: {integrity: sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ==}
@@ -2136,6 +2149,11 @@ packages:
       esutils: 2.0.3
     dev: true
 
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
+    dev: false
+
   /draht@1.0.1:
     resolution: {integrity: sha512-yNNHL864dniNmIE9ZKD++mKypiAUAvVZtyV0QrbXH/ak3ebzFqo5xsmRBRqV8pZVhImOSBiyq500Wcmrf44zAg==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
@@ -2787,6 +2805,13 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
+
+  /fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    optional: true
 
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -3984,7 +4009,7 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /next@15.0.3-canary.2(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029):
+  /next@15.0.3-canary.2(@playwright/test@1.48.2)(react-dom@19.0.0-rc-603e6108-20241029)(react@19.0.0-rc-603e6108-20241029):
     resolution: {integrity: sha512-vGutHxoPrZuZNVxD/HZRRyOY1X2+StTlbwzJA2Ck4lGofVsccdQjDuc89WAmg9vFYXjHf+mYqi8WYcXM5SJymw==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
@@ -4006,6 +4031,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 15.0.3-canary.2
+      '@playwright/test': 1.48.2
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.13
       busboy: 1.6.0
@@ -4309,6 +4335,20 @@ packages:
   /pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
+
+  /playwright-core@1.48.2:
+    resolution: {integrity: sha512-sjjw+qrLFlriJo64du+EK0kJgZzoQPsabGF4lBvsid+3CNIZIYLgnMj9V6JY5VhM2Peh20DJWIVpVljLLnlawA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  /playwright@1.48.2:
+    resolution: {integrity: sha512-NjYvYgp4BPmiwfe31j4gHLa3J7bD2WiBz8Lk2RoSsmX38SVIARZ18VYjxLjAcDsAhA+F4iSEXTSGgjua0rrlgQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.48.2
+    optionalDependencies:
+      fsevents: 2.3.2
 
   /possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
