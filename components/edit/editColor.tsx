@@ -16,6 +16,7 @@ const EditColor = ({ color }: { color?: string }) => {
         className="p-0  border-none"
         value={selectedColor}
         onChange={(e) => setSelectedColor(e.target.value)}
+        data-testid="edit-color"
       />
       <Button
         style={{

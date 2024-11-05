@@ -11,8 +11,7 @@ export const getOwnerByEmail = async (email: string) => {
     WHERE email = ${email}
     `;
 
-    if (result.rowCount === 0) throw new Error('Owner not found');
-    return result.rows[0].owner_id as Owner;
+    return result.rows[0]?.owner_id as Owner;
   } catch (error) {
     console.error(error);
     throw error;
@@ -28,8 +27,7 @@ export const getOwnerIdByEmail = async (email: string) => {
     WHERE email = ${email}
     `;
 
-    if (result.rowCount === 0) throw new Error('Owner not found');
-    return result.rows[0].owner_id as number;
+    return result.rows[0]?.owner_id as number;
   } catch (error) {
     console.error(error);
     throw error;

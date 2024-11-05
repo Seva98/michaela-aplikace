@@ -8,7 +8,7 @@ const Subscriptions = async () => {
     <Section className="relevant" title="Klienti" linkBack>
       <Card>
         <UsersList />
-        <NewUser />
+        <NewUser data-testid="create-client-subpage" />
       </Card>
     </Section>
   );

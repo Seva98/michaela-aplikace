@@ -4,9 +4,6 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env.local') });
 
-console.log('process>>>', path.resolve(__dirname, '.env.local'));
-console.log('process>>>', process.env);
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv

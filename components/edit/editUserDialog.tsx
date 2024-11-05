@@ -58,16 +58,16 @@ const EditUserDialog = ({
         <FormWithError action={() => {}} onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg">
           <input type="hidden" name="id" value={user_id} />
           <div className="grid grid-cols-2 gap-2">
-            <LabeledInput label="Jméno" name="first_name" type="text" defaultValue={first_name} />
-            <LabeledInput label="Příjmení" name="last_name" type="text" defaultValue={last_name} />
+            <LabeledInput label="Jméno" name="first_name" type="text" defaultValue={first_name} data-testid="create-user-modal-firstname" />
+            <LabeledInput label="Příjmení" name="last_name" type="text" defaultValue={last_name} data-testid="create-user-modal-lastname" />
           </div>
           <EditColor color={color} />
-          <LabeledInput label="Email" name="email" type="email" defaultValue={email} />
-          <LabeledInput label="Adresa" name="address" type="text" defaultValue={address} />
-          <LabeledInput label="Datum narození" name="birthday" type="date" defaultValue={birthday} />
-          <LabeledInput label="Telefon" name="phone" type="tel" defaultValue={phone} />
-          <LabeledTextarea label="Bio" rows={9} name="bio" defaultValue={bio} />
-          <Button type="submit" disabled={pending} className="w-full">
+          <LabeledInput label="Email" name="email" type="email" defaultValue={email} data-testid="create-user-modal-email" />
+          <LabeledInput label="Adresa" name="address" type="text" defaultValue={address} data-testid="create-user-modal-address" />
+          <LabeledInput label="Datum narození" name="birthday" type="date" defaultValue={birthday} data-testid="create-user-modal-birthday" />
+          <LabeledInput label="Telefon" name="phone" type="tel" defaultValue={phone} data-testid="create-user-modal-phone" />
+          <LabeledTextarea label="Bio" rows={9} name="bio" defaultValue={bio} data-testid="create-user-modal-bio" />
+          <Button type="submit" disabled={pending} className="w-full" data-testid="create-user-modal-submit">
             {pending ? <Loader /> : action === 'create' ? 'Vytvořit klienta' : 'Uložit změny'}
           </Button>
           {error && <Typography variant="error">{error}</Typography>}

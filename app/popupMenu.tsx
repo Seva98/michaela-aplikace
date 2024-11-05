@@ -43,7 +43,7 @@ const PopupMenu = ({ className }: { className: string }) => {
       <div className={cn('absolute top-4 right-10  transition-opacity', opened ? 'opacity-100 z-50' : 'opacity-0 -z-50')}>
         <div className="bg-white border border-gray-100 shadow-xl p-4 flex flex-col gap-4">
           <Typography variant="h6">Klienti</Typography>
-          <NewUser />
+          <NewUser data-testid="create-client-popup-menu" />
           <Typography variant="h6">Členství</Typography>
           <NewSubscription />
           <Typography variant="h6">Dotazníky</Typography>
@@ -54,7 +54,7 @@ const PopupMenu = ({ className }: { className: string }) => {
           </Link>
         </div>
       </div>
-      <RoundedButton onClick={() => setOpened(!opened)}>
+      <RoundedButton onClick={() => setOpened(!opened)} data-testid="popup-menu">
         <PlusIcon className="scale-125" />
       </RoundedButton>
     </div>

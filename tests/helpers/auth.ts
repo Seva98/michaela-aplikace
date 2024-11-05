@@ -2,6 +2,8 @@ import { Page } from '@playwright/test';
 import dotenv from 'dotenv';
 
 export async function auth0Login(page: Page) {
+  await page.goto('/');
+
   dotenv.config();
 
   const username = process.env.PLAYWRIGHT_USERNAME;
@@ -16,6 +18,5 @@ export async function auth0Login(page: Page) {
   await page.waitForURL('/');
 
   const cookies = await page.context().cookies();
-  console.log(cookies);
   return cookies;
 }

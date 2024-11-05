@@ -12,7 +12,7 @@ const CreateUserAlert = () => {
         <AlertDescription>Nejdříve přidej nějakého klienta</AlertDescription>
       </Alert>
       <EditUserDialog action="create">
-        <Button>Přidat klienta</Button>
+        <Button data-testid="create-client-homepage">Přidat klienta</Button>
       </EditUserDialog>
     </div>
   );
