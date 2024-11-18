@@ -1,7 +1,7 @@
 import { SubscriptionSession } from '@/db/advanced/userSubscription/userSubscription';
 import { getSubscriptionSession, getUserSubscriptionSession } from '@/utils/db/subscriptions/getSubscriptionSession';
 import SubscriptionHistoryBox from './subscriptionSessionBox';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import { isAdmin } from '@/utils/roles';
 import { getSubscriptionHistoryState } from '@/utils/db/subscriptions/subscriptionHistoryState';
 
@@ -18,7 +18,7 @@ const SubscriptionHistory = async ({
   size?: 'small' | 'large';
   color: string;
 }) => {
-  const session = await getSession();
+  const session = await auth0.getSession();
 
   return (
     <div className="grid grid-cols-[repeat(5,auto)] mx-auto gap-1 justify-start ">

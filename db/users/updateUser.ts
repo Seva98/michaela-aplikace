@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { User, userSchema } from './user';
 import { revalidatePath } from 'next/cache';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
+import { uploadImageAction } from '@/server/uploadImageAction';
 
 export const updateUser = async (state: unknown) => {
   const formData = state as FormData;
@@ -58,4 +59,17 @@ export const toggleUserVisibility = async (formData: FormData) => {
   const owner_id = await getOwnerId();
 
   await sql`UPDATE michaela_users SET is_hidden = ${!is_hidden} WHERE user_id = ${user_id} AND owner_id = ${owner_id};`;
+};
+
+export const updateUserImage = async (formData: FormData) => {
+  const user_id = parseInt(formData.get('user_id') as string);
+
+  const blob = await uploadImageAction(formData);
+  if (!blob) return;
+
+  await sql`
+      UPDATE michaela_users
+      SET image = ${blob.url}
+      WHERE user_id = ${user_id};
+    `;
 };

@@ -11,7 +11,7 @@ export const isAdmin = (session?: Session | null) => {
 };
 
 export const checkAdmin = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   if (!isAdmin(session)) {
     redirect('/');
   }

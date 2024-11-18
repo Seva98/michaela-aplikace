@@ -1,15 +1,11 @@
 import Section from '@/components/containers/section';
-import Typography from '@/components/ui/typography';
-import ProfilePicture from './profilePicture';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import WelcomeMessage from './welcomeMessage';
-import ActiveSubscription from './activeSubscription';
-import PreviousSubscriptions from './previousSubscriptions';
 import UserQuestionnaires from './userQuestionnaires';
 
 const ProfilePage = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = await getUserByEmail(session?.user.email);
   if (!user) return 'Tvůj účet není aktivní, pro více informací kontaktuj Míšu';
 

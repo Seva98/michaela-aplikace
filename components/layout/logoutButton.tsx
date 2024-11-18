@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const LogoutButton = () => {
   return (
-    <Link href="/api/auth/logout">
+    <Link href="/auth/logout">
       <RoundedButton>
         <LuLogOut className="scale-110" />
       </RoundedButton>

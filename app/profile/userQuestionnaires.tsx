@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import Typography from '@/components/ui/typography';
 import { getUserByEmail } from '@/db/users/getUsers';
 
@@ -16,7 +16,7 @@ const getQuestionnaireLink = (answer_id: number, current_progress: number, total
 };
 
 const UserQuestionnaires = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = await getUserByEmail(session?.user.email);
   const userQuestionnaires = await getUserQuestionnaires(user?.user_id);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { uploadImage } from '@/server/uploadImage';
+import { uploadImage } from '@/server/uploadImageAction';
 import { FaCamera } from 'react-icons/fa';
 import FormSubmitButton from '@/components/common/formSubmitButton';
 import { cn } from '@/utils/cn';

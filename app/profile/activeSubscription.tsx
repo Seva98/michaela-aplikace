@@ -1,14 +1,14 @@
 import Typography from '@/components/ui/typography';
 import SubscriptionHistory from '../subscriptionHistory';
 import { czechDate, remainingDays } from '@/utils/dates';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { getUserSubscriptions } from '@/db/advanced/userSubscription/getUserSubscription';
 
 import ActiveSubscriptionDetail from './activeSubscriptionDetail';
 
 const ActiveSubscription = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = await getUserByEmail(session?.user.email);
 
   if (!user) return null;

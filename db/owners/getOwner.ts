@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { Owner } from './owner';
 
-export const getOwnerByEmail = async (email: string) => {
+export const getOwnerByEmail = async (email?: string) => {
   try {
     if (!email) return null;
 
@@ -11,7 +11,7 @@ export const getOwnerByEmail = async (email: string) => {
     WHERE email = ${email}
     `;
 
-    return result.rows[0]?.owner_id as Owner;
+    return result.rows[0] as Owner;
   } catch (error) {
     console.error(error);
     throw error;

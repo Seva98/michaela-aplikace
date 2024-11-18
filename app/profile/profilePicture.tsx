@@ -1,9 +1,9 @@
 import { getUserByEmail } from '@/db/users/getUsers';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import Image from 'next/image';
 
 const ProfilePicture = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = await getUserByEmail(session?.user.email);
 
   return (

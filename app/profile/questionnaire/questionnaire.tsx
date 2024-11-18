@@ -6,7 +6,7 @@ import Question from './question';
 import { updateAnswers } from '@/db/answers/updateAnswers';
 
 import { redirect } from 'next/navigation';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { getAsnwersByUser } from '@/db/answers/getAnswers';
 import { QuestionnaireParams } from './[answer_id]/page';
@@ -19,7 +19,7 @@ const Questionnaire = async ({ params }: {} & QuestionnaireParams) => {
   const parsedAnswerId = parseInt(answer_id);
   const parsedCurrentProgress = parseInt(current_progress) >= 1 ? parseInt(current_progress) : 1;
 
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = await getUserByEmail(session?.user.email);
   const answers = await getAsnwersByUser(parsedAnswerId, user?.user_id);
   const { current_progress: answerProgress, total_questions, answer } = answers;

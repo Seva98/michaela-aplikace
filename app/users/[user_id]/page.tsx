@@ -2,12 +2,13 @@ import Section from '@/components/containers/section';
 import { getUserSubscriptions } from '@/db/advanced/userSubscription/getUserSubscription';
 import PreviousSubsriptions from './previousSubscriptions';
 import { getUserById } from '@/db/users/getUsers';
-import { ProfilePicture } from './profilePicture';
 import ProfileDetails from './profileDetails';
 import CurrentSubscription from '@/app/currentSubscription';
 import { notFound } from 'next/navigation';
 
 import CurrentSubscriptionDetail from './currentSubscriptionDetail';
+import ImageUpload from '@/components/common/imageUpload';
+import { updateUserImage } from '@/db/users/updateUser';
 
 export type UserPageParams = {
   params: Promise<{
@@ -26,7 +27,7 @@ const UserPage = async ({ params }: UserPageParams) => {
   return (
     <Section title="Detail klienta" linkBack sublink={{ href: '/users', label: 'Klienti' }}>
       <div className="grid grid-cols-[auto_1fr] gap-8">
-        <ProfilePicture user_id={user_id} image={image} />
+        <ImageUpload imageClass="w-[296px] aspect-[9/16]" id={user_id} id_key="user_id" image={image} action={updateUserImage} folder={`/user/${user_id}/`} />
         <ProfileDetails params={params} />
       </div>
       <div className="grid grid-cols-[auto_1fr] gap-8">

@@ -4,13 +4,13 @@
 const nextConfig = {
   experimental: {
     dynamicIO: true,
-    typedRoutes: true,
+    ppr: true,
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ej0tkojpfooka52y.public.blob.vercel-storage.com',
+        hostname: '550kvdepudy74wng.public.blob.vercel-storage.com',
         port: '',
         pathname: '**',
       },

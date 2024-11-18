@@ -27,7 +27,7 @@ export const getUserById = async (user_id: number) => {
   }
 };
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email?: string) => {
   try {
     if (!email) return null;
 

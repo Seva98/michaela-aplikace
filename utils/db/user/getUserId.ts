@@ -1,10 +1,10 @@
 import { getUserByEmail } from '@/db/users/getUsers';
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/utils/auth0';
 import { redirect } from 'next/navigation';
 
 export const getUserId = async () => {
-  const session = await getSession();
-  if (!session) redirect('/api/auth/login');
+  const session = await auth0.getSession();
+  if (!session) redirect('/auth/login');
 
   const user = await getUserByEmail(session?.user.email);
 
