@@ -6,7 +6,7 @@ import { RiCalendar2Fill, RiHome2Fill, RiQuestionnaireFill } from 'react-icons/r
 import Typography from '../ui/typography';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn';
-import PopupMenu from '@/app/popupMenu';
+import PopupMenu from '@/app/trainer/popupMenu';
 import { Route } from 'next';
 import SettingsButton from './settingsButton';
 

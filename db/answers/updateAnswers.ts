@@ -2,7 +2,7 @@
 
 import { sql } from '@vercel/postgres';
 import { Answer } from './answer';
-import { Question } from '@/app/profile/questionnaire/configuration';
+import { Question } from '@/app/user/profile/questionnaire/configuration';
 
 export const updateAnswers = async (formData: FormData) => {
   const answers = Array.from(formData.entries()).map(([key, value]) => ({ key, value }));

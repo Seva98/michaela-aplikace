@@ -1,6 +1,6 @@
 'use server';
 
-import { Question, QuestionKey, questions } from '@/app/profile/questionnaire/configuration';
+import { Question, QuestionKey, questions } from '@/app/user/profile/questionnaire/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { getNormalizedQuestionnaire } from '@/utils/db/questionnaire/getNormalizedQuestionnaire';
 import { toPositiveNumber } from '@/utils/number';

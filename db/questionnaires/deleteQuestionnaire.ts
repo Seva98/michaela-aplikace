@@ -1,6 +1,6 @@
 'use server';
 
-import { Question } from '@/app/profile/questionnaire/configuration';
+import { Question } from '@/app/user/profile/questionnaire/configuration';
 import { getOwnerId } from '@/utils/db/owner/getOwnerId';
 import { toPositiveNumber } from '@/utils/number';
 import { sql } from '@vercel/postgres';

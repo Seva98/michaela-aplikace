@@ -2,13 +2,10 @@ import './globals.css';
 import { Merriweather_Sans } from 'next/font/google';
 import { getUserByEmail } from '@/db/users/getUsers';
 import { cn } from '@/utils/cn';
-import Unauthorized from '@/app/unauthorized';
-import { isAdmin } from '@/utils/roles';
 import { getOwnerByEmail } from '@/db/owners/getOwner';
 import { auth0 } from '@/utils/auth0';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { AdminMenu } from '@/components/layout/adminMenu';
 import NavbarTitle from '@/components/layout/navbarTitle';
 import NavbarLinks from '@/components/layout/navbarLinks';
 
@@ -33,8 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={cn(merriweather.className, 'flex')}>
         <div className="flex-1 flex flex-col min-h-screen">
           <Navbar titleComponent={<NavbarTitle />} linksComponent={<NavbarLinks />} />
-          {isAdmin(session) && <AdminMenu />}
-          <main className="min-h-screen-w-header flex-grow">{user || owner ? children : <Unauthorized />}</main>
+          {children}
           <Footer />
         </div>
       </body>
