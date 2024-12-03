@@ -1,15 +1,21 @@
-import FirstCallToAction from '../components/homepage/1-cta/firstCallToAction';
-import RadientBackground from '@/components/homepage/radientBackground';
-import Faq from '@/components/homepage/3-faq/faq';
-import Features from '@/components/homepage/2-features/features';
+import FirstCallToAction from '../components/homepage/cta/firstCallToAction';
+import Faq from '@/components/homepage/faq/faq';
+import Features from '@/components/homepage/features/features';
+import Pricing from '@/components/homepage/pricing/pricing';
+import About from '@/components/homepage/about/about';
+import TealHalfCircle from '@/components/homepage/design/tealHalfCircle';
+import WhiteHalfCircle from '@/components/homepage/design/whiteRotatedDivider';
 
 const HomePage = () => {
   return (
     <div className="relative overflow-visible">
       <FirstCallToAction />
-      <RadientBackground />
+      <TealHalfCircle />
+      <About />
       <Features />
       <Faq />
+      <Pricing />
+      <div className="h-24" />
     </div>
   );
 };

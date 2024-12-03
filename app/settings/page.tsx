@@ -14,6 +14,7 @@ import { updateOwnerSettings } from '@/db/ownerSettings/updateOwnerSettings';
 import FormWithError from '@/components/common/formWithError';
 import { Button } from '@/components/ui/button';
 import { LuLogOut } from 'react-icons/lu';
+import { LOGOUT_URL } from '@/utils/constants';
 
 const Page = async () => {
   const owner_id = await getOwnerId();
@@ -46,7 +47,7 @@ const Page = async () => {
       </Card>
       <Card className="space-y-4">
         <Typography variant="h2">Další akce</Typography>
-        <Link href="/auth/logout">
+        <Link href={LOGOUT_URL}>
           <Button className="flex space-x-2 items-center" variant="outline">
             <Typography>Odhlásit se</Typography>
             <LuLogOut className="scale-110" />

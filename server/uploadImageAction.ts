@@ -4,7 +4,6 @@ import { randomUUID } from 'crypto';
 
 export async function uploadImageAction(formData: FormData) {
   const imageFile = formData.get('image') as File;
-  console.log('>>>>>>', imageFile);
   if (!imageFile.size) return;
 
   const oldImage = formData.get('old_image') as string;

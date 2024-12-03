@@ -1,18 +1,11 @@
-import { auth0 } from '@/utils/auth0';
-import type { NextRequest } from 'next/server';
+// middleware.ts
 
-export async function middleware(request: NextRequest) {
-  return await auth0.middleware(request);
-}
+import { authMiddleware } from './utils/middleware/auth';
+import { chain } from './utils/middleware/chain';
+import { pathMiddleware } from './utils/middleware/path';
+
+export const middleware = chain([authMiddleware, pathMiddleware]);
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
 };

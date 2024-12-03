@@ -1,43 +1,9 @@
-import Typography from '@/components/ui/typography';
-import Card from '@/components/ui/card';
-import Image from 'next/image';
 import { FeatureType, featureTypes } from '../constants';
-import IconText from '../iconText';
+import WhiteRotatedDivider from '../design/whiteRotatedDivider';
+import { Feature } from './feature';
 
-const Feature = ({
-  feature: {
-    featureType: { title, Icon },
-    subtitle,
-    description,
-    image,
-  },
-}: {
-  feature: Feature;
-}) => {
-  return (
-    <div className="max-w-4xl mx-auto w-full bg-white">
-      <Card className="space-y-4 relative overflow-hidden" padding="none">
-        <div className="p-8">
-          <IconText Icon={Icon} text={title} />
-          <Typography className="text-3xl text-black">{subtitle}</Typography>
-          <Typography className="font-light">{description}</Typography>
-          <div className="h-6" />
-          <Image
-            src={image}
-            className=" max-w-[80%] mx-auto border-4 border-teal-800 hover:border-dashed rounded-md relative z-10"
-            alt="promo-video"
-            width={1920}
-            height={1080}
-          />
-        </div>
-        <Icon className="absolute bottom-20 right-20 text-teal-700 -rotate-12 scale-[1800%]" />
-      </Card>
-    </div>
-  );
-};
-
-type Feature = { featureType: FeatureType; subtitle: string; description: string; image: string };
-const features: Feature[] = [
+export type FeatureProp = { featureType: FeatureType; subtitle: string; description: string; image: string };
+const features: FeatureProp[] = [
   {
     subtitle: 'Přehledné a jednoduché plánování dle Vaší kapacity',
     description: 'Náplanujte si volné termíny, nechte lidi si termíny vybrat a o více se nestarejte',
@@ -72,16 +38,16 @@ const features: Feature[] = [
 
 const Features = () => {
   return (
-    <div className="relative">
+    <div className="relative p-2 mt-24 overflow-hidden">
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 -z-10"
         style={{
           background: `linear-gradient(#ccf0e6, white)`,
           width: '100%',
           height: '100%',
-          zIndex: -1,
         }}
       />
+      <WhiteRotatedDivider />
       <div className="space-y-16">
         {features.map((feature, i) => (
           <Feature feature={feature} key={`feature-${i}`} />

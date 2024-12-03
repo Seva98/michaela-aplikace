@@ -10,7 +10,6 @@ import { LuX } from 'react-icons/lu';
 const PagePersonalizationLinks = ({ menuItems }: { menuItems?: OwnerMenuItem[] }) => {
   const [count, setCount] = useState(menuItems?.length || 1);
   const [links, setLinks] = useState(menuItems || [{ title: '', href: '' }]);
-  console.log('>>>>', menuItems, links);
 
   const handleInputChange = (index: number, value: string, type: 'title' | 'href') => {
     const newLinks = [...links];

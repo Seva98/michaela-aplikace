@@ -34,7 +34,6 @@ const EditCalendarSessionDialog = ({
   defaultIsoDate?: string;
 }) => {
   const { session_id, user_subscription_id, session_date, note, rating } = object || { session_date: defaultIsoDate };
-  console.log(user_subscription_id);
   const [selectedUserSubscriptionId, setSelectedUserSubscriptionId] = useState(`${user_subscription_id ?? -1}`);
 
   const [pending, setPending] = useState(false);

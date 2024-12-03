@@ -16,6 +16,7 @@ import { deleteQuestionnaire } from '@/db/questionnaires/deleteQuestionnaire';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Route } from 'next';
+import { Separator } from '@/components/ui/separator';
 
 const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
   const questionnaires = await getQuestionnaires();
@@ -32,7 +33,7 @@ const Questionnaires = async ({ gridClass }: { gridClass: string }) => {
             </Link>
             <Delete action={deleteQuestionnaire} id={questionnaire_id} idKey="questionnaire_id" variant="icon" className="w-full" />
           </div>
-          <hr />
+          <Separator />
           <div className={'flex flex-col gap-2'}>
             <Table>
               <TableHeader>

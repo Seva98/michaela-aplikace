@@ -14,7 +14,6 @@ import { useState } from 'react';
 const CalendarSessionRow = ({ session, userSubscriptionDetails }: { session: CalendarSession; userSubscriptionDetails: UserSubscriptionDetail[] }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const { session_id, first_name, last_name, note, rating, session_date, color } = session;
-  console.log(session);
 
   return (
     <>

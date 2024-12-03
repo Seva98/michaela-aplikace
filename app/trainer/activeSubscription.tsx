@@ -5,6 +5,7 @@ import AddSession from './addSession';
 import SubscriptionHistory from './subscriptionHistory';
 import SubscriptionState from './subscriptionState';
 import { hasRemainingSessions } from '@/utils/db/subscriptions/geSubscritionStatus';
+import { Separator } from '@/components/ui/separator';
 
 const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSubscription | null; color: string }) => {
   if (!subscription) return null;
@@ -23,7 +24,7 @@ const ActiveSubscription = ({ subscription, color }: { subscription: ActivatedSu
         </Typography>
         <SubscriptionHistory number_of_sessions={number_of_sessions} subscription_sessions={subscription_sessions} color={color} is_completed={is_completed} />
       </div>
-      <hr />
+      <Separator />
       {hasRemainingSessions(subscription) && <AddSession user_subscription_id={user_subscription_id} color={color} />}
     </div>
   );

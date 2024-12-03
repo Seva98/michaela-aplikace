@@ -1,11 +1,12 @@
+import { Separator } from '../ui/separator';
 import Contacts from './contacts';
 
 const Footer = () => {
   return (
     <div className="w-full ">
-      <hr className="mb-4" />
+      <Separator className="mb-4" />
       <Contacts />
-      <hr className="mb-4" />
+      <Separator className="mb-4" />
       <footer className="container flex flex-col items-center justify-center py-0 pb-4 text-xs ">
         <div>© {new Date().getFullYear()} Michaela Kořínková, All Rights Reserved.</div>
         <div>

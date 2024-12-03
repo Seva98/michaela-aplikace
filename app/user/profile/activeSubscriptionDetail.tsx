@@ -3,6 +3,7 @@ import { czechDate, remainingDays } from '@/utils/dates';
 import { ActivatedSubscription } from '@/db/advanced/userSubscription/userSubscription';
 import SubscriptionHistoryTable from './subscriptionHistoryTable';
 import { SubscriptionExpired } from '@/utils/db/subscriptions/geSubscritionStatus';
+import { Separator } from '@/components/ui/separator';
 
 const getExpiredColor = (active_subscription: ActivatedSubscription) =>
   remainingDays(active_subscription.expiration_date) === SubscriptionExpired.EXPIRED ? 'text-red-500' : 'text-current';
@@ -15,7 +16,7 @@ const ActiveSubscriptionDetail = ({ active_subscription }: { active_subscription
         <Typography className={getExpiredColor(active_subscription)}>{czechDate(active_subscription.expiration_date)}</Typography>
         <Typography className={getExpiredColor(active_subscription)}>- {remainingDays(active_subscription.expiration_date)}</Typography>
       </div>
-      <hr className="mb-4" />
+      <Separator className="mb-4" />
       <SubscriptionHistoryTable
         subscription_sessions={active_subscription.subscription_sessions}
         number_of_sessions={active_subscription?.number_of_sessions}

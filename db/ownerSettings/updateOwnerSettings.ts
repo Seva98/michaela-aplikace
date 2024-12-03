@@ -16,8 +16,6 @@ export const updateOwnerSettings = async (formData: FormData) => {
     await updateLogo(formData);
   }
 
-  console.log(owner_id, title, theme, menu, imageFile, oldImage, folder);
-
   await sql`
       UPDATE michaela_owner_settings
       SET title = ${title}, theme = ${theme}, menu = ${menu}

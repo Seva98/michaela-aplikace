@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from 'react';
 import { cn } from '@/utils/cn';
+import { Separator } from '../ui/separator';
 
 export default function Navbar({ titleComponent, linksComponent }: { titleComponent: ReactNode; linksComponent: ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function Navbar({ titleComponent, linksComponent }: { titleCompon
       <nav className={cn(`${isMenuOpen ? 'py-2' : ''}`)}>
         <div className={`flex ${isMenuOpen ? 'flex-col' : 'hidden'} lg:flex-row justify-center lg:space-x-4 text-lg list-none lg:block`}>{linksComponent}</div>
       </nav>
-      {isMenuOpen && <hr className="w-full" />}
+      {isMenuOpen && <Separator className="w-full" />}
     </div>
   );
 }

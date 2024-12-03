@@ -3,10 +3,11 @@ import { getUserByEmail } from '@/db/users/getUsers';
 import { auth0 } from '@/utils/auth0';
 import { redirect } from 'next/navigation';
 import { Role } from './role';
+import { LOGIN_URL } from '@/utils/constants';
 
 export const isOwnerOrUser = async () => {
   const session = await auth0.getSession();
-  if (!session) redirect('/auth/login');
+  if (!session) redirect(LOGIN_URL);
 
   const user_id = await getUserByEmail(session?.user.email);
   const owner_id = await getOwnerIdByEmail(session?.user.email);

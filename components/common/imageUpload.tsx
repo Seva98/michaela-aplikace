@@ -62,7 +62,6 @@ const ImageUpload = ({
   useEffect(() => {
     if (pending) setSelectedImage(undefined);
   }, [pending]);
-  console.log(image);
   const renderContent = () => (
     <>
       <label
