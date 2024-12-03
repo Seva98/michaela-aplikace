@@ -10,14 +10,14 @@ const Page = async () => {
   const user = await getUserByEmail(session?.user.email);
   const owner = await getOwnerByEmail(session?.user.email);
 
+  if (owner) redirect('/trainer');
+  if (user) redirect('/user');
+
   return (
     <Section title="Neaktivní účet">
       <Pricing />
     </Section>
   );
-
-  if (owner) redirect('/trainer');
-  if (user) redirect('/user');
 };
 
 export default Page;

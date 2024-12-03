@@ -8,7 +8,6 @@ import { auth0 } from '@/utils/auth0';
 const NavbarLinks = async () => {
   const ownerSettings = await getOwnerSettings();
   const session = await auth0.getSession();
-  console.log('>>.', ownerSettings.menu, isHomepage, ownerSettings.menu && !isHomepage);
 
   return ownerSettings.menu && !isHomepage ? (
     ownerSettings.menu.map(({ title, href }, index) => (
